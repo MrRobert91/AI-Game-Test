@@ -1,0 +1,50 @@
+# Metamorfosis — El Valle de los Colosos
+
+Aventura de plataformas en 3D para navegador, contenida en un único fichero: `index.html` (HTML + CSS + JavaScript, con [three.js](https://threejs.org/) cargado desde CDN).
+
+Controlas a un ser que **cambia de forma cada 10 segundos** entre cinco monstruos gigantes. En el HUD ves cuál será la siguiente forma, así que puedes planificar la ruta según el monstruo que viene.
+
+## Cómo jugar
+
+Abre `index.html` en un navegador moderno (Chrome, Edge o Firefox) con conexión a internet, necesaria para cargar three.js desde jsDelivr. También puedes servirlo en local, por ejemplo con `npx http-server .`.
+
+| Control | Acción |
+|---|---|
+| `W A S D` | Moverse |
+| `Espacio` | Saltar · doble salto (Lobo) · aletear / planear manteniendo (Dragón) |
+| Ratón | Cámara |
+| Clic izquierdo | Ataque principal (mantener para los alientos) |
+| `E` / clic derecho | Habilidad especial |
+| `Esc` | Pausa |
+| `M` | Silenciar |
+
+## Las cinco formas
+
+| Monstruo | Ataque | Habilidad | Movilidad / pasiva |
+|---|---|---|---|
+| **Hombre Lobo** | Combo de garras | Embestida (también en el aire) | Doble salto, muy rápido |
+| **Araña Colosal** | Telaraña que atrapa | Gancho de seda a los anclajes brillantes | Trepa paredes de roca |
+| **Oso Titán** | Zarpazo que rompe roca agrietada | Golpe sísmico (más fuerte desde el aire) | −50 % de daño |
+| **Dragón Carmesí** | Aliento de fuego: quema madera y enciende braseros | Bola de fuego explosiva | 3 aleteos y planeo |
+| **Yeti Glacial** | Aliento gélido: congela el agua y a los enemigos | Pilar de hielo que te eleva | −30 % de daño |
+
+## El nivel
+
+1. **Claro del Despertar**: tutorial, circuito de bloques, geoda de roca agrietada y jaula de madera con almas.
+2. **Río de la Niebla**: lo cruzas saltando por la roca central (Lobo), enganchándote a los tocones (Araña), congelando el agua (Yeti) o planeando (Dragón).
+3. **Orilla de los Caídos / Acantilado**: se sube trepando (Araña), por las cornisas (Lobo), con pilares de hielo (Yeti) o aleteando (Dragón).
+4. **Fortaleza de Umbravel**: muros rúnicos que no se pueden trepar, puerta de madera (Dragón), roca agrietada (Oso), muralla derruida (Araña, Yeti o Dragón), braseros que abren el rastrillo y cajas para subir.
+5. **Abismo de Magma**: islas flotantes, plataformas móviles, ceniza que se desmorona, géiseres y bombas de lava.
+6. **Santuario del Coloso**: combate final contra el Coloso de Obsidiana, con ondas sísmicas, rocas lanzadas y esbirros.
+
+Hay 34 Almas Antiguas repartidas por el nivel, muchas escondidas en zonas a las que solo llega una forma concreta. Los santuarios sirven de punto de control y te curan.
+
+## Tecnología
+
+- Iluminación física: cielo atmosférico, sombras suaves, mapa de entorno (PMREM), tono ACES y *bloom*.
+- Terreno procedural con colores por altura y pendiente, hierba instanciada que se mece con el viento y se aparta al pasar, bosques instanciados, agua con normales animadas, lava y cascada con *shaders* propios.
+- Texturas procedurales generadas en *canvas*: roca, ladrillo, madera, pelaje, escamas, runas y grietas incandescentes.
+- Modelos y animaciones procedurales para los cinco monstruos, los enemigos y el jefe.
+- Sistema de partículas, audio sintetizado con Web Audio (sin ficheros externos) y resolución dinámica según el rendimiento.
+
+Parámetros de URL opcionales: `?low` baja la calidad para equipos modestos; `?debug` activa atajos de prueba (`1`–`5` para cambiar de forma, `N` para ir al siguiente santuario, `G` para el modo dios).
