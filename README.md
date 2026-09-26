@@ -18,6 +18,27 @@ Abre `index.html` en un navegador moderno (Chrome, Edge o Firefox) con conexión
 | `Esc` | Pausa |
 | `M` | Silenciar |
 
+## Docker y despliegue en Sliplane
+
+El repositorio incluye un `Dockerfile` que sirve el juego con nginx (Alpine) en el puerto **8080**. El puerto se puede cambiar con la variable de entorno `PORT`.
+
+```bash
+docker build -t metamorfosis .
+docker run --rm -p 8080:8080 metamorfosis
+# o bien
+docker compose up --build
+```
+
+Luego abre http://localhost:8080. La ruta `/healthz` responde `ok` y sirve como comprobación de salud.
+
+Para desplegar en [Sliplane](https://sliplane.io):
+
+1. Crea un servicio nuevo de tipo **Repository** y elige este repositorio y la rama `main`.
+2. Deja el contexto de build en `.` y el Dockerfile en `Dockerfile`.
+3. Activa **Public** con el puerto HTTP `8080`. Si cambias `PORT` en las variables de entorno, usa ese mismo valor.
+4. Opcional: pon `/healthz` como ruta de comprobación de salud.
+5. Despliega. Con el despliegue automático activado, cada push a `main` genera una versión nueva.
+
 ## Las cinco formas
 
 | Monstruo | Ataque | Habilidad | Movilidad / pasiva |
