@@ -18,6 +18,21 @@ Abre `index.html` en un navegador moderno (Chrome, Edge o Firefox) con conexión
 | `Esc` | Pausa |
 | `M` | Silenciar |
 
+### En el móvil
+
+En móviles y tablets el juego detecta la pantalla táctil y activa el modo táctil. Se juega mejor en horizontal; al empezar se intenta pasar a pantalla completa y bloquear la orientación.
+
+| Control | Acción |
+|---|---|
+| Mitad izquierda | Joystick analógico flotante: aparece bajo el pulgar |
+| Mitad derecha | Arrastra para girar la cámara |
+| Botón de flechas | Saltar (mantén pulsado para planear con el Dragón) |
+| Botón de garras | Ataque principal (mantén pulsado para los alientos) |
+| Botón de estrella | Habilidad especial; se ilumina cuando está lista o hay un anclaje a la vista |
+| ⏸ | Pausa |
+
+El modo táctil incluye apuntado asistido hacia el enemigo más cercano, una cámara que se recoloca sola detrás del personaje al girar, vibración al recibir golpes y al transformarte, un HUD compacto que respeta el notch y calidad gráfica adaptada al móvil. Se puede forzar la alta con `?high`, el modo táctil con `?touch` o el modo ratón con `?desktop`.
+
 ## Docker y despliegue en Sliplane
 
 El repositorio incluye un `Dockerfile` que sirve el juego con nginx (Alpine) en el puerto **8080**. El puerto se puede cambiar con la variable de entorno `PORT`.
