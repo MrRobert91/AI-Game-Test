@@ -2,7 +2,11 @@
 <html lang="es">
 <head>
 <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover" />
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="theme-color" content="#05060a" />
 <title>Metamorfosis — El Valle de los Colosos</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -132,6 +136,112 @@ kbd{display:inline-block;padding:1px 7px;border:1px solid rgba(255,255,255,.3);b
 #victory .stats div:nth-child(odd){color:var(--dim);text-align:right}
 #victory .stats div:nth-child(even){font-family:Cinzel,serif;font-weight:700;color:var(--gold)}
 #victory .sub{font-family:Cinzel,serif;letter-spacing:8px;color:var(--gold);margin-top:8px}
+
+/* ================= MODO TÁCTIL / RESPONSIVE ================= */
+html,body{touch-action:none;overscroll-behavior:none;-webkit-touch-callout:none;-webkit-tap-highlight-color:transparent}
+#touchUI{position:fixed;inset:0;z-index:6;pointer-events:none}
+#touchLayer{position:absolute;inset:0;pointer-events:auto}
+#joyBase{position:absolute;width:132px;height:132px;margin:-66px 0 0 -66px;border-radius:50%;pointer-events:none;
+  background:radial-gradient(circle,rgba(255,255,255,.07) 0 55%,rgba(255,255,255,.14) 56% 58%,rgba(255,255,255,.04) 59%);
+  border:2px solid rgba(255,255,255,.28);box-shadow:0 0 24px rgba(0,0,0,.35),inset 0 0 22px rgba(0,0,0,.35);opacity:.45;transition:opacity .2s}
+#joyBase.on{opacity:1}
+#joyBase::before,#joyBase::after{content:"";position:absolute;left:50%;top:10px;width:0;height:0;margin-left:-6px;border:6px solid transparent;border-bottom-color:rgba(255,255,255,.35)}
+#joyBase::after{top:auto;bottom:10px;border-bottom-color:transparent;border-top-color:rgba(255,255,255,.35)}
+#joyKnob{position:absolute;left:50%;top:50%;width:62px;height:62px;margin:-31px 0 0 -31px;border-radius:50%;
+  background:radial-gradient(circle at 35% 30%,rgba(255,255,255,.95),rgba(220,225,235,.75) 45%,rgba(120,130,150,.7));
+  box-shadow:0 4px 14px rgba(0,0,0,.5),0 0 0 3px var(--accent),0 0 18px var(--accent);will-change:transform}
+.tbtn{position:absolute;border-radius:50%;pointer-events:auto;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  background:radial-gradient(circle at 35% 28%,rgba(255,255,255,.28),rgba(20,26,38,.72) 62%);border:2px solid rgba(255,255,255,.35);
+  box-shadow:0 6px 18px rgba(0,0,0,.45),inset 0 -6px 14px rgba(0,0,0,.35);color:#fff;transition:transform .08s,box-shadow .08s,border-color .2s;touch-action:none;user-select:none}
+.tbtn svg.ico{width:44%;height:44%;fill:none;stroke:#fff;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 1px 2px rgba(0,0,0,.6))}
+.tbtn span{position:absolute;bottom:-19px;font-size:10px;font-weight:800;letter-spacing:1.5px;white-space:nowrap;text-shadow:0 1px 3px #000;text-transform:uppercase}
+.tbtn.on{transform:scale(.9);box-shadow:0 2px 8px rgba(0,0,0,.5),inset 0 0 22px var(--accent),0 0 22px var(--accent);border-color:var(--accent)}
+.tbtn .ring{position:absolute;inset:-7px;width:calc(100% + 14px);height:calc(100% + 14px);transform:rotate(-90deg);pointer-events:none}
+.tbtn .ring circle{fill:none;stroke-width:4}
+.tbtn .ring .bg{stroke:rgba(0,0,0,.35)}
+.tbtn .ring .fg{stroke:var(--accent);stroke-linecap:round;transition:stroke .3s}
+#tJump{width:96px;height:96px;right:calc(26px + env(safe-area-inset-right));bottom:calc(30px + env(safe-area-inset-bottom))}
+#tAtk{width:80px;height:80px;right:calc(140px + env(safe-area-inset-right));bottom:calc(44px + env(safe-area-inset-bottom));border-color:var(--accent)}
+#tAb{width:70px;height:70px;right:calc(56px + env(safe-area-inset-right));bottom:calc(150px + env(safe-area-inset-bottom))}
+#tPause{width:44px;height:44px;right:calc(12px + env(safe-area-inset-right));top:calc(12px + env(safe-area-inset-top))}
+#tPause svg.ico{width:40%;height:40%;fill:#fff;stroke:none}
+#rotate{background:rgba(4,6,10,.92);z-index:30;text-align:center;padding:24px}
+#rotate .phone{width:64px;height:104px;border:4px solid var(--gold);border-radius:12px;margin:0 auto 22px;animation:rot 2s ease-in-out infinite}
+@keyframes rot{0%,20%{transform:rotate(0)}50%,80%{transform:rotate(-90deg)}100%{transform:rotate(0)}}
+#rotate h2{font-family:Cinzel,serif;letter-spacing:4px;color:#fff3da}
+#rotate p{color:var(--dim);margin-top:8px;font-size:14px}
+.touchOnly{display:none}
+body.touch .touchOnly{display:block}
+body.touch .ctlgrid.touchOnly{display:grid}
+body.touch .desktopOnly{display:none!important}
+
+/* HUD compacto en táctil / pantallas pequeñas */
+body.touch #hud{left:env(safe-area-inset-left);right:env(safe-area-inset-right)}
+body.touch #abilities{display:none}
+body.touch #topleft{left:12px;top:10px;gap:8px}
+body.touch .portrait{width:54px;height:54px;border-width:2px}
+body.touch #statusBox{min-width:0;width:clamp(150px,24vw,230px);padding:6px 10px 8px}
+body.touch #monName{font-size:14px;letter-spacing:.5px}
+body.touch #monTitle{display:none}
+body.touch .hpbar{height:10px;margin-top:5px}
+body.touch #hptext{font-size:9px}
+body.touch #objective{left:12px;top:74px;max-width:min(260px,34vw);padding:6px 10px;transition:opacity .6s}
+body.touch #objective .label{font-size:8px}
+body.touch #objText{font-size:11px}
+body.touch #objHint{display:none}
+body.touch #objective.dim{opacity:0}
+body.touch #timerWrap{top:8px;padding:4px 12px 4px 6px;gap:8px}
+body.touch #ring,body.touch #ring svg{width:52px;height:52px}
+body.touch #ringNum{font-size:20px}
+body.touch .miniPortrait{width:36px;height:36px}
+body.touch #nextBox .lbl{font-size:8px;letter-spacing:1.5px}
+body.touch #nextName{font-size:12px}
+body.touch #topright{right:calc(64px + env(safe-area-inset-right));top:10px;padding:6px 10px;min-width:0}
+body.touch #gemLbl{font-size:8px;letter-spacing:1.5px}
+body.touch #gemCount{font-size:16px}
+body.touch #clock{font-size:10px}
+body.touch #hint{bottom:calc(14px + env(safe-area-inset-bottom));top:auto;font-size:11px;line-height:1.4;padding:7px 12px;max-width:min(380px,38vw)}
+body.touch #toast{bottom:auto;top:40%;font-size:13px}
+body.touch #bossbar{bottom:auto;top:74px;width:min(420px,44vw)}
+body.touch #bossName{font-size:12px;letter-spacing:2px}
+body.touch #crosshair{width:5px;height:5px;opacity:.7}
+body.touch #transformBanner{font-size:clamp(22px,5vw,40px)}
+body.touch #zoneBanner .zname{font-size:clamp(24px,5.5vw,48px);letter-spacing:3px}
+body.touch #zoneBanner .zsub{font-size:11px;letter-spacing:5px}
+body.touch #title{padding-top:3vh}
+body.touch #title h1{font-size:clamp(30px,7vw,64px);letter-spacing:6px}
+body.touch #title h2{font-size:clamp(11px,2vw,16px);letter-spacing:6px;margin-top:4px}
+body.touch #title .cards{gap:8px;margin-bottom:10px}
+body.touch .card{padding:8px}
+body.touch .card h3{font-size:12px;margin-top:6px}
+body.touch .card p{display:none}
+body.touch #title .start{font-size:14px;letter-spacing:4px;padding:10px 26px;margin-bottom:8px}
+body.touch #title .controls{font-size:11px;margin-bottom:12px}
+body.touch #pause h1,body.touch #victory h1{font-size:34px;letter-spacing:6px}
+body.touch .ctlgrid{font-size:12px;gap:6px 16px;margin-top:12px}
+body.touch .btn{pointer-events:auto;padding:12px 30px}
+@media (orientation:portrait){
+  body.touch #tJump{width:84px;height:84px}
+  body.touch #tAtk{width:70px;height:70px;right:calc(122px + env(safe-area-inset-right))}
+  body.touch #tAb{width:62px;height:62px;bottom:calc(132px + env(safe-area-inset-bottom))}
+  body.touch #timerWrap{top:74px}
+  body.touch #objective{top:140px}
+  body.touch #nextBox .lbl{display:none}
+  body.touch #hint{top:auto;bottom:calc(250px + env(safe-area-inset-bottom));max-width:84vw}
+  body.touch #statusBox{width:clamp(110px,34vw,150px)}
+  body.touch #topright{padding:6px 8px}
+  body.touch #gemLbl,body.touch #clock{display:none}
+  body.touch #title .cards{flex-wrap:wrap}
+}
+body.touch #reticle::after{content:"★"}
+@media (max-height:440px){
+  body.touch .card .pic{width:min(72px,9vw);height:min(72px,9vw)}
+  body.touch #title h1{font-size:clamp(26px,6vw,44px)}
+  body.touch #title .controls{display:none}
+}
+@media (max-width:900px),(max-height:520px){
+  #abilities .slot{width:120px}
+}
 </style>
 <script type="importmap">
 { "imports": {
@@ -189,8 +299,9 @@ kbd{display:inline-block;padding:1px 7px;border:1px solid rgba(255,255,255,.3);b
   <h1>METAMORFOSIS</h1>
   <h2>EL VALLE DE LOS COLOSOS</h2>
   <div class="cards" id="cards"></div>
-  <div class="start">HAZ CLIC PARA COMENZAR</div>
-  <div class="controls">
+  <div class="start"><span class="desktopOnly">HAZ CLIC PARA COMENZAR</span><span class="touchOnly">TOCA PARA COMENZAR</span></div>
+  <div class="controls touchOnly">Joystick <b>izquierdo</b> para moverte · arrastra en la <b>derecha</b> para mirar · botones para saltar, atacar y usar la habilidad<br>Tu forma cambia cada <b style="color:#f0b04a">10 segundos</b>. Observa cuál viene después.</div>
+  <div class="controls desktopOnly">
     <kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> moverse &nbsp;·&nbsp; <kbd>ESPACIO</kbd> saltar &nbsp;·&nbsp; <kbd>RATÓN</kbd> cámara &nbsp;·&nbsp;
     <kbd>CLIC IZQ</kbd> ataque &nbsp;·&nbsp; <kbd>E</kbd>/<kbd>CLIC DCH</kbd> habilidad &nbsp;·&nbsp; <kbd>ESC</kbd> pausa &nbsp;·&nbsp; <kbd>M</kbd> sonido<br>
     Tu forma cambia cada <b style="color:#f0b04a">10 segundos</b>. Observa cuál viene después y planifica tu ruta.
@@ -199,7 +310,14 @@ kbd{display:inline-block;padding:1px 7px;border:1px solid rgba(255,255,255,.3);b
 
 <div id="pause" class="screen hidden">
   <h1>PAUSA</h1>
-  <div class="ctlgrid">
+  <div class="ctlgrid touchOnly" id="ctlTouch">
+    <div>Joystick</div><div>Moverse (mitad izquierda de la pantalla)</div>
+    <div>Arrastrar</div><div>Girar la cámara (mitad derecha)</div>
+    <div>⤒</div><div>Saltar · doble salto · mantener para planear</div>
+    <div>Garras</div><div>Ataque (mantén para los alientos)</div>
+    <div>Estrella</div><div>Habilidad especial</div>
+  </div>
+  <div class="ctlgrid desktopOnly">
     <div><kbd>W A S D</kbd></div><div>Moverse</div>
     <div><kbd>ESPACIO</kbd></div><div>Saltar · Doble salto (Lobo) · Aletear/planear (Dragón)</div>
     <div><kbd>CLIC IZQ</kbd></div><div>Ataque principal (mantén para los alientos)</div>
@@ -216,6 +334,17 @@ kbd{display:inline-block;padding:1px 7px;border:1px solid rgba(255,255,255,.3);b
   <div class="stats" id="stats"></div>
   <div class="btn" id="againBtn">JUGAR DE NUEVO</div>
 </div>
+<div id="touchUI" class="hidden">
+  <div id="touchLayer"></div>
+  <div id="joyBase"><div id="joyKnob"></div></div>
+  <div class="tbtn" id="tAb"><svg class="ring" viewBox="0 0 100 100"><circle class="bg" cx="50" cy="50" r="46"/><circle class="fg" id="tAbRing" cx="50" cy="50" r="46" stroke-dasharray="289" stroke-dashoffset="0"/></svg>
+    <svg class="ico" viewBox="0 0 24 24"><path d="M12 2.5l2.6 6.2 6.7.6-5.1 4.4 1.6 6.6L12 16.8l-5.8 3.5 1.6-6.6-5.1-4.4 6.7-.6z"/></svg><span id="tAbLbl">Habilidad</span></div>
+  <div class="tbtn" id="tAtk"><svg class="ring" viewBox="0 0 100 100"><circle class="bg" cx="50" cy="50" r="46"/><circle class="fg" id="tAtkRing" cx="50" cy="50" r="46" stroke-dasharray="289" stroke-dashoffset="0"/></svg>
+    <svg class="ico" viewBox="0 0 24 24"><path d="M5 19L13 4M9.5 20.5L17 7M14 21l5-9"/></svg><span id="tAtkLbl">Ataque</span></div>
+  <div class="tbtn" id="tJump"><svg class="ico" viewBox="0 0 24 24"><path d="M6 13l6-6 6 6M6 19l6-6 6 6"/></svg><span id="tJumpLbl">Saltar</span></div>
+  <div class="tbtn" id="tPause"><svg class="ico" viewBox="0 0 24 24"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg></div>
+</div>
+<div id="rotate" class="screen hidden"><div class="phone"></div><h2>GIRA TU MÓVIL</h2><p>Metamorfosis se juega mejor en horizontal.</p><div class="btn" id="rotateBtn">JUGAR EN VERTICAL</div></div>
 <div id="fade"></div>
 <script type="module">
 import * as THREE from 'three';
@@ -233,6 +362,11 @@ const V3 = THREE.Vector3;
 const _v1 = new V3(), _v2 = new V3(), _v3 = new V3(), _q = new THREE.Quaternion(), _m4 = new THREE.Matrix4(), _e = new THREE.Euler();
 const PARAMS = new URLSearchParams(location.search);
 const DEBUG = PARAMS.has('debug');
+// Dispositivo táctil (móvil/tablet) o forzado con ?touch. Se puede forzar el modo ratón con ?desktop.
+const IS_TOUCH = !PARAMS.has('desktop') && (PARAMS.has('touch') || ((('ontouchstart' in window) || navigator.maxTouchPoints > 0) && matchMedia('(pointer: coarse)').matches));
+// Calidad reducida por defecto en móviles (se puede forzar la alta con ?high)
+const LOW_Q = PARAMS.has('low') || (IS_TOUCH && !PARAMS.has('high'));
+if (IS_TOUCH) document.body.classList.add('touch');
 const clamp = (v, a, b) => v < a ? a : v > b ? b : v;
 const lerp = (a, b, t) => a + (b - a) * t;
 const smoothstep = (e0, e1, x) => { const t = clamp((x - e0) / (e1 - e0), 0, 1); return t * t * (3 - 2 * t); };
@@ -301,7 +435,7 @@ function terrainSlope(x, z) { const e = 0.5; const dx = terrainH(x + e, z) - ter
 const renderer = new THREE.WebGLRenderer({ antialias: false, powerPreference: 'high-performance', stencil: false });
 // Resolución interna: nunca por encima de 1:1 (las pantallas retina multiplican x4 el coste de píxel).
 // y además con un presupuesto de ~1920x1080 píxeles para monitores 1440p/4K.
-function maxPR() { return Math.min(PARAMS.has('low') ? 0.6 : 1, devicePixelRatio || 1, Math.sqrt(1920 * 1080 / (innerWidth * innerHeight))); }
+function maxPR() { const budget = IS_TOUCH ? 1280 * 720 : 1920 * 1080; return Math.min(PARAMS.has('low') ? 0.6 : 1, devicePixelRatio || 1, Math.sqrt(budget / (innerWidth * innerHeight))); }
 let PR = maxPR();
 renderer.setPixelRatio(PR);
 renderer.setSize(innerWidth, innerHeight);
@@ -1089,7 +1223,7 @@ function lowBroadGeometry(leafCol) {
 }
 function buildVegetation() {
   WORLD.playerUniform = { value: new V3() };
-  const LOW = PARAMS.has('low');
+  const LOW = LOW_Q;
   // ---------------- árboles (1 geometría por especie; la variedad de color va por instancia)
   const pineMat = windMaterial({ vertexColors: true, roughness: 0.92 }, 1.0);
   const broadMat = windMaterial({ vertexColors: true, roughness: 0.9 }, 1.2);
@@ -1440,8 +1574,8 @@ function buildLevel() {
   gemMat = stdMat({ color: 0x6affd0, emissive: 0x2affc0, emissiveIntensity: 2.2, roughness: 0.15, metalness: 0.3 });
   // ------------------------------------------------ ZONA A: CLARO DEL DESPERTAR
   checkpoint(0, 16, null, 'Claro del Despertar');
-  sign(4.5, 9, 'MOVIMIENTO', ['WASD para moverte · ESPACIO para saltar', 'Mueve el RATÓN para girar la cámara', 'Recoge las Almas Antiguas (gemas)'], -0.4);
-  sign(-5, -2, 'COMBATE', ['CLIC IZQ: ataque principal', 'E o CLIC DCH: habilidad especial', 'Mantén el clic para los alientos'], 0.35);
+  sign(4.5, 9, 'MOVIMIENTO', IS_TOUCH ? ['Joystick izquierdo para moverte', 'Botón de flechas para saltar', 'Arrastra a la derecha para mirar'] : ['WASD para moverte · ESPACIO para saltar', 'Mueve el RATÓN para girar la cámara', 'Recoge las Almas Antiguas (gemas)'], -0.4);
+  sign(-5, -2, 'COMBATE', IS_TOUCH ? ['Botón de garras: ataque principal', 'Botón de estrella: habilidad', 'Mantén el ataque para los alientos'] : ['CLIC IZQ: ataque principal', 'E o CLIC DCH: habilidad especial', 'Mantén el clic para los alientos'], 0.35);
   sign(5.5, -14, 'METAMORFOSIS', ['Tu forma cambia cada 10 segundos', 'Arriba ves la SIGUIENTE forma', '¡Planifica tu ruta según el monstruo!'], -0.3);
   // circuito de bloques
   block(-13, -1, -4, 3.2, terrainH(-13, -4) + 2.4, 3.2, MAT.rock, { rock: true });
@@ -2438,7 +2572,7 @@ const player = {
   form: 'wolf', formT: FORM_TIME, next: 'spider', bag: [],
   climbing: false, gliding: false, dashT: 0, dashDir: new V3(), dashHit: new Set(), grapple: null, slamming: false, slamT: 0,
   atkCd: 0, abCd: 0, attackT: 0, attackStart: false, breathing: false, breathTick: 0, abilityT: 0, flapT: 0, comboN: 0, pendingHit: null,
-  models: {}, model: null, checkpoint: null, blocked: null, blockedTerrain: false, blockN: new V3(), popT: 1, anchorTarget: null, stuckT: 0,
+  models: {}, model: null, lastMove: new V3(), checkpoint: null, blocked: null, blockedTerrain: false, blockN: new V3(), popT: 1, anchorTarget: null, stuckT: 0,
 };
 const AX = ['x', 'y', 'z'];
 function overlapsPlayer(c) {
@@ -2502,7 +2636,7 @@ function transformTo(key, silent = false) {
   P.flaps = 3; P.jumpsLeft = P.grounded ? F.jumps : Math.max(0, F.jumps - 1); P.atkCd = 0.15; P.abCd = 0.2; P.airDash = true;
   hideWebLine();
   if (!silent) {
-    SFX.transform(); shake(0.25);
+    SFX.transform(); shake(0.25); vib([12, 40, 18]);
     const c = P.pos.clone().setY(P.pos.y + 1.5);
     burst(c, F.color, 70, 10, 0.8, 0.9, { grav: 0, drag: 3 }); burst(c, 0xffffff, 25, 6, 0.5, 0.5, { grav: 0 });
     shockRing(P.pos, 7, F.color, 0.5);
@@ -2521,7 +2655,7 @@ function hurtPlayer(dmg, from, knock = 8) {
   if (godMode) dmg = 0;
   dmg *= 1 - (FORMS[P.form].armor || 0);
   P.hp -= dmg; P.invuln = 0.75; P.lastHurt = stats.time;
-  SFX.hurt(); shake(0.3); hitStop = 0.06;
+  SFX.hurt(); shake(0.3); hitStop = 0.06; vib(40);
   const df = $('dmgflash'); df.style.opacity = 1; setTimeout(() => df.style.opacity = 0, 120);
   gradePass.uniforms.uHurt.value = 1;
   if (from) { _v1.subVectors(P.pos, from).setY(0).normalize(); P.vel.x = _v1.x * knock; P.vel.z = _v1.z * knock; P.vel.y = Math.max(P.vel.y, 6); P.jumpCut = true; P.knockT = 0.25; P.grapple = null; hideWebLine(); }
@@ -2555,13 +2689,30 @@ function fallRespawn(msg, dmg, color = 0x9fdcff) {
 }
 
 /* ---------- ataques ---------- */
+// Asistencia de apuntado (solo táctil): el enemigo o jefe más cercano dentro de un cono frente a la cámara.
+function assistTarget(range, cosLimit) {
+  if (!IS_TOUCH) return null;
+  camera.getWorldDirection(_v3); const fl = Math.hypot(_v3.x, _v3.z) || 1, fx = _v3.x / fl, fz = _v3.z / fl, P = player.pos;
+  let best = null, bd = Infinity;
+  for (const e of enemies) {
+    if (e.dead || !e.root.visible) continue;
+    const dx = e.pos.x - P.x, dz = e.pos.z - P.z, d = Math.hypot(dx, dz);
+    if (d > range || d < 0.01 || (dx * fx + dz * fz) / d < cosLimit || (e.type !== 'wisp' && Math.abs(e.pos.y - P.y) > 6)) continue;
+    if (d < bd) { bd = d; best = e.center(new V3()); }
+  }
+  if (boss && boss.active && !boss.dead) { const dx = boss.pos.x - P.x, dz = boss.pos.z - P.z, d = Math.hypot(dx, dz) - 3;
+    if (d < range && d < bd && (dx * fx + dz * fz) / Math.max(0.01, d + 3) > cosLimit - 0.2) best = new V3(boss.pos.x, boss.pos.y + 5, boss.pos.z); }
+  return best;
+}
 function aimDir(out, pitchLimit = [-0.55, 0.45]) {
   camera.getWorldDirection(_v3);
-  const yaw = Math.atan2(_v3.x, _v3.z); let pitch = Math.asin(clamp(_v3.y, -1, 1)) + 0.18;
+  const at = assistTarget(11, 0.5);
+  const yaw = at ? Math.atan2(at.x - player.pos.x, at.z - player.pos.z) : Math.atan2(_v3.x, _v3.z); let pitch = Math.asin(clamp(_v3.y, -1, 1)) + 0.18;
   pitch = clamp(pitch, pitchLimit[0], pitchLimit[1]);
   return out.set(Math.sin(yaw) * Math.cos(pitch), Math.sin(pitch), Math.cos(yaw) * Math.cos(pitch));
 }
 function aimAt(from, out) { // hacia el punto bajo la mira
+  const at = assistTarget(30, 0.8); if (at) return out.subVectors(at, from).normalize();
   camera.getWorldDirection(_v3); const tgt = _v2.copy(camera.position).addScaledVector(_v3, 60);
   for (let t = 4; t < 60; t += 1.5) { const p = _v1.copy(camera.position).addScaledVector(_v3, t); if (p.y < terrainH(p.x, p.z) || pointInCols(p, 0, true)) { tgt.copy(p); break; } }
   return out.subVectors(tgt, from).normalize();
@@ -2578,7 +2729,7 @@ function meleeHit(o) {
   }
   if (boss && boss.active && !boss.dead) { const hp = origin.clone().addScaledVector(fwd, o.range * 0.6); if (boss.hitTest(hp, o.range * 0.6)) { boss.hurt(o.dmg * (P.form === 'bear' ? 1.3 : 1)); any = true; } }
   if (o.crack) { const hp = origin.clone().addScaledVector(fwd, 1.6); for (const b of L.breakables) if (!b.broken && b.type === 'crack' && distToBox(hp, b.col) < 2.4) { breakObj(b); any = true; } }
-  if (any) { SFX.hit(); hitStop = 0.05; shake(o.shake ?? 0.12); const hp = origin.clone().addScaledVector(fwd, 2); burst(hp, 0xffe0a0, 10, 6, 0.35, 0.3); }
+  if (any) { SFX.hit(); hitStop = 0.05; vib(10); shake(o.shake ?? 0.12); const hp = origin.clone().addScaledVector(fwd, 2); burst(hp, 0xffe0a0, 10, 6, 0.35, 0.3); }
 }
 function seismic(pos, radius, dmg) {
   shockRing(pos, radius, 0x3fe0c8, 0.55); shockRing(pos, radius * 0.6, 0xffffff, 0.35);
@@ -2590,10 +2741,10 @@ function seismic(pos, radius, dmg) {
   for (const b of L.breakables) if (!b.broken && b.type === 'crack' && distToBox(c, b.col) < radius * 0.75) breakObj(b);
 }
 function findAnchor() {
-  camera.getWorldDirection(_v3); let best = null, bs = 0.9;
+  camera.getWorldDirection(_v3); let best = null, bs = IS_TOUCH ? 0.72 : 0.9;
   const pc = _v2.copy(player.pos).setY(player.pos.y + 1.2);
   for (const a of L.anchors) { const d = a.pos.distanceTo(pc); if (d > 36 || d < 2.5) continue;
-    _v1.subVectors(a.pos, camera.position).normalize(); const s = _v1.dot(_v3); if (s > bs) { bs = s; best = a; } }
+    _v1.subVectors(a.pos, camera.position).normalize(); const s = _v1.dot(_v3) - (IS_TOUCH ? d * 0.004 : 0); if (s > bs) { bs = s; best = a; } }
   return best;
 }
 let webLine;
@@ -2692,7 +2843,7 @@ function handleCombat(dt, move) {
   }
   if (P.slamT > 0) { P.slamT += dt; if (P.slamT > 0.42) { P.slamT = 0; const fp = P.pos.clone().add(_v1.set(Math.sin(P.facing) * 2, 0, Math.cos(P.facing) * 2)); fp.y = groundAt(fp.x, fp.z, P.pos.y + 1); seismic(fp, 7, 42); } }
 }
-function aimYaw() { camera.getWorldDirection(_v3); return Math.atan2(_v3.x, _v3.z); }
+function aimYaw() { const at = assistTarget(9, 0.3); if (at) return Math.atan2(at.x - player.pos.x, at.z - player.pos.z); camera.getWorldDirection(_v3); return Math.atan2(_v3.x, _v3.z); }
 
 function updatePlayer(dt) {
   const P = player, F = FORMS[P.form];
@@ -2707,7 +2858,8 @@ function updatePlayer(dt) {
   // entrada
   const f = _v1.set(-Math.sin(cam.yaw), 0, -Math.cos(cam.yaw)), r = _v2.set(Math.cos(cam.yaw), 0, -Math.sin(cam.yaw));
   const K = input.keys, ix = (K.KeyD || K.ArrowRight ? 1 : 0) - (K.KeyA || K.ArrowLeft ? 1 : 0), iz = (K.KeyW || K.ArrowUp ? 1 : 0) - (K.KeyS || K.ArrowDown ? 1 : 0);
-  const move = new V3().addScaledVector(f, iz).addScaledVector(r, ix); if (move.lengthSq() > 1) move.normalize();
+  const move = new V3().addScaledVector(f, iz - touch.jy).addScaledVector(r, ix + touch.jx); if (move.lengthSq() > 1) move.normalize(); // joystick analógico
+  P.lastMove.copy(move);
   if (input.jumpPressed) P.jumpBuf = 0.14;
   // objetivo de anclaje
   P.anchorTarget = P.form === 'spider' && !P.grapple ? findAnchor() : null;
@@ -2886,7 +3038,12 @@ function updateLavaBombs(dt) {
 function shake(a, d) { cam.shake = Math.max(cam.shake, a); }
 function updateCamera(dt) {
   const P = player, F = FORMS[P.form];
-  cam.dist = damp(cam.dist, F.cam + (boss && boss.active && !boss.dead ? 3 : 0), 3, dt);
+  cam.dist = damp(cam.dist, F.cam + (boss && boss.active && !boss.dead ? 3 : 0) + (IS_TOUCH ? 1 : 0) + (camera.aspect < 1 ? 2.5 : 0), 3, dt);
+  // Táctil: si el jugador gira con el joystick y no toca la cámara, ésta se recoloca suavemente detrás.
+  if (IS_TOUCH && touch.lookId === null && performance.now() - touch.lastLook > 900 && Math.abs(touch.jx) > 0.2 && P.lastMove.lengthSq() > 0.04 && !P.breathing && P.attackT <= 0) {
+    const desired = Math.atan2(-P.lastMove.x, -P.lastMove.z);
+    cam.yaw += angDiff(cam.yaw, desired) * (1 - Math.exp(-dt * 1.2)) * Math.min(1, Math.abs(touch.jx) * 1.3);
+  }
   const ty = P.pos.y + (P.model ? P.model.camY : 2.3);
   cam.target.x = damp(cam.target.x, P.pos.x, 16, dt); cam.target.z = damp(cam.target.z, P.pos.z, 16, dt); cam.target.y = damp(cam.target.y, ty, P.grounded ? 10 : 6, dt);
   const cp = Math.cos(cam.pitch), sp = Math.sin(cam.pitch);
@@ -2900,8 +3057,11 @@ function updateCamera(dt) {
   camera.position.copy(cam.target).addScaledVector(dir, cam.curDist);
   if (cam.shake > 0.001) { camera.position.x += (Math.random() - 0.5) * cam.shake; camera.position.y += (Math.random() - 0.5) * cam.shake; camera.position.z += (Math.random() - 0.5) * cam.shake; cam.shake *= Math.exp(-6 * dt); }
   camera.lookAt(cam.target.x, cam.target.y + 0.3, cam.target.z);
+  camera.updateMatrixWorld();
   cam.fovKick = damp(cam.fovKick, 0, 5, dt);
-  const fov = 60 + cam.fovKick + (P.gliding ? 5 : 0) + Math.min(4, Math.hypot(P.vel.x, P.vel.z) * 0.15);
+  // en vertical se amplía el FOV vertical para conservar ~70° de visión horizontal
+  const baseFov = camera.aspect < 1.15 ? Math.min(100, THREE.MathUtils.radToDeg(2 * Math.atan(Math.tan(THREE.MathUtils.degToRad(35)) / camera.aspect))) : 60;
+  const fov = baseFov + cam.fovKick + (P.gliding ? 5 : 0) + Math.min(4, Math.hypot(P.vel.x, P.vel.z) * 0.15);
   if (Math.abs(camera.fov - fov) > 0.05) { camera.fov = damp(camera.fov, fov, 6, dt); camera.updateProjectionMatrix(); }
 }
 function updateSun(moveShadow) {
@@ -2937,6 +3097,7 @@ function updateHUDForm() {
   $('nextName').textContent = N.name; $('nextName').style.color = N.color; $('nextRing').style.borderColor = N.color;
   $('ringArc').setAttribute('stroke', F.color);
   F.slots.forEach(([nm, ds], i) => { const s = $('slot' + i); s.querySelector('.nm').textContent = nm; s.querySelector('.ds').textContent = ds; });
+  if (IS_TOUCH) { $('tAtkLbl').textContent = F.slots[0][0]; $('tAbLbl').textContent = F.slots[1][0]; $('tJumpLbl').textContent = player.form === 'wolf' ? 'Saltar ×2' : player.form === 'dragon' ? 'Saltar/Planear' : 'Saltar'; }
   $('slot2').querySelector('.key').textContent = player.form === 'wolf' || player.form === 'dragon' ? 'ESPACIO' : 'PASIVA';
 }
 let hudCache = {};
@@ -2951,6 +3112,12 @@ function updateHUD(dt) {
   setIf('ringN', Math.ceil(ft), v => $('ringNum').textContent = v);
   setIf('warn', ft < 3, v => $('timerWrap').classList.toggle('warn', v));
   const cds = [Math.max(0, P.atkCd) / 0.8, Math.max(0, P.abCd) / 2, 0];
+  if (IS_TOUCH) {
+    const atkMax = { wolf: 0.3, spider: 0.36, bear: 0.8, dragon: 1, yeti: 1 }[P.form], abMax = { wolf: 1.0, spider: 0.4, bear: 2.0, dragon: 1.3, yeti: 1.1 }[P.form];
+    setIf('tAtkR', Math.round(Math.max(0, P.atkCd) / atkMax * 40), v => $('tAtkRing').setAttribute('stroke-dashoffset', (289 * v / 40).toFixed(0)));
+    setIf('tAbR', Math.round(Math.max(0, P.abCd) / abMax * 40), v => $('tAbRing').setAttribute('stroke-dashoffset', (289 * v / 40).toFixed(0)));
+    setIf('tAbReady', P.form === 'spider' ? !!P.anchorTarget : P.abCd <= 0, v => $('tAb').style.borderColor = v ? 'var(--accent)' : '');
+  }
   cds.forEach((c, i) => setIf('cd' + i, Math.round(c * 20), () => { $('slot' + i).querySelector('.cd').style.transform = `scaleY(${Math.min(1, c)})`; }));
   const m = Math.floor(stats.time / 60), s = Math.floor(stats.time % 60);
   setIf('clock', s, () => $('clock').textContent = `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}  ·  Muertes ${stats.deaths}`);
@@ -2969,6 +3136,7 @@ let zoneIdx = -1, bannerTimer = 0;
 function showZoneBanner(z) {
   $('zoneName').textContent = z.name; $('zoneSub').textContent = z.sub; $('zoneBanner').style.opacity = 1; bannerTimer = 3.5;
   $('objText').textContent = z.obj; $('objHint').innerHTML = z.hint;
+  if (IS_TOUCH) { const o = $('objective'); o.classList.remove('dim'); clearTimeout(showZoneBanner.t); showZoneBanner.t = setTimeout(() => o.classList.add('dim'), 9000); }
 }
 function updateZones(dt) {
   let idx = 0; for (let i = 0; i < ZONES.length; i++) if (player.pos.z < ZONES[i].z) idx = i;
@@ -2979,6 +3147,7 @@ function victory() {
   if (gameState === 'victory') return; gameState = 'victory';
   SFX.checkpoint(); setTimeout(() => SFX.gem(), 300);
   if (document.pointerLockElement) document.exitPointerLock();
+  $('touchUI').classList.add('hidden');
   const m = Math.floor(stats.time / 60), s = Math.floor(stats.time % 60);
   $('stats').innerHTML = `<div>Tiempo</div><div>${m}m ${s}s</div><div>Almas Antiguas</div><div>${stats.gems} / ${WORLD.totalGems}</div><div>Enemigos derrotados</div><div>${stats.kills}</div><div>Caídas</div><div>${stats.deaths}</div>`;
   $('hud').classList.add('hidden'); $('victory').classList.remove('hidden');
@@ -3003,7 +3172,7 @@ addEventListener('keydown', e => {
   }
 });
 addEventListener('keyup', e => { input.keys[e.code] = false; });
-addEventListener('mousedown', e => { if (gameState !== 'playing') return; if (e.button === 0) { input.mouseL = true; input.mouseLPressed = true; } if (e.button === 2) input.abilityPressed = true; });
+addEventListener('mousedown', e => { if (gameState !== 'playing' || IS_TOUCH) return; if (e.button === 0) { input.mouseL = true; input.mouseLPressed = true; } if (e.button === 2) input.abilityPressed = true; });
 addEventListener('mouseup', e => { if (e.button === 0) input.mouseL = false; });
 addEventListener('contextmenu', e => e.preventDefault());
 addEventListener('mousemove', e => {
@@ -3017,8 +3186,8 @@ document.addEventListener('pointerlockchange', () => {
 });
 let lockFailed = false;
 document.addEventListener('pointerlockerror', () => { lockFailed = true; toast('No se pudo capturar el ratón: mueve el ratón para girar la cámara · P para pausar', 4); });
-function lock() { if (NOLOCK) return; try { const r = renderer.domElement.requestPointerLock(); if (r && r.catch) r.catch(() => {}); } catch (e) { } }
-function pauseGame() { gameState = 'paused'; input.keys = {}; input.mouseL = false; $('pause').classList.remove('hidden'); }
+function lock() { if (NOLOCK || IS_TOUCH) return; try { const r = renderer.domElement.requestPointerLock(); if (r && r.catch) r.catch(() => {}); } catch (e) { } }
+function pauseGame() { gameState = 'paused'; input.keys = {}; input.mouseL = false; resetTouch(); $('pause').classList.remove('hidden'); }
 function resumeGame() { $('pause').classList.add('hidden'); gameState = 'playing'; lock(); }
 $('resumeBtn').addEventListener('click', resumeGame);
 $('againBtn').addEventListener('click', () => location.reload());
@@ -3029,10 +3198,97 @@ function startGame() {
   AudioSys.init();
   $('title').classList.add('hidden'); $('hud').classList.remove('hidden');
   gameState = 'playing'; lock();
+  if (IS_TOUCH) {
+    $('touchUI').classList.remove('hidden');
+    // pantalla completa + horizontal (si el navegador lo permite)
+    try { const de = document.documentElement, p = de.requestFullscreen ? de.requestFullscreen({ navigationUI: 'hide' }) : (de.webkitRequestFullscreen && de.webkitRequestFullscreen());
+      if (p && p.then) p.then(() => screen.orientation && screen.orientation.lock && screen.orientation.lock('landscape').catch(() => {})).catch(() => {}); } catch (e) { }
+    checkOrientation();
+  }
   player.model.root.visible = true;
   cam.yaw = 0; cam.pitch = 0.3; cam.target.copy(player.pos);
   $('gemCount').textContent = `0 / ${WORLD.totalGems}`;
   updateHUDForm();
+}
+
+/* =====================================================================
+   CONTROLES TÁCTILES
+   ===================================================================== */
+const touch = { joyId: null, ox: 0, oy: 0, jx: 0, jy: 0, lookId: null, lx: 0, ly: 0, lastLook: -1e9 };
+const JOY_R = 58;
+let rotateShown = false, rotateDismissed = false;
+function vib(p) { if (IS_TOUCH && navigator.vibrate) try { navigator.vibrate(p); } catch (e) { } }
+function joyRest() {
+  const b = $('joyBase'), k = $('joyKnob');
+  b.style.left = 'calc(100px + env(safe-area-inset-left))'; b.style.top = 'calc(100% - 104px - env(safe-area-inset-bottom))';
+  b.classList.remove('on'); k.style.transform = 'translate(0px,0px)';
+}
+function resetTouch() {
+  touch.joyId = touch.lookId = null; touch.jx = touch.jy = 0;
+  if (IS_TOUCH) { joyRest(); for (const id of ['tJump', 'tAtk', 'tAb']) $(id).classList.remove('on'); }
+}
+function checkOrientation() {
+  rotateShown = IS_TOUCH && !rotateDismissed && innerHeight > innerWidth * 1.05 && (gameState === 'playing' || gameState === 'title');
+  $('rotate').classList.toggle('hidden', !rotateShown);
+  if (rotateShown) resetTouch();
+}
+function setupTouch() {
+  if (!IS_TOUCH) return;
+  const layer = $('touchLayer'), base = $('joyBase'), knob = $('joyKnob');
+  joyRest();
+  layer.addEventListener('pointerdown', e => {
+    if (gameState !== 'playing') return;
+    e.preventDefault();
+    if (e.clientX < innerWidth * 0.45 && touch.joyId === null) {
+      // joystick flotante: aparece bajo el pulgar
+      touch.joyId = e.pointerId; touch.ox = clamp(e.clientX, 76, innerWidth * 0.45); touch.oy = clamp(e.clientY, 76, innerHeight - 76);
+      base.style.left = touch.ox + 'px'; base.style.top = touch.oy + 'px'; base.classList.add('on');
+    } else if (touch.lookId === null) { touch.lookId = e.pointerId; touch.lx = e.clientX; touch.ly = e.clientY; }
+    try { layer.setPointerCapture(e.pointerId); } catch (err) { }
+  });
+  layer.addEventListener('pointermove', e => {
+    if (e.pointerId === touch.joyId) {
+      let dx = e.clientX - touch.ox, dy = e.clientY - touch.oy; const d = Math.hypot(dx, dy);
+      if (d > JOY_R) { dx *= JOY_R / d; dy *= JOY_R / d; }
+      knob.style.transform = `translate(${dx.toFixed(1)}px,${dy.toFixed(1)}px)`;
+      const m = Math.min(1, d / JOY_R), k = m < 0.14 ? 0 : Math.pow((m - 0.14) / 0.86, 1.2); // zona muerta + curva suave
+      touch.jx = d > 0 ? dx / Math.min(d, JOY_R) * k : 0; touch.jy = d > 0 ? dy / Math.min(d, JOY_R) * k : 0;
+      // si el pulgar se aleja mucho, la base le sigue
+      if (d > JOY_R * 1.6) { touch.ox += (e.clientX - touch.ox) * 0.08; touch.oy += (e.clientY - touch.oy) * 0.08; base.style.left = touch.ox + 'px'; base.style.top = touch.oy + 'px'; }
+    } else if (e.pointerId === touch.lookId) {
+      const dx = e.clientX - touch.lx, dy = e.clientY - touch.ly; touch.lx = e.clientX; touch.ly = e.clientY;
+      const s = 5.0 / Math.max(innerWidth, 1);
+      cam.yaw -= dx * s; cam.pitch = clamp(cam.pitch + dy * s * 0.8, -0.55, 1.25);
+      touch.lastLook = performance.now();
+    }
+  });
+  const end = e => {
+    if (e.pointerId === touch.joyId) { touch.joyId = null; touch.jx = touch.jy = 0; joyRest(); }
+    if (e.pointerId === touch.lookId) touch.lookId = null;
+  };
+  layer.addEventListener('pointerup', end); layer.addEventListener('pointercancel', end);
+  const btn = (id, down, up) => {
+    const el = $(id);
+    el.addEventListener('pointerdown', e => {
+      e.preventDefault(); e.stopPropagation();
+      if (gameState !== 'playing' && id !== 'tPause') return;
+      el.classList.add('on'); try { el.setPointerCapture(e.pointerId); } catch (err) { }
+      vib(8); down();
+    });
+    const off = () => { if (!el.classList.contains('on')) return; el.classList.remove('on'); if (up) up(); };
+    el.addEventListener('pointerup', off); el.addEventListener('pointercancel', off); el.addEventListener('lostpointercapture', off);
+  };
+  btn('tJump', () => { input.jumpPressed = true; input.keys.Space = true; }, () => { input.keys.Space = false; });
+  btn('tAtk', () => { input.mouseL = true; input.mouseLPressed = true; }, () => { input.mouseL = false; });
+  btn('tAb', () => { input.abilityPressed = true; });
+  btn('tPause', () => { if (gameState === 'playing') pauseGame(); });
+  $('rotateBtn').addEventListener('click', () => { rotateDismissed = true; checkOrientation(); });
+  addEventListener('resize', () => setTimeout(checkOrientation, 50));
+  addEventListener('orientationchange', () => setTimeout(checkOrientation, 250));
+  document.addEventListener('visibilitychange', () => { if (document.hidden && gameState === 'playing') pauseGame(); });
+  // evita el menú contextual / zoom por gestos en iOS
+  document.addEventListener('gesturestart', e => e.preventDefault());
+  document.addEventListener('dblclick', e => e.preventDefault());
 }
 
 /* =====================================================================
@@ -3093,7 +3349,8 @@ function frame(now) {
   let dt = Math.min(0.05, (now - lastT) / 1000); lastT = now;
   if (gameState === 'loading') return;
   const t = timeUniform.value += dt;
-  if (gameState === 'playing') {
+  if (gameState === 'playing' && rotateShown) { /* esperando a que se gire el móvil */ }
+  else if (gameState === 'playing') {
     gameTick(dt, t);
     adaptQuality(dt);
   } else if (gameState === 'title') {
@@ -3163,10 +3420,10 @@ async function init() {
   transformTo('wolf', true); player.model.root.visible = true; player.model.root.position.copy(player.pos);
   // tarjetas del título
   $('cards').innerHTML = FORM_KEYS.map(k => { const F = FORMS[k]; return `<div class="card panel"><div class="pic" style="border-color:${F.color};box-shadow:0 0 18px ${F.color}88"><img src="${portraits[k]}"></div><h3 style="color:${F.color}">${F.name}</h3><p>${F.desc}</p></div>`; }).join('');
-  onResize();
+  onResize(); setupTouch();
   $('loading').classList.add('hidden'); $('title').classList.remove('hidden');
-  gameState = 'title';
-  if (DEBUG) window.G = { scene, camera, player, cam, L, enemies, colliders, THREE, renderer, composer, bloom, FX, SMOKE, WORLD, transformTo, terrainH, groundAt, input, stats, get boss() { return boss; }, tick: (n = 1, dt = 1 / 60) => { for (let i = 0; i < n; i++) { timeUniform.value += dt; gameTick(dt, timeUniform.value); FX.update(dt); SMOKE.update(dt); } }, setState: s => gameState = s, activateCheckpoint, respawn };
+  gameState = 'title'; if (IS_TOUCH) checkOrientation();
+  if (DEBUG) window.G = { touch, scene, camera, player, cam, L, enemies, colliders, THREE, renderer, composer, bloom, FX, SMOKE, WORLD, transformTo, terrainH, groundAt, input, stats, get boss() { return boss; }, tick: (n = 1, dt = 1 / 60) => { for (let i = 0; i < n; i++) { timeUniform.value += dt; gameTick(dt, timeUniform.value); FX.update(dt); SMOKE.update(dt); } }, setState: s => gameState = s, activateCheckpoint, respawn };
   if (PARAMS.has('autostart')) { gameState = 'title'; startGame(); }
 }
 requestAnimationFrame(frame);
