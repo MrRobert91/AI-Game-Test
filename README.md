@@ -67,5 +67,8 @@ Hay 34 Almas Antiguas repartidas por el nivel, muchas escondidas en zonas a las 
 - Texturas procedurales generadas en *canvas*: roca, ladrillo, madera, pelaje, escamas, runas y grietas incandescentes.
 - Modelos y animaciones procedurales para los cinco monstruos, los enemigos y el jefe.
 - Sistema de partículas, audio sintetizado con Web Audio (sin ficheros externos) y resolución dinámica según el rendimiento.
+- Optimizaciones de rendimiento: vegetación troceada por zonas con LOD y descarte por distancia, geometría estática fusionada, modelos con piezas rígidas fusionadas, cielo precalculado en un cubemap, sombras a 30 Hz, un pool fijo de 2 luces puntuales, materiales Lambert en las superficies mates, *bloom* a media resolución y post-proceso en un único pase.
+
+El juego ajusta la resolución interna en tiempo real para mantener unos 60 FPS. Si tu equipo es modesto, añade `?low` a la URL.
 
 Parámetros de URL opcionales: `?low` baja la calidad para equipos modestos; `?debug` activa atajos de prueba (`1`–`5` para cambiar de forma, `N` para ir al siguiente santuario, `G` para el modo dios).
