@@ -75,20 +75,36 @@ Para desplegar en [Sliplane](https://sliplane.io):
 
 Hay 34 Almas Antiguas repartidas por el nivel, muchas escondidas en zonas a las que solo llega una forma concreta. Los santuarios sirven de punto de control y te curan.
 
-## Los seis niveles
+## Los once niveles
 
-En la pantalla de inicio eliges el nivel en una rejilla de tarjetas; cada tarjeta muestra tu mejor tiempo y la medalla conseguida (se guardan en el navegador). También se puede entrar directamente con `?level=<id>`. Cada nivel nuevo tiene su propia mecánica, cuenta atrás de salida, medallas de oro, plata y bronce, y una pantalla de resultados con *Reintentar*, *Siguiente nivel* y *Menú*.
+En la pantalla de inicio eliges el nivel en una rejilla de tarjetas con dos pestañas: **Metamorfosis** (los niveles donde manejas a los cinco monstruos) y **Desafíos** (los modos con mecánica propia). Cada tarjeta muestra tu mejor tiempo y la medalla conseguida (se guardan en el navegador). También se puede entrar directamente con `?level=<id>`.
 
-| # | Nivel (`?level=`) | Mecánica | Controles propios |
-|---|---|---|---|
-| 1 | El Valle de los Colosos (`valle`) | Aventura con cambio de forma | Los de arriba |
-| 2 | Rápidos del Colmillo (`rapidos`) | Carrera de motos de agua a 3 vueltas contra 3 diablillos, con rampas, pads de turbo, rebufo y giros de 360° en el aire que recargan el turbo | `A D` girar · `W`/`S` acelerar o frenar · `Shift`/clic turbo · `Espacio` saltar |
-| 3 | Corona de Nubes (`nubes`) | Vuelo contrarreloj con el Dragón por 28 anillos entre islas flotantes: cada anillo da tiempo y los perfectos más; hay térmicas que recargan energía | `W S` subir/bajar · `A D` o ratón girar · `Espacio` aletear · `Shift` turbo |
-| 4 | Descenso Glacial (`glaciar`) | Huida en trineo del Yeti perseguido por una avalancha: slalom entre pinos y rocas, rampas sobre grietas, puertas turbo y trucos (giros y mortales) | `A D` girar · `W` agacharse · `S` frenar · mantener `Espacio` para cargar el salto |
-| 5 | Telaraña del Abismo (`abismo`) | La Araña cruza un abismo balanceándose con física de péndulo entre agujas, arcos y cristales móviles, con ráfagas de viento | Mantener clic/`Shift` (o `Espacio` en el aire) para lanzar seda · soltar para salir disparado · `WASD` para impulsarse |
-| 6 | Bola Rúnica (`bola`) | El Oso hecho bola recorre un circuito de canicas en el cielo: vigas, barras giratorias, pinball, pistones, muros de cristal, trampolín y plataformas móviles; hay que reunir 5 runas para abrir el portal | `WASD` rodar · ratón cámara · `Espacio` saltar · clic/`E` embestida (en el aire, golpe hacia abajo) |
+### Metamorfosis: cinco monstruos, seis reglas de cambio
 
-Todos los niveles se juegan también en el móvil: el joystick y los botones cambian de función y de texto según el nivel.
+En todos estos niveles controlas a los cinco monstruos con sus habilidades del Valle; lo que cambia es **cuándo y cómo te transformas**, y cada nivel tiene su propio estilo gráfico (con un pase de post-proceso propio).
+
+| # | Nivel (`?level=`) | Regla de cambio | Estilo | De qué va |
+|---|---|---|---|---|
+| 1 | El Valle de los Colosos (`valle`) | Cada 10 segundos | Natural | La aventura original. |
+| 2 | Catedral de Vitral (`vitral`) | **Por zonas**: pisar un cristal de color te convierte en su monstruo; el cristal blanco conserva tu forma | Vitral gótico al anochecer | Lleva formas de una zona a otra, salta franjas para no perder la tuya, cruza el rosetón giratorio, congela la cripta y sube el campanario para tañer las cinco campanas. |
+| 3 | Coliseo de Tinta (`tinta`) | **Por bajas**: cada baja carga el cambio; con una carga pulsas `R` y te transformas en la forma elegida (`1`-`5`, rueda o el panel) | Sumi-e: papel de arroz, aguadas de tinta y acentos bermellón | Seis oleadas. Cada enemigo lleva el sello del monstruo que le hace el doble de daño. La quinta oleada inunda la arena de tinta y el Oni final cambia de sello con cada cuarto de vida. |
+| 4 | Teatro de Papel (`papel`) | **Por máscaras**: tocar una máscara de pedestal te transforma; además puedes guardar una máscara portátil y ponértela con `R` | Libro desplegable de papel y cartón | Cuatro actos que se despliegan al acercarte: bosque y río de papel, castillo que se quema, mar de origami con barcos que llevan máscaras y una escalera de libros hasta el telón. |
+| 5 | Espiral de Neón (`neon`) | **Cinco vidas**: empiezas con el monstruo que elijas; si cae, lo pierdes para siempre y eliges el siguiente | Synthwave / neón | Asciende una espiral de 26 plataformas con láseres, losas que se desmoronan, cortafuegos, huecos y géiseres de datos. Cada tramo tiene una solución universal y atajos según la forma. Los núcleos verdes recuperan al último monstruo perdido. |
+| 6 | Templo del Pulso (`pulso`) | **Al ritmo**: la música (120 ppm) te transforma cada dos compases según una partitura de 8 pasos; los gongs reescriben el siguiente paso | Art déco negro y oro | Pistones que caen al compás, un puente de losas intermitentes, lanzaderas que disparan en el primer tiempo y una coreografía final sobre las placas de colores. |
+
+### Desafíos
+
+Cada desafío tiene su propia mecánica, cuenta atrás de salida, medallas de oro, plata y bronce, y una pantalla de resultados con *Reintentar*, *Siguiente nivel* y *Menú*.
+
+| Nivel (`?level=`) | Mecánica | Controles propios |
+|---|---|---|
+| Rápidos del Colmillo (`rapidos`) | Carrera de motos de agua a 3 vueltas contra 3 diablillos, con rampas, pads de turbo, rebufo y giros de 360° en el aire que recargan el turbo | `A D` girar · `W`/`S` acelerar o frenar · `Shift`/clic turbo · `Espacio` saltar |
+| Corona de Nubes (`nubes`) | Vuelo contrarreloj con el Dragón por 28 anillos entre islas flotantes | `W S` subir/bajar · `A D` o ratón girar · `Espacio` aletear · `Shift` turbo |
+| Descenso Glacial (`glaciar`) | Huida en trineo del Yeti perseguido por una avalancha | `A D` girar · `W` agacharse · `S` frenar · mantener `Espacio` para cargar el salto |
+| Telaraña del Abismo (`abismo`) | La Araña cruza un abismo balanceándose con física de péndulo | Mantener clic/`Shift` (o `Espacio` en el aire) para lanzar seda |
+| Bola Rúnica (`bola`) | El Oso hecho bola recorre un circuito de canicas en el cielo | `WASD` rodar · ratón cámara · `Espacio` saltar · clic/`E` embestida |
+
+Todos los niveles se juegan también en el móvil: el joystick y los botones cambian de función y de texto según el nivel, y en los niveles con cambio manual aparece el botón **CAMBIAR**/**MÁSCARA**.
 
 ## Tecnología
 
