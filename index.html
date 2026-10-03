@@ -22,6 +22,56 @@ canvas{display:block;position:fixed;inset:0}
 .hidden{display:none!important}
 .serif{font-family:Cinzel,Georgia,serif}
 
+
+/* ---------- niveles de metamorfosis: panel de la regla de cambio ---------- */
+#ruleBox{position:absolute;left:50%;top:14px;transform:translateX(-50%);padding:8px 14px 9px;display:flex;flex-direction:column;align-items:center;gap:6px;min-width:250px}
+#ruleBox .rbT{font-size:9px;letter-spacing:3px;font-weight:800;color:var(--dim);text-transform:uppercase}
+#ruleBox .rbV{font-family:Cinzel,serif;font-weight:900;font-size:16px;letter-spacing:1px}
+.rbForms{display:flex;gap:7px;pointer-events:auto}
+.rf{width:40px;height:40px;border-radius:50%;overflow:hidden;border:2px solid var(--c);background:#141a24;position:relative;opacity:.55;transition:transform .2s,opacity .2s,box-shadow .2s;cursor:pointer}
+.rf img{width:100%;height:100%;object-fit:cover;display:block}
+.rf.cur{opacity:1;transform:scale(1.18);box-shadow:0 0 14px var(--c)}
+.rf.sel{opacity:1;box-shadow:0 0 0 3px #fff,0 0 16px var(--c)}
+.rf.dead{opacity:.35;filter:grayscale(1) brightness(.6)}
+.rf.dead::after{content:"";position:absolute;inset:0;background:linear-gradient(45deg,transparent 45%,#ff3a4a 45% 55%,transparent 55%),linear-gradient(-45deg,transparent 45%,#ff3a4a 45% 55%,transparent 55%)}
+.rf .k{position:absolute;right:-1px;bottom:-1px;font-size:9px;font-weight:800;background:rgba(0,0,0,.75);border-radius:6px;padding:0 3px;color:#fff}
+.rbMeter{width:230px;height:9px;border-radius:5px;background:rgba(0,0,0,.5);border:1px solid rgba(255,255,255,.15);overflow:hidden}
+.rbMeter div{height:100%;width:0;background:linear-gradient(90deg,#ff5a3a,#ffd35a);transition:width .15s}
+.rbTok{display:flex;gap:5px;align-items:center;font-size:11px;font-weight:800;letter-spacing:1px}
+.rbTok i{width:13px;height:13px;border-radius:50%;border:2px solid #ffd35a;display:inline-block}
+.rbTok i.on{background:#ffd35a;box-shadow:0 0 10px #ffd35a}
+.rbSeq{display:flex;gap:4px;position:relative}
+.rbSeq .st{width:34px;height:34px;border-radius:6px;overflow:hidden;border:2px solid var(--c);opacity:.45;position:relative;background:#141a24}
+.rbSeq .st img{width:100%;height:100%;object-fit:cover}
+.rbSeq .st.now{opacity:1;box-shadow:0 0 14px var(--c);transform:translateY(-2px)}
+.rbSeq .st.nx{opacity:.85}
+.rbSeq .st.edit{animation:edit .4s 3}
+@keyframes edit{50%{box-shadow:0 0 0 3px #fff}}
+.rbBeat{display:flex;gap:4px}.rbBeat i{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.18)}.rbBeat i.on{background:var(--accent);box-shadow:0 0 8px var(--accent)}
+#ruleBox .rbHint{font-size:10px;color:var(--dim);letter-spacing:.5px}
+#pickForm{z-index:30;background:rgba(3,4,8,.72)}
+#pickForm h2{font-family:Cinzel,serif;font-weight:900;letter-spacing:6px;font-size:clamp(20px,3.4vw,34px);text-align:center}
+#pickForm .ps{color:var(--dim);margin-top:6px;letter-spacing:1px;text-align:center;font-size:13px}
+#pickCards{display:flex;gap:14px;margin-top:22px;flex-wrap:wrap;justify-content:center;padding:0 12px}
+.pk{width:132px;padding:10px;border-radius:12px;text-align:center;cursor:pointer;border:2px solid var(--c);background:rgba(10,12,20,.85);transition:transform .15s,box-shadow .15s;pointer-events:auto}
+.pk:hover{transform:translateY(-4px);box-shadow:0 0 22px var(--c)}
+.pk img{width:96px;height:96px;border-radius:50%;border:2px solid var(--c)}
+.pk b{display:block;font-family:Cinzel,serif;margin-top:6px;color:var(--c)}
+.pk span{display:block;font-size:10px;color:var(--dim);margin-top:3px;line-height:1.35}
+.pk.dead{opacity:.3;filter:grayscale(1);pointer-events:none}
+#lvTabs{display:flex;gap:8px;margin-top:auto;margin-bottom:10px;pointer-events:auto}
+.lvTab{padding:7px 18px;border-radius:20px;border:1px solid var(--line);background:rgba(8,11,18,.6);font-size:12px;font-weight:800;letter-spacing:2px;text-transform:uppercase;cursor:pointer;color:var(--dim)}
+.lvTab span{margin-left:8px;font-size:10px;opacity:.7}
+.lvTab.on{color:#fff;border-color:var(--gold);box-shadow:0 0 14px rgba(232,193,112,.35)}
+#levels{margin-top:0!important}
+#tSwap{width:62px;height:62px;right:calc(158px + env(safe-area-inset-right));bottom:calc(140px + env(safe-area-inset-bottom))}
+#tSwap.ready{border-color:#ffd35a;box-shadow:0 0 18px #ffd35a}
+body.touch #ruleBox{top:6px;padding:4px 8px 5px;gap:3px;min-width:0}
+body.touch #ruleBox .rbT,body.touch #ruleBox .rbHint{display:none}
+body.touch .rf{width:28px;height:28px}
+body.touch .rbSeq .st{width:24px;height:24px}
+body.touch .rbMeter{width:150px}
+@media (max-height:560px){.lvTab{padding:5px 12px;font-size:10px}#lvTabs{margin-bottom:6px}}
 /* ---------- overlays ---------- */
 #vignette{position:fixed;inset:0;pointer-events:none;background:radial-gradient(ellipse at center,rgba(0,0,0,0) 55%,rgba(0,0,0,.55) 100%);z-index:2}
 #dmgflash{position:fixed;inset:0;pointer-events:none;background:radial-gradient(ellipse at center,rgba(160,0,0,0) 40%,rgba(190,10,10,.75) 100%);opacity:0;z-index:3;transition:opacity .08s}
@@ -341,6 +391,7 @@ body.touch #reticle::after{content:"★"}
     </div>
   </div>
   <div id="objective" class="panel"><span class="label">OBJETIVO</span><div id="objText"></div><div id="objHint"></div></div>
+  <div id="ruleBox" class="panel hidden"></div>
   <div id="timerWrap" class="panel">
     <div id="ring">
       <svg viewBox="0 0 80 80"><circle cx="40" cy="40" r="34" fill="rgba(0,0,0,.35)" stroke="rgba(255,255,255,.12)" stroke-width="6"/>
@@ -372,7 +423,8 @@ body.touch #reticle::after{content:"★"}
 
 <div id="title" class="screen hidden">
   <h1>METAMORFOSIS</h1>
-  <h2 id="titleSub">SEIS MUNDOS · CINCO FORMAS</h2>
+  <h2 id="titleSub">ONCE MUNDOS · CINCO FORMAS</h2>
+  <div id="lvTabs"></div>
   <div id="levels"></div>
   <div id="levelDesc"></div>
   <div class="start" id="startBtn">JUGAR</div>
@@ -417,6 +469,7 @@ body.touch #reticle::after{content:"★"}
     <svg class="ico" viewBox="0 0 24 24"><path d="M12 2.5l2.6 6.2 6.7.6-5.1 4.4 1.6 6.6L12 16.8l-5.8 3.5 1.6-6.6-5.1-4.4 6.7-.6z"/></svg><span id="tAbLbl">Habilidad</span></div>
   <div class="tbtn" id="tAtk"><svg class="ring" viewBox="0 0 100 100"><circle class="bg" cx="50" cy="50" r="46"/><circle class="fg" id="tAtkRing" cx="50" cy="50" r="46" stroke-dasharray="289" stroke-dashoffset="0"/></svg>
     <svg class="ico" viewBox="0 0 24 24"><path d="M5 19L13 4M9.5 20.5L17 7M14 21l5-9"/></svg><span id="tAtkLbl">Ataque</span></div>
+  <div class="tbtn hidden" id="tSwap"><svg class="ico" viewBox="0 0 24 24"><path d="M4 9a8 8 0 0 1 14-3l2 2M20 4v4h-4M20 15a8 8 0 0 1-14 3l-2-2M4 20v-4h4"/></svg><span id="tSwapLbl">Cambiar</span></div>
   <div class="tbtn" id="tJump"><svg class="ico" viewBox="0 0 24 24"><path d="M6 13l6-6 6 6M6 19l6-6 6 6"/></svg><span id="tJumpLbl">Saltar</span></div>
   <div class="tbtn" id="tPause"><svg class="ico" viewBox="0 0 24 24"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg></div>
 </div>
@@ -429,6 +482,7 @@ body.touch #reticle::after{content:"★"}
   <div id="mMsg"></div><div id="mSub"></div>
   <div id="mHelp" class="panel"></div>
 </div>
+<div id="pickForm" class="screen hidden"><h2 id="pickT">ELIGE TU MONSTRUO</h2><div class="ps" id="pickS"></div><div id="pickCards"></div></div>
 <div id="results" class="screen hidden">
   <h1 id="rTitle">¡META!</h1><div class="sub" id="rSub"></div>
   <div id="rMedal">ORO</div>
@@ -496,7 +550,10 @@ function corridorHalf(z) { return 33 + 3 * Math.sin(z * 0.037) + 2 * Math.sin(z 
 function pathX(z) { return 3.5 * Math.sin(z * 0.045) + (z < -200 ? 0 : 0); }
 function riverF(z) { return smoothstep(-44, -50.5, z) * smoothstep(-82, -75.5, z); }
 function lavaF(z) { return smoothstep(-200.5, -206, z) * smoothstep(-280, -274.5, z); }
-function terrainH(x, z) {
+// Niveles de metamorfosis: cada uno aporta su propio relieve (META.h); el Valle usa valleH.
+let META = null;
+function terrainH(x, z) { return META ? META.h(x, z) : valleH(x, z); }
+function valleH(x, z) {
   let h = 14 * smoothstep(-115.5, -121, z);
   h += fbm(x * 0.05 + 3.1, z * 0.05 - 1.7, 3) * 0.8;
   // zonas aplanadas (fortaleza y santuario)
@@ -608,17 +665,53 @@ const bloom = new UnrealBloomPass(new THREE.Vector2(innerWidth / 2, innerHeight 
 { const bs = bloom.setSize.bind(bloom); bloom.setSize = (w, h) => bs(Math.max(1, w >> 1), Math.max(1, h >> 1)); } // bloom a media resolución
 composer.addPass(bloom);
 const gradePass = new ShaderPass({
-  uniforms: { tDiffuse: { value: null }, uSat: { value: 1.12 }, uTint: { value: new THREE.Color(1.0, 0.98, 0.95) }, uLift: { value: new THREE.Color(0.004, 0.006, 0.012) }, uHurt: { value: 0 }, uExposure: { value: 0.82 } },
+  uniforms: { tDiffuse: { value: null }, uSat: { value: 1.12 }, uTint: { value: new THREE.Color(1.0, 0.98, 0.95) }, uLift: { value: new THREE.Color(0.004, 0.006, 0.012) }, uHurt: { value: 0 }, uExposure: { value: 0.82 },
+    uStyle: { value: 0 }, uTexel: { value: new THREE.Vector2(1 / 1280, 1 / 720) }, uTime: { value: 0 }, uPulse: { value: 0 } },
   vertexShader: `varying vec2 vUv; void main(){ vUv=uv; gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.); }`,
   // Etalonaje + tonemapping ACES + sRGB en un único pase (sustituye a OutputPass y ahorra un pase a pantalla completa)
-  fragmentShader: `uniform sampler2D tDiffuse; uniform float uSat; uniform vec3 uTint; uniform vec3 uLift; uniform float uHurt; uniform float uExposure; varying vec2 vUv;
+  // uStyle: 0 natural · 1 tinta (sumi-e) · 2 papel · 3 neón · 4 art déco · 5 vitral. Una rama uniforme por estilo: el Valle no paga nada extra.
+  fragmentShader: `uniform sampler2D tDiffuse; uniform float uSat; uniform vec3 uTint; uniform vec3 uLift; uniform float uHurt; uniform float uExposure; uniform float uStyle; uniform vec2 uTexel; uniform float uTime; uniform float uPulse; varying vec2 vUv;
+  float h12(vec2 p){ return fract(sin(dot(p, vec2(12.9898, 78.233))) * 43758.5453); }
+  float lum(vec3 c){ return dot(c, vec3(.2126,.7152,.0722)); }
+  float edge(vec2 uv, float k){ // bordes por diferencias de luminancia logarítmica (cruz de 4 muestras)
+    vec2 o = uTexel * k;
+    float a = log(lum(texture2D(tDiffuse, uv + vec2(o.x, 0.)).rgb) + .02), b = log(lum(texture2D(tDiffuse, uv - vec2(o.x, 0.)).rgb) + .02);
+    float c = log(lum(texture2D(tDiffuse, uv + vec2(0., o.y)).rgb) + .02), d = log(lum(texture2D(tDiffuse, uv - vec2(0., o.y)).rgb) + .02);
+    return length(vec2(a - b, c - d)); }
   vec3 acesFit(vec3 v){ vec3 a = v*(v+0.0245786)-0.000090537; vec3 b = v*(0.983729*v+0.4329510)+0.238081; return a/b; }
   vec3 aces(vec3 c){ const mat3 I = mat3(vec3(0.59719,0.07600,0.02840), vec3(0.35458,0.90834,0.13383), vec3(0.04823,0.01566,0.83777));
     const mat3 O = mat3(vec3(1.60475,-0.10208,-0.00327), vec3(-0.53108,1.10813,-0.07276), vec3(-0.07367,-0.00605,1.07602));
     c *= uExposure/0.6; c = I*c; c = acesFit(c); c = O*c; return clamp(c,0.,1.); }
   void main(){ vec3 c = texture2D(tDiffuse,vUv).rgb;
+    if (uStyle > 2.5 && uStyle < 3.5) { // neón: aberración cromática radial
+      vec2 dd = (vUv - .5) * .006; c.r = texture2D(tDiffuse, vUv + dd).r; c.b = texture2D(tDiffuse, vUv - dd).b; }
     float l=dot(c,vec3(.2126,.7152,.0722)); c=mix(vec3(l),c,uSat-uHurt*.6); c=c*uTint+uLift;
     c = aces(c);
+    vec2 vg = vUv - .5; float vig = 1. - dot(vg, vg) * 1.1;
+    if (uStyle > .5 && uStyle < 1.5) { // TINTA: papel de arroz, aguadas de tinta y un único color de acento
+      float L = lum(c), mx = max(c.r, max(c.g, c.b)), sat = (mx - min(c.r, min(c.g, c.b))) / (mx + .001);
+      float e = smoothstep(.10, .34, edge(vUv, 1.2));
+      float grain = h12(floor(vUv / uTexel * .5)) * .06 + h12(vUv * 7.3) * .03;
+      float wash = floor(pow(L, .8) * 5. + h12(floor(vUv / uTexel / 3.)) * .35) / 5.; // aguadas escalonadas
+      vec3 paper = vec3(.95, .92, .85) - grain;
+      vec3 ink = mix(vec3(.05, .05, .07), paper, wash);
+      float accent = smoothstep(.4, .75, sat) * smoothstep(.12, .35, L);
+      c = mix(ink, c * vec3(1.05, .95, .9) + .05, accent * .9);
+      c *= 1. - e * .85; c = mix(c, paper * .9, (1. - vig) * .9);
+    } else if (uStyle > 1.5 && uStyle < 2.5) { // PAPEL: colores planos, contorno marrón y fibra
+      float e = smoothstep(.16, .4, edge(vUv, 1.)); vec3 q = floor(c * 7. + .5) / 7.; c = mix(c, q, .55);
+      float fib = h12(floor(vUv / uTexel)) * .05 + sin((vUv.x + vUv.y * .3) * 900.) * .012;
+      c = c * (1. - fib) * vec3(1.03, 1., .95); c = mix(c, vec3(.18, .11, .07), e * .75); c *= mix(.82, 1., vig);
+    } else if (uStyle > 2.5 && uStyle < 3.5) { // NEÓN: líneas de barrido y viñeta profunda
+      float sl = .92 + .08 * sin(vUv.y / uTexel.y * 1.57 + uTime * 6.); c *= sl; c *= mix(.45, 1., vig); c += vec3(.02, 0., .04) * (1. - vig);
+      c += vec3(.8, .2, 1.) * uPulse * .05;
+    } else if (uStyle > 3.5 && uStyle < 4.5) { // ART DÉCO: virado oro/turquesa, grano y pulso de luz
+      float L = lum(c); vec3 sh = vec3(.02, .12, .14), hi = vec3(1.0, .82, .45);
+      c = mix(c, mix(sh, hi, smoothstep(.0, .9, L)) * (L * 1.2 + .1), .32);
+      c += (h12(vUv * 913. + uTime) - .5) * .022; c *= mix(.55, 1.05, vig) * (1. + uPulse * .08);
+    } else if (uStyle > 4.5) { // VITRAL: rayos cálidos en el centro, sombras frías
+      c *= mix(.6, 1.06, vig); c += vec3(.03, .02, .0) * smoothstep(.2, .8, lum(c));
+    }
     c = mix(pow(c, vec3(0.41666))*1.055-vec3(0.055), c*12.92, vec3(lessThanEqual(c, vec3(0.0031308))));
     gl_FragColor=vec4(c,1.); }`
 });
@@ -628,6 +721,7 @@ function onResize() {
   camera.aspect = innerWidth / innerHeight; camera.updateProjectionMatrix();
   if (PR > maxPR()) { PR = maxPR(); renderer.setPixelRatio(PR); composer.setPixelRatio(PR); }
   renderer.setSize(innerWidth, innerHeight); composer.setSize(innerWidth, innerHeight);
+  gradePass.uniforms.uTexel.value.set(1 / Math.max(1, innerWidth * PR), 1 / Math.max(1, innerHeight * PR));
   for (const p of particleSystems) p.material.uniforms.uScale.value = innerHeight * PR * 0.5 / Math.tan(THREE.MathUtils.degToRad(camera.fov * 0.5));
 }
 addEventListener('resize', onResize);
@@ -843,6 +937,7 @@ const AudioSys = {
     s.connect(f); f.connect(g); g.connect(this.master); s.start();
   },
   startMusic() {
+    if (META && META.music) { META.music(this); return; } // el Templo del Pulso trae su propia música sincronizada
     const chords = [[220, 261.6, 329.6], [174.6, 220, 261.6], [261.6, 329.6, 392], [196, 246.9, 293.7]];
     let i = 0;
     const play = () => {
@@ -2304,6 +2399,7 @@ class Enemy {
   center(out = new V3()) { return out.copy(this.pos).setY(this.pos.y + this.def.hitY); }
   hurt(dmg, from, o = {}) {
     if (this.dead) return;
+    if (META && META.dmgMul) { dmg *= META.dmgMul(this); if (dmg <= 0) return; }
     this.hp -= dmg; this.flash = 0.12; this.bar.visible = true;
     spawnDamageNumber(this.center(_v3).setY(_v3.y + 1.2), Math.round(dmg), o.crit);
     if (from && this.type !== 'wisp') { _v1.subVectors(this.pos, from).setY(0).normalize().multiplyScalar(o.knock ?? 4 * (this.type === 'brute' ? 0.3 : 1)); this.knock.add(_v1); }
@@ -2315,6 +2411,7 @@ class Enemy {
   }
   die() {
     this.dead = true; this.deathT = 0; this.bar.visible = false; stats.kills++;
+    if (META && META.onKill) META.onKill(this);
     burst(this.center(_v3), this.type === 'wisp' ? 0xb88cff : this.type === 'brute' ? 0xff7a2a : 0xff3a5a, 40, 9, 0.6, 1.0);
     dust(this.pos, 10, 4, 0x4a3a50);
     SFX.enemyDie();
@@ -2379,8 +2476,8 @@ class Enemy {
       const nx = this.pos.x + mx, nz = this.pos.z + mz;
       const g = groundAt(nx, nz, this.pos.y + 0.6, 0.4);
       _v2.set(nx, this.pos.y + 1.0, nz);
-      const inHaz = (nz < -45 && nz > -81) || (nz < -203 && nz > -277);
-      if (g > this.pos.y - 2.5 && g < this.pos.y + 0.9 && !pointInCols(_v2, 0.3) && !inHaz && Math.abs(nx) < corridorHalf(nz) + 1) { this.pos.x = nx; this.pos.z = nz; this.pos.y = damp(this.pos.y, g, 20, dt); }
+      const okZone = META ? META.walkable(nx, nz, g) : !((nz < -45 && nz > -81) || (nz < -203 && nz > -277)) && Math.abs(nx) < corridorHalf(nz) + 1;
+      if (g > this.pos.y - 2.5 && g < this.pos.y + 0.9 && !pointInCols(_v2, 0.3) && okZone) { this.pos.x = nx; this.pos.z = nz; this.pos.y = damp(this.pos.y, g, 20, dt); }
       else { this.knock.set(0, 0, 0); if (this.state === 'return') this.home.copy(this.pos); }
       // separación del jugador
       const pd = Math.hypot(P0.x - this.pos.x, P0.z - this.pos.z), minD = d.radius + 0.6;
@@ -2456,7 +2553,7 @@ function updateProjectiles(dt) {
         if (_v2.copy(player.pos).setY(player.pos.y + 1.2).distanceTo(p.pos) < p.r + 0.9) { hit = true; hurtPlayer(p.dmg, p.pos, 6); }
       }
       if (p.noCol > 0) p.noCol -= dt;
-      else if (!hit) { if (p.pos.y < terrainH(p.pos.x, p.pos.z) || pointInCols(p.pos, 0)) hit = true; if (p.pos.y < LAVA_Y && p.pos.z < -203 && p.pos.z > -277 && p.vel.y < 0) hit = true; }
+      else if (!hit) { if (p.pos.y < terrainH(p.pos.x, p.pos.z) || pointInCols(p.pos, 0)) hit = true; if (!META && p.pos.y < LAVA_Y && p.pos.z < -203 && p.pos.z > -277 && p.vel.y < 0) hit = true; }
     }
     if (hit) explodeProj(p);
   }
@@ -2509,6 +2606,7 @@ function lightBrazier(br) {
   if (br.lit) return; br.lit = true; br.coals.material.emissiveIntensity = 3;
   br.light = addLightSource(br.pos.clone().setY(br.pos.y + 1), 0xff8a30, 17, 18, 1);
   SFX.burn(); burst(br.pos, 0xffa040, 40, 6, 0.8, 0.8, { grav: -4, color2: 0x551100 });
+  if (META) { if (META.onBrazier) META.onBrazier(br); return; }
   const n = L.braziers.filter(b => b.lit).length;
   if (n >= L.braziers.length) { toast('¡El rastrillo se abre!', 2.5); SFX.gate(); WORLD.innerGate.opening = true; shake(0.2); }
   else toast(`Brasero encendido (${n}/${L.braziers.length})`, 2);
@@ -2655,7 +2753,7 @@ const GRAV = 34, STEP = 0.55, FORM_TIME = 10;
 const NOLOCK = PARAMS.has('nolock');
 const stats = { kills: 0, deaths: 0, gems: 0, time: 0 };
 let gameState = 'loading', timeScale = 1, hitStop = 0, godMode = false;
-const input = { keys: {}, mouseL: false, mouseLPressed: false, jumpPressed: false, abilityPressed: false, locked: false };
+const input = { keys: {}, mouseL: false, mouseLPressed: false, jumpPressed: false, abilityPressed: false, swapPressed: false, locked: false };
 const cam = { yaw: 0, pitch: 0.3, dist: 9, curDist: 9, target: new V3(0, 3, 16), shake: 0, fovKick: 0 };
 const player = {
   pos: new V3(0, 0, 14), vel: new V3(), r: 0.75, h: 2.4, grounded: false, groundCol: null, coyote: 0, jumpBuf: 0, jumpsLeft: 0, flaps: 3, airDash: true, jumpCut: false,
@@ -2710,7 +2808,8 @@ function physicsStep(dt, move) {
   if (P.pos.y <= g) { if (P.vel.y < 0) onLand(-P.vel.y); P.pos.y = g; P.vel.y = Math.max(P.vel.y, 0); P.grounded = true; }
   else if (wasGrounded && !prevGC && P.vel.y <= 0 && P.pos.y - g < 0.7 && !P.grapple && P.dashT <= 0) { P.pos.y = g; P.grounded = true; P.vel.y = 0; }
   P.climbing = P.form === 'spider' && !P.grapple && move.lengthSq() > 0.1 && (P.blockedTerrain || (P.blocked && P.blocked.climbable)) && move.dot(P.blockN) < -0.3;
-  const half = corridorHalf(P.pos.z) + 2.5; P.pos.x = clamp(P.pos.x, -half, half); P.pos.z = clamp(P.pos.z, -338, 36);
+  if (META) { const B = META.bounds; P.pos.x = clamp(P.pos.x, B[0], B[1]); P.pos.z = clamp(P.pos.z, B[2], B[3]); }
+  else { const half = corridorHalf(P.pos.z) + 2.5; P.pos.x = clamp(P.pos.x, -half, half); P.pos.z = clamp(P.pos.z, -338, 36); }
 }
 
 /* ---------- formas ---------- */
@@ -2757,7 +2856,9 @@ function killPlayer() {
   const P = player; if (!P.alive) return;
   P.alive = false; P.hp = 0; stats.deaths++;
   burst(P.pos.clone().setY(P.pos.y + 1.2), FORMS[P.form].color, 80, 12, 0.8, 1.2); dust(P.pos, 20, 6);
-  P.model.root.visible = false; toast('Has caído... regresas al último santuario', 2.5);
+  P.model.root.visible = false;
+  if (META && META.onDeath && META.onDeath()) return; // la regla del nivel decide qué ocurre (p. ej. perder ese monstruo)
+  toast('Has caído... regresas al último santuario', 2.5);
   setTimeout(() => $('fade').style.opacity = 1, 700);
   setTimeout(() => respawn(true), 1400);
 }
@@ -2844,13 +2945,13 @@ function drawWebLine(a, b) {
   if (!webLine) { webLine = new THREE.Mesh(new THREE.CylinderGeometry(0.035, 0.035, 1, 5, 1, true).translate(0, 0.5, 0), new THREE.MeshBasicMaterial({ color: 0xf6f0ff })); scene.add(webLine); }
   webLine.visible = true; webLine.position.copy(a); const d = _v1.subVectors(b, a); webLine.scale.set(1, d.length(), 1); webLine.quaternion.setFromUnitVectors(_v2.set(0, 1, 0), d.normalize());
 }
-function createFloe(x, z) {
+function createFloe(x, z, y = WATER_Y) {
   for (const f of L.floes) if (!f.dying && Math.hypot(f.x - x, f.z - z) < 2.0) { f.t = Math.min(f.t, 2); return; }
   if (L.floes.length > 70) killFloe(L.floes[0], true);
-  const m = new THREE.Mesh(new THREE.CylinderGeometry(1.45, 1.65, 0.6, 7), MAT.iceSolid); m.position.set(x, WATER_Y, z); m.rotation.y = rand(0, 6); m.scale.setScalar(0.1); m.receiveShadow = true; scene.add(m);
-  const col = colBox(x, WATER_Y - 0.3, z, 2.7, 0.58, 2.7, { noCam: true });
-  L.floes.push({ m, col, x, z, t: 0, life: 22 });
-  for (let i = 0; i < 4; i++) SMOKE.spawn(x + rand(-1, 1), WATER_Y + 0.4, z + rand(-1, 1), rand(-1, 1), 1, rand(-1, 1), C(0xdff4ff), 1.6, 0.8, { grow: 1.5, alpha: 0.5 });
+  const m = new THREE.Mesh(new THREE.CylinderGeometry(1.45, 1.65, 0.6, 7), MAT.iceSolid); m.position.set(x, y, z); m.rotation.y = rand(0, 6); m.scale.setScalar(0.1); m.receiveShadow = true; scene.add(m);
+  const col = colBox(x, y - 0.3, z, 2.7, 0.58, 2.7, { noCam: true });
+  L.floes.push({ m, col, x, z, y, t: 0, life: 22 });
+  for (let i = 0; i < 4; i++) SMOKE.spawn(x + rand(-1, 1), y + 0.4, z + rand(-1, 1), rand(-1, 1), 1, rand(-1, 1), C(0xdff4ff), 1.6, 0.8, { grow: 1.5, alpha: 0.5 });
 }
 function removeCol(c) { const i = colliders.indexOf(c); if (i >= 0) colliders.splice(i, 1); c.active = false; }
 function killFloe(f, now) { removeCol(f.col); scene.remove(f.m); L.floes.splice(L.floes.indexOf(f), 1); }
@@ -2876,9 +2977,10 @@ function breath(dt) {
     if (fire) {
       for (const b of L.breakables) if (!b.broken && b.type === 'wood' && distToBox(pt, b.col) < 1.2) { b.burn += 0.07; if (b.burn >= 0.9) breakObj(b); }
       for (const br of L.braziers) if (!br.lit && br.pos.distanceTo(pt) < 1.8) lightBrazier(br);
-    } else if (d >= 2) {
+    } else if (d >= (META ? 1 : 2)) {
       const wx = mouth.x + aim.x * d * 1.1, wz = mouth.z + aim.z * d * 1.1;
-      if (wz < -46 && wz > -80 && terrainH(wx, wz) < WATER_Y - 0.25 && mouth.y + aim.y * d - WATER_Y < 7) createFloe(wx, wz);
+      const wy = META ? (META.water ? META.water(wx, wz) : null) : (wz < -46 && wz > -80 && terrainH(wx, wz) < WATER_Y - 0.25 ? WATER_Y : null);
+      if (wy !== null && mouth.y + aim.y * d - wy < 7) createFloe(wx, wz, wy);
     }
   }
 }
@@ -2943,9 +3045,10 @@ function updatePlayer(dt) {
   P.attackT = Math.max(0, P.attackT - dt); P.abilityT = Math.max(0, P.abilityT - dt); P.flapT = Math.max(0, P.flapT - dt);
   P.attackStart = false;
   // cambio de forma
-  const before = Math.ceil(P.formT); P.formT -= dt;
-  if (P.formT <= 3 && Math.ceil(P.formT) !== before && P.formT > 0) SFX.tick();
-  if (P.formT <= 0) { P.formT = FORM_TIME; transformTo(P.next); P.next = nextFromBag(); updateHUDForm(); }
+  if (META) META.rule.update(dt); // cada nivel de metamorfosis tiene su propia regla de cambio
+  else { const before = Math.ceil(P.formT); P.formT -= dt;
+    if (P.formT <= 3 && Math.ceil(P.formT) !== before && P.formT > 0) SFX.tick();
+    if (P.formT <= 0) { P.formT = FORM_TIME; transformTo(P.next); P.next = nextFromBag(); updateHUDForm(); } }
   // entrada
   const f = _v1.set(-Math.sin(cam.yaw), 0, -Math.cos(cam.yaw)), r = _v2.set(Math.cos(cam.yaw), 0, -Math.sin(cam.yaw));
   const K = input.keys, ix = (K.KeyD || K.ArrowRight ? 1 : 0) - (K.KeyA || K.ArrowLeft ? 1 : 0), iz = (K.KeyW || K.ArrowUp ? 1 : 0) - (K.KeyS || K.ArrowDown ? 1 : 0);
@@ -3012,7 +3115,8 @@ function updatePlayer(dt) {
   // regeneración
   if (stats.time - P.lastHurt > 5 && P.hp < P.maxHp) P.hp = Math.min(P.maxHp, P.hp + 3 * dt);
   // peligros
-  if (P.pos.z < -45 && P.pos.z > -81 && P.pos.y < WATER_Y - 0.5) fallRespawn('¡La corriente helada te arrastra!', 15);
+  if (META) META.hazards(P);
+  else if (P.pos.z < -45 && P.pos.z > -81 && P.pos.y < WATER_Y - 0.5) fallRespawn('¡La corriente helada te arrastra!', 15);
   else if (P.pos.z < -203 && P.pos.z > -277 && P.pos.y < LAVA_Y + 0.4) fallRespawn('¡La lava te abrasa!', 25, 0xff6a1a);
   else if (P.pos.y < -40) fallRespawn('Has caído al vacío', 15);
   // río: salpicaduras de hielo al caminar
@@ -3053,8 +3157,8 @@ function updateWorld(dt, t) {
   for (let i = L.floes.length - 1; i >= 0; i--) {
     const f = L.floes[i]; f.t += dt; const grow = Math.min(1, f.t / 0.25);
     f.m.scale.setScalar(0.1 + grow * 0.9);
-    if (f.t > f.life - 2) { const s = (f.t - (f.life - 2)) / 2; f.m.position.y = WATER_Y - s * 0.9; f.col.max.y = WATER_Y + 0.28 - s * 0.9; }
-    else if (f.t > f.life - 5 && rng() < 0.05) SMOKE.spawn(f.x + rand(-1, 1), WATER_Y + 0.4, f.z + rand(-1, 1), 0, 0.6, 0, C(0xdff4ff), 1, 0.8, { alpha: 0.4 });
+    if (f.t > f.life - 2) { const s = (f.t - (f.life - 2)) / 2; f.m.position.y = f.y - s * 0.9; f.col.max.y = f.y + 0.28 - s * 0.9; }
+    else if (f.t > f.life - 5 && rng() < 0.05) SMOKE.spawn(f.x + rand(-1, 1), f.y + 0.4, f.z + rand(-1, 1), 0, 0.6, 0, C(0xdff4ff), 1, 0.8, { alpha: 0.4 });
     if (f.t > f.life) killFloe(f);
   }
   // géiseres
@@ -3113,7 +3217,7 @@ function activateCheckpoint(cp, silent = false) {
 }
 let lavaBombT = 3;
 function updateLavaBombs(dt) {
-  const P = player; if (P.pos.z > -206 || P.pos.z < -274 || !P.alive) return;
+  const P = player; if (META) return; if (P.pos.z > -206 || P.pos.z < -274 || !P.alive) return;
   lavaBombT -= dt; if (lavaBombT > 0) return; lavaBombT = rand(1.7, 2.8);
   const tx = P.pos.x + rand(-3.5, 3.5) + P.vel.x * 0.9, tz = P.pos.z + rand(-3.5, 3.5) + P.vel.z * 0.9, ty = groundAt(tx, tz, P.pos.y + 3);
   const T = 1.6, gv = 20, a = rand(0, 6.28), st = new V3(tx + Math.cos(a) * 12, LAVA_Y, tz + Math.sin(a) * 12);
@@ -3198,10 +3302,11 @@ function updateHUD(dt) {
   const hp = Math.max(0, P.hp / P.maxHp * 100);
   setIf('hp', Math.round(hp * 2) / 2, v => { $('hpfill').style.width = v + '%'; $('hpghost').style.width = v + '%'; $('hptext').textContent = Math.ceil(P.hp); });
   setIf('low', hp < 30, v => $('lowhp').classList.toggle('on', v));
-  const ft = Math.max(0, P.formT);
-  setIf('ring', Math.round(ft * 30), () => $('ringArc').setAttribute('stroke-dashoffset', (213.6 * (1 - ft / FORM_TIME)).toFixed(1)));
-  setIf('ringN', Math.ceil(ft), v => $('ringNum').textContent = v);
-  setIf('warn', ft < 3, v => $('timerWrap').classList.toggle('warn', v));
+  if (META) META.rule.hud(dt);
+  else { const ft = Math.max(0, P.formT);
+    setIf('ring', Math.round(ft * 30), () => $('ringArc').setAttribute('stroke-dashoffset', (213.6 * (1 - ft / FORM_TIME)).toFixed(1)));
+    setIf('ringN', Math.ceil(ft), v => $('ringNum').textContent = v);
+    setIf('warn', ft < 3, v => $('timerWrap').classList.toggle('warn', v)); }
   const cds = [Math.max(0, P.atkCd) / 0.8, Math.max(0, P.abCd) / 2, 0];
   if (IS_TOUCH) {
     const atkMax = { wolf: 0.3, spider: 0.36, bear: 0.8, dragon: 1, yeti: 1 }[P.form], abMax = { wolf: 1.0, spider: 0.4, bear: 2.0, dragon: 1.3, yeti: 1.1 }[P.form];
@@ -3230,11 +3335,13 @@ function showZoneBanner(z) {
   if (IS_TOUCH) { const o = $('objective'); o.classList.remove('dim'); clearTimeout(showZoneBanner.t); showZoneBanner.t = setTimeout(() => o.classList.add('dim'), 9000); }
 }
 function updateZones(dt) {
-  let idx = 0; for (let i = 0; i < ZONES.length; i++) if (player.pos.z < ZONES[i].z) idx = i;
-  if (idx > zoneIdx) { zoneIdx = idx; showZoneBanner(ZONES[idx]); if (idx === 6) AudioSys.tone(55, 2, { type: 'sawtooth', vol: 0.08 }); }
+  const Z = META ? META.ZONES : ZONES;
+  let idx = 0; for (let i = 0; i < Z.length; i++) if (META && Z[i].test ? Z[i].test(player.pos) : player.pos.z < Z[i].z) idx = i;
+  if (idx > zoneIdx) { zoneIdx = idx; showZoneBanner(Z[idx]); if (idx === 6 && !META) AudioSys.tone(55, 2, { type: 'sawtooth', vol: 0.08 }); }
   if (bannerTimer > 0) { bannerTimer -= dt; if (bannerTimer <= 0) $('zoneBanner').style.opacity = 0; }
 }
 function victory() {
+  if (META) { META.win(); return; }
   if (gameState === 'victory') return; gameState = 'victory';
   SFX.checkpoint(); setTimeout(() => SFX.gem(), 300);
   if (document.pointerLockElement) document.exitPointerLock();
@@ -3252,6 +3359,8 @@ addEventListener('keydown', e => {
   input.keys[e.code] = true;
   if (e.code === 'Space') { input.jumpPressed = true; e.preventDefault(); }
   if (e.code === 'KeyE' || e.code === 'KeyQ') input.abilityPressed = true;
+  if (e.code === 'KeyR' || e.code === 'KeyF' && META) input.swapPressed = true;
+  if (META && gameState === 'playing' && META.rule.key) { const n = ['Digit1', 'Digit2', 'Digit3', 'Digit4', 'Digit5'].indexOf(e.code); if (n >= 0) META.rule.key(n); }
   if (e.code === 'KeyM') AudioSys.toggle();
   if (e.code === 'KeyP' && gameState === 'playing' && (NOLOCK || lockFailed)) pauseGame();
   if (DEBUG && gameState === 'playing' && !MODE) {
@@ -3263,6 +3372,7 @@ addEventListener('keydown', e => {
   }
 });
 addEventListener('keyup', e => { input.keys[e.code] = false; });
+addEventListener('wheel', e => { if (META && gameState === 'playing' && META.rule.wheel) META.rule.wheel(Math.sign(e.deltaY)); }, { passive: true });
 addEventListener('mousedown', e => { if (gameState !== 'playing' || IS_TOUCH) return; if (e.button === 0) { input.mouseL = true; input.mouseLPressed = true; } if (e.button === 2) input.abilityPressed = true; });
 addEventListener('mouseup', e => { if (e.button === 0) input.mouseL = false; });
 addEventListener('contextmenu', e => e.preventDefault());
@@ -3305,6 +3415,7 @@ function startGame() {
   cam.yaw = 0; cam.pitch = 0.3; cam.target.copy(player.pos);
   $('gemCount').textContent = `0 / ${WORLD.totalGems}`;
   updateHUDForm();
+  if (META) META.start();
 }
 
 /* =====================================================================
@@ -3377,6 +3488,7 @@ function setupTouch() {
   btn('tJump', () => { input.jumpPressed = true; input.keys.Space = true; }, () => { input.keys.Space = false; });
   btn('tAtk', () => { input.mouseL = true; input.mouseLPressed = true; }, () => { input.mouseL = false; });
   btn('tAb', () => { input.abilityPressed = true; });
+  btn('tSwap', () => { input.swapPressed = true; });
   btn('tPause', () => { if (gameState === 'playing') pauseGame(); });
   $('rotateBtn').addEventListener('click', () => { rotateDismissed = true; checkOrientation(); });
   addEventListener('resize', () => setTimeout(checkOrientation, 50));
@@ -3437,14 +3549,15 @@ function gameTick(dt, t) {
   for (let i = enemies.length - 1; i >= 0; i--) if (enemies[i].removed) enemies.splice(i, 1);
   if (boss) boss.update(dt);
   updateProjectiles(dt); updateBreakables(dt); updateHeals(dt); updateRings(dt);
+  if (META) META.update(dt, t);
   updateCamera(dt); updateZones(dt); updateHUD(dt);
-  input.jumpPressed = false; input.abilityPressed = false; input.mouseLPressed = false;
+  input.jumpPressed = false; input.abilityPressed = false; input.mouseLPressed = false; input.swapPressed = false;
 }
 function frame(now) {
   requestAnimationFrame(frame);
   let dt = Math.min(0.05, (now - lastT) / 1000); lastT = now;
   if (gameState === 'loading') return;
-  const t = timeUniform.value += dt;
+  const t = timeUniform.value += dt; gradePass.uniforms.uTime.value = t;
   if (gameState === 'playing' && rotateShown) { /* esperando a que se gire el móvil */ }
   else if (MODE) {
     if (gameState === 'playing') { mHudTick(dt); MODE.update(dt, t); adaptQuality(dt); input.jumpPressed = false; input.abilityPressed = false; input.mouseLPressed = false; }
@@ -3456,12 +3569,15 @@ function frame(now) {
   } else if (gameState === 'title') {
     titleT += dt;
     updateWorld(dt, t);
+    if (META) { META.title(dt, t); player.model.update(dt, { speed: 0, grounded: true, time: t, attackT: 0 }); }
+    else {
     const a = titleT * 0.05 + 0.6, R = 26;
     camera.position.set(Math.sin(a) * R, 9 + Math.sin(titleT * 0.2) * 2, -6 + Math.cos(a) * R);
     camera.lookAt(0, 3.5, -8);
     cam.target.set(0, 3, 0);
     player.model.update(dt, { speed: 0, grounded: true, time: t, attackT: 0 });
     for (const e of enemies) { e.root.visible = camera.position.distanceTo(e.pos) < 80; if (e.type === 'wisp' && e.root.visible) e.model.update(dt, { time: t }); }
+    }
   } else if (gameState === 'paused' || gameState === 'victory') {
     if (gameState === 'victory') { updateWorld(dt, t); }
   }
@@ -3480,6 +3596,7 @@ function frame(now) {
    ===================================================================== */
 const nextFrame = () => new Promise(r => requestAnimationFrame(() => setTimeout(r, 0)));
 async function init() {
+  if (LEVEL.kind === 'meta') return initMeta();
   if (LEVEL_ID !== 'valle') return initMode();
   const steps = [
     ['Tejiendo texturas...', () => { buildTextures(); buildMaterials(); }],
@@ -3569,14 +3686,24 @@ const ICONS = {
   glaciar: '<path d="M12 2v20M3 7l18 10M21 7L3 17"/><path d="M9 4l3 3 3-3M9 20l3-3 3 3"/>',
   abismo: '<path d="M12 2v7M4 5l5 6M20 5l-5 6"/><circle cx="12" cy="13" r="3"/><path d="M12 16c-3 2-3 4-2 6M12 16c3 2 3 4 2 6"/>',
   bola: '<circle cx="12" cy="12" r="9"/><path d="M5 9c4 2 10 2 14 0M5 15c4-2 10-2 14 0M12 3c-3 5-3 13 0 18"/>',
+  vitral: '<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="2.5"/><path d="M12 3v6.5M12 14.5V21M3 12h6.5M14.5 12H21M5.6 5.6l4.6 4.6M13.8 13.8l4.6 4.6M18.4 5.6l-4.6 4.6M10.2 13.8l-4.6 4.6"/>',
+  tinta: '<path d="M4 21c3.5 0 5.5-2 5.5-5L19 4l2 2-11 9.5c-3 0-5.5 2-6 5.5z"/><path d="M14.5 8.5l1.8 1.8"/>',
+  papel: '<path d="M4 5c5-2.2 11-2.2 16 0 0 8.5-3 14-8 15C7 19 4 13.5 4 5z"/><path d="M8 10l2.2 1M16 10l-2.2 1M9 15c2 1.6 4 1.6 6 0"/>',
+  neon: '<path d="M12 2.5l8.5 5v9L12 21.5l-8.5-5v-9z"/><path d="M12 7.5l4 2.3v4.4L12 16.5l-4-2.3V9.8z"/>',
+  pulso: '<path d="M9 18V5l11-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="17" cy="16" r="3"/>',
 };
 const LEVELS = [
-  { id: 'valle', name: 'El Valle de los Colosos', mech: 'Aventura · cambio de forma', color: '#f0b04a', desc: 'La aventura original: cambias de monstruo cada 10 segundos y cada obstáculo exige la habilidad adecuada. Derrota al Coloso de Obsidiana.' },
-  { id: 'rapidos', name: 'Rápidos del Colmillo', mech: 'Carrera de motos de agua', color: '#3ad6ff', desc: 'El Hombre Lobo pilota una moto de agua en una carrera a 3 vueltas contra tres diablillos. Rampas, turbo, trucos en el aire y rebufo.' },
-  { id: 'nubes', name: 'Corona de Nubes', mech: 'Vuelo contrarreloj', color: '#ff7a3a', desc: 'Vuela con el Dragón entre islas flotantes atravesando anillos. Cada anillo suma tiempo, el centro exacto da bonus y las térmicas te recargan.' },
-  { id: 'glaciar', name: 'Descenso Glacial', mech: 'Huida en trineo', color: '#9fe6ff', desc: 'El Yeti baja la montaña sobre su escudo mientras una avalancha le persigue. Salta grietas, encadena trucos y no te detengas.' },
-  { id: 'abismo', name: 'Telaraña del Abismo', mech: 'Balanceo con seda', color: '#c07bff', desc: 'La Araña cruza un abismo sin fondo balanceándose entre agujas de piedra. Física de péndulo real: suelta en el momento justo.' },
-  { id: 'bola', name: 'Bola Rúnica', mech: 'Laberinto de canicas', color: '#3fe0c8', desc: 'El Oso se enrolla en una bola de piedra rúnica. Rueda por un circuito flotante lleno de rampas, pistones y trampolines y recoge las 5 runas.' },
+  { id: 'valle', group: 'meta', name: 'El Valle de los Colosos', mech: 'Cambio cada 10 segundos', color: '#f0b04a', desc: 'La aventura original: cambias de monstruo cada 10 segundos y cada obstáculo exige la habilidad adecuada. Derrota al Coloso de Obsidiana.' },
+  { id: 'vitral', group: 'meta', kind: 'meta', name: 'Catedral de Vitral', mech: 'Cambio por zonas de color', color: '#ff7ad9', desc: 'El suelo de la catedral es un vitral vivo: pisar un cristal de color te transforma en su monstruo y el cristal blanco conserva tu forma. Restaura el gran rosetón tañendo las cinco campanas.' },
+  { id: 'tinta', group: 'meta', kind: 'meta', name: 'Coliseo de Tinta', mech: 'Cambio por bajas · R para cambiar', color: '#e8402a', desc: 'Un coliseo pintado a tinta. Cada enemigo lleva el sello del monstruo que le hace más daño. Las bajas cargan tu cambio: elige forma y pulsa R. Sobrevive a las oleadas y derrota al Oni Cambiante.' },
+  { id: 'papel', group: 'meta', kind: 'meta', name: 'Teatro de Papel', mech: 'Cambio por máscaras', color: '#ffb35c', desc: 'Un libro desplegable cobra vida. Solo cambias al tocar las máscaras de los pedestales o al ponerte la máscara que llevas guardada. Quema el papel, congela el mar de origami y llega al gran telón.' },
+  { id: 'neon', group: 'meta', kind: 'meta', name: 'Espiral de Neón', mech: 'Cinco vidas, cinco monstruos', color: '#36f0ff', desc: 'Cada monstruo es una vida. Si te derrotan, lo pierdes para siempre y eliges con cuál sigues. Asciende la espiral digital hasta el núcleo con tantos monstruos vivos como puedas.' },
+  { id: 'pulso', group: 'meta', kind: 'meta', name: 'Templo del Pulso', mech: 'Cambio al ritmo de la música', color: '#e6c36a', desc: 'Un templo art déco que late al compás. Te transformas en cada compás según la secuencia de la partitura; golpea los gongs para reescribir el siguiente paso.' },
+  { id: 'rapidos', group: 'reto', name: 'Rápidos del Colmillo', mech: 'Carrera de motos de agua', color: '#3ad6ff', desc: 'El Hombre Lobo pilota una moto de agua en una carrera a 3 vueltas contra tres diablillos. Rampas, turbo, trucos en el aire y rebufo.' },
+  { id: 'nubes', group: 'reto', name: 'Corona de Nubes', mech: 'Vuelo contrarreloj', color: '#ff7a3a', desc: 'Vuela con el Dragón entre islas flotantes atravesando anillos. Cada anillo suma tiempo, el centro exacto da bonus y las térmicas te recargan.' },
+  { id: 'glaciar', group: 'reto', name: 'Descenso Glacial', mech: 'Huida en trineo', color: '#9fe6ff', desc: 'El Yeti baja la montaña sobre su escudo mientras una avalancha le persigue. Salta grietas, encadena trucos y no te detengas.' },
+  { id: 'abismo', group: 'reto', name: 'Telaraña del Abismo', mech: 'Balanceo con seda', color: '#c07bff', desc: 'La Araña cruza un abismo sin fondo balanceándose entre agujas de piedra. Física de péndulo real: suelta en el momento justo.' },
+  { id: 'bola', group: 'reto', name: 'Bola Rúnica', mech: 'Laberinto de canicas', color: '#3fe0c8', desc: 'El Oso se enrolla en una bola de piedra rúnica. Rueda por un circuito flotante lleno de rampas, pistones y trampolines y recoge las 5 runas.' },
 ];
 const LEVEL_ID = LEVELS.some(l => l.id === PARAMS.get('level')) ? PARAMS.get('level') : 'valle';
 const LEVEL = LEVELS.find(l => l.id === LEVEL_ID);
@@ -3599,8 +3726,13 @@ function fmtTime(s) { if (s == null || !isFinite(s)) return '--:--'; const m = M
 const MEDALS = { oro: ['ORO', '#ffd35a'], plata: ['PLATA', '#dfe6ee'], bronce: ['BRONCE', '#d48a4a'] };
 
 /* ---------- selector de niveles del título ---------- */
+const LEVEL_GROUPS = [['meta', 'Metamorfosis'], ['reto', 'Desafíos']];
+let levelTab = LEVEL.group;
 function buildLevelSelect() {
+  $('lvTabs').innerHTML = LEVEL_GROUPS.map(([g, n]) => `<div class="lvTab${g === levelTab ? ' on' : ''}" data-g="${g}">${n}<span>${LEVELS.filter(l => l.group === g).length}</span></div>`).join('');
+  document.querySelectorAll('.lvTab').forEach(el => el.addEventListener('click', e => { e.stopPropagation(); levelTab = el.dataset.g; buildLevelSelect(); }));
   $('levels').innerHTML = LEVELS.map((l, i) => {
+    if (l.group !== levelTab) return '';
     const b = bestGet(l.id), md = b && b.medal ? MEDALS[b.medal] : null;
     const best = b ? (b.time != null ? 'Récord: ' + fmtTime(b.time) : '') + (b.label ? ' · ' + b.label : '') : 'Sin completar';
     return `<div class="lvl panel${l.id === LEVEL_ID ? ' sel' : ''}" data-id="${l.id}" style="--lc:${l.color}">
@@ -3687,15 +3819,15 @@ function mFinish(o) { // {win, title, sub, rows:[[k,v]], medal, record:{time,lab
     const rows = [...(o.rows || [])]; if (isNew) rows.push(['¡Nuevo récord!', '★']); else if (old && old.time != null) rows.push(['Récord', fmtTime(old.time) + (old.label ? ' · ' + old.label : '')]);
     $('rStats').innerHTML = rows.map(([k, v]) => `<div>${k}</div><div>${v}</div>`).join('');
     $('rNext').textContent = 'SIGUIENTE: ' + LEVELS.find(l => l.id === nextLevelId()).name.toUpperCase();
-    $('mhud').classList.add('hidden'); $('touchUI').classList.add('hidden'); $('results').classList.remove('hidden');
+    $('mhud').classList.add('hidden'); $('hud').classList.add('hidden'); $('touchUI').classList.add('hidden'); $('results').classList.remove('hidden');
   }, o.win ? 1400 : 900);
 }
-$('rRetry').addEventListener('click', () => { $('results').classList.add('hidden'); if (MODE) { MODE.reset(); beginMode(); } });
+$('rRetry').addEventListener('click', () => { $('results').classList.add('hidden'); if (MODE) { MODE.reset(); beginMode(); } else goLevel(LEVEL_ID, true); });
 $('rNext').addEventListener('click', () => goLevel(nextLevelId(), true));
 $('rMenu').addEventListener('click', () => goLevel(LEVEL_ID));
 $('menuBtn').addEventListener('click', () => goLevel(LEVEL_ID));
 $('vMenuBtn').addEventListener('click', () => goLevel('valle'));
-$('vNextBtn').addEventListener('click', () => goLevel('rapidos', true));
+$('vNextBtn').addEventListener('click', () => goLevel(nextLevelId(), true));
 
 function beginMode() {
   gameState = 'playing'; lock();
@@ -4793,6 +4925,1271 @@ MODES.bola = (() => {
   return { sky: { top: 0x2b3a7c, mid: 0xc8b4e2, bot: 0x7a68a4, sunC: 0xffe0b0, sunK: 0.9 }, dbg: { P, boxes, runes, gems, CPS }, build, reset, start() { respawn(); }, update, title, mute() { if (P.rollSnd) P.rollSnd.set(0, false); }, touch: { atk: 'Embestida', jump: 'Saltar' },
     help: '<kbd>WASD</kbd> rodar (relativo a la cámara) · <kbd>RATÓN</kbd> girar cámara · <kbd>ESPACIO</kbd> saltar · <kbd>CLIC</kbd>/<kbd>E</kbd> embestida (en el aire: golpe hacia abajo) · recoge las 5 runas',
     helpTouch: 'Joystick para rodar · arrastra para girar la cámara · EMBESTIDA rompe cristales · recoge las 5 runas' };
+})();
+
+/* =====================================================================
+   NIVELES DE METAMORFOSIS
+   Reutilizan TODO el juego del Valle (los cinco monstruos, combate, enemigos,
+   santuarios, física) pero cada uno define:
+     · su mundo (relieve META.h, límites, peligros, agua congelable)
+     · su REGLA DE CAMBIO de monstruo (META.rule) en lugar del reloj de 10 s
+     · su estilo gráfico (cielo, luz, niebla y un pase de post-proceso propio)
+   ===================================================================== */
+const METAS = {};
+const FCOL = { wolf: '#f0b04a', spider: '#b86bff', bear: '#3fe0c8', dragon: '#ff6a2a', yeti: '#7fd4ff' };
+const FHEX = { wolf: 0xf0b04a, spider: 0xb86bff, bear: 0x3fe0c8, dragon: 0xff6a2a, yeti: 0x7fd4ff };
+const STYLE_ID = { natural: 0, tinta: 1, papel: 2, neon: 3, deco: 4, vitral: 5 };
+
+/* ---------- HUD de la regla ---------- */
+const RB = { html: '' };
+function rbSet(html) { if (RB.html !== html) { RB.html = html; $('ruleBox').innerHTML = html; } }
+function rfRow(cls = {}, keys = false) { // fila de retratos: cls[k] = 'cur' | 'sel' | 'dead' ...
+  return '<div class="rbForms">' + FORM_KEYS.map((k, i) => `<div class="rf ${cls[k] || ''}" data-f="${k}" style="--c:${FCOL[k]}"><img src="${portraits[k] || ''}" alt="">${keys ? `<span class="k">${i + 1}</span>` : ''}</div>`).join('') + '</div>';
+}
+// Toques sobre los retratos del panel (táctil y ratón): la regla decide qué significan.
+document.addEventListener('pointerdown', e => {
+  const el = e.target.closest && e.target.closest('#ruleBox .rf'); if (!el || !META || gameState !== 'playing' || !META.rule.key) return;
+  e.stopPropagation(); META.rule.key(FORM_KEYS.indexOf(el.dataset.f));
+}, true);
+
+/* ---------- cambio de forma con efecto y aviso ---------- */
+function metaSwap(form, silent = false) {
+  if (!player.alive || player.form === form) return false;
+  transformTo(form, silent); player.next = form;
+  return true;
+}
+
+/* ---------- selector de monstruo (se usa en la Espiral de Neón) ---------- */
+function pickForm(title, sub, allowed, cb) {
+  $('pickT').textContent = title; $('pickS').textContent = sub;
+  $('pickCards').innerHTML = FORM_KEYS.map(k => { const F = FORMS[k];
+    return `<div class="pk ${allowed.includes(k) ? '' : 'dead'}" data-f="${k}" style="--c:${F.color}"><img src="${portraits[k]}" alt=""><b>${F.name}</b><span>${F.desc}</span></div>`; }).join('');
+  $('pickForm').classList.remove('hidden');
+  const prev = gameState; gameState = 'picking'; if (document.pointerLockElement) document.exitPointerLock();
+  const done = k => { $('pickForm').classList.add('hidden'); removeEventListener('keydown', onKey); gameState = prev === 'picking' ? 'playing' : prev; lock(); cb(k); };
+  const onKey = e => { const n = ['Digit1', 'Digit2', 'Digit3', 'Digit4', 'Digit5'].indexOf(e.code); if (n >= 0 && allowed.includes(FORM_KEYS[n])) done(FORM_KEYS[n]); };
+  addEventListener('keydown', onKey);
+  document.querySelectorAll('#pickCards .pk').forEach(el => el.addEventListener('click', e => { e.stopPropagation(); if (allowed.includes(el.dataset.f)) done(el.dataset.f); }));
+}
+
+/* ---------- utilidades de construcción compartidas ---------- */
+function slab(x, top, z, w, d, mat, o = {}) { // losa cuya cara superior queda a la altura 'top'
+  const th = o.th ?? 1.2; return block(x, top - th, z, w, th, d, mat, o);
+}
+function edgeLines(geo, color, opacity = 1) {
+  return new THREE.LineSegments(new THREE.EdgesGeometry(geo, 25), new THREE.LineBasicMaterial({ color, transparent: opacity < 1, opacity, fog: true }));
+}
+function canvasTex(w, h, draw, rep = true) { const c = mkCanvas(w, h); draw(c.getContext('2d'), w, h); return toTex(c, true, rep); }
+function lightShaft(x, y, z, r0, r1, h, color, opacity = 0.12, rx = 0, rz = 0) { // haz de luz volumétrico barato
+  const g = new THREE.CylinderGeometry(r0, r1, h, 18, 1, true); g.translate(0, -h / 2, 0);
+  const m = new THREE.Mesh(g, new THREE.ShaderMaterial({ transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, side: THREE.DoubleSide,
+    uniforms: { uC: { value: new THREE.Color(color) }, uO: { value: opacity }, uTime: timeUniform },
+    vertexShader: 'varying vec2 vUv; varying vec3 vN; varying vec3 vV; void main(){ vUv=uv; vec4 w=modelMatrix*vec4(position,1.); vN=normalize(mat3(modelMatrix)*normal); vV=normalize(cameraPosition-w.xyz); gl_Position=projectionMatrix*viewMatrix*w; }',
+    fragmentShader: 'uniform vec3 uC; uniform float uO; uniform float uTime; varying vec2 vUv; varying vec3 vN; varying vec3 vV; void main(){ float f = pow(abs(dot(vN,vV)), 1.5); float a = uO * f * smoothstep(0., .25, vUv.y) * (0.75 + 0.25*sin(vUv.x*40. + uTime*.6)); gl_FragColor = vec4(uC * a, a); }' }));
+  m.position.set(x, y, z); m.rotation.set(rx, 0, rz); m.renderOrder = 5; scene.add(m); return m;
+}
+function dustMotes(count, box, color, size = 0.12, speed = 0.4) { // polvo luminoso en suspensión (un único draw call)
+  const g = new THREE.BufferGeometry(), p = new Float32Array(count * 3);
+  for (let i = 0; i < count; i++) { p[i * 3] = rand(box[0], box[1]); p[i * 3 + 1] = rand(box[2], box[3]); p[i * 3 + 2] = rand(box[4], box[5]); }
+  g.setAttribute('position', new THREE.BufferAttribute(p, 3));
+  const m = new THREE.Points(g, new THREE.ShaderMaterial({ transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, uniforms: { uT: timeUniform, uC: { value: new THREE.Color(color) }, uS: { value: size * 260 }, uSp: { value: speed } },
+    vertexShader: 'uniform float uT; uniform float uS; uniform float uSp; void main(){ vec3 p = position; p.x += sin(uT*uSp + p.y*.7 + p.z)*.8; p.y += sin(uT*uSp*.7 + p.x*.5)*.6; vec4 mv = modelViewMatrix*vec4(p,1.); gl_PointSize = uS / -mv.z; gl_Position = projectionMatrix*mv; }',
+    fragmentShader: 'uniform vec3 uC; void main(){ float d = length(gl_PointCoord-.5); if(d>.5) discard; gl_FragColor = vec4(uC, (1.-d*2.)*.8); }' }));
+  m.frustumCulled = false; scene.add(m); return m;
+}
+
+/* ---------- valores por defecto de un nivel ---------- */
+function metaDefaults(M) {
+  return Object.assign({
+    h: () => -200, bounds: [-60, 60, -400, 60], fallY: -30, ZONES: [], gemLabel: 'FRAGMENTOS', startForm: 'wolf',
+    water: null, walkable: (x, z) => !(M.water && M.water(x, z) !== null),
+    hazards(P) {
+      const w = M.water ? M.water(P.pos.x, P.pos.z) : null;
+      if (w !== null && P.pos.y < w - 0.6) fallRespawn(M.waterMsg || '¡El agua te arrastra!', 15);
+      else if (P.pos.y < M.fallY) fallRespawn(M.fallMsg || 'Has caído al vacío', 15);
+    },
+    update() { }, start() { }, title(dt, t) { const a = t * 0.06; const c = M.titleAt || new V3(0, 4, 0); camera.position.set(c.x + Math.sin(a) * 26, c.y + 10, c.z + Math.cos(a) * 26); camera.lookAt(c); },
+    t: 0, done: false,
+  }, M);
+}
+function metaFinish(o) {
+  if (META.done) return; META.done = true; player.invuln = 999;
+  mFinish(Object.assign({ win: true, sub: LEVEL.name }, o));
+}
+function metaMedal(t, gold, silver) { return t < gold ? 'oro' : t < silver ? 'plata' : 'bronce'; }
+
+/* ---------- carga de un nivel de metamorfosis ---------- */
+async function initMeta() {
+  META = metaDefaults(METAS[LEVEL_ID]);
+  WORLD.playerUniform = { value: new V3() };
+  const S = META.style || {};
+  const steps = [
+    ['Tejiendo texturas...', () => { buildTextures(); buildMaterials(); FX = new Particles(4500, true, TEX.soft); SMOKE = new Particles(1800, false, TEX.smoke);
+      gemMat = stdMat({ color: S.gem ?? 0x6affd0, emissive: S.gem ?? 0x2affc0, emissiveIntensity: 1.5, roughness: 0.15, metalness: 0.3 }); }],
+    ['Construyendo ' + LEVEL.name + '...', () => { META.build(); WORLD.totalGems = L.gems.length; }],
+    ['Despertando a los monstruos...', () => {
+      for (const k of FORM_KEYS) { const m = FORMS[k].build(); optimizeModel(m.root); m.root.visible = false; scene.add(m.root); player.models[k] = m; }
+      for (const s of L.enemySpawns) { const e = new Enemy(s.type, s.x, s.z, s.y); if (s.init) s.init(e); }
+    }],
+    ['Iluminando el cielo...', () => {
+      const es = new THREE.Scene(); es.add(META.sky ? gradientSky(META.sky) : makeSky(500));
+      if (META.sky) new THREE.CubeCamera(1, 2000, skyCubeRT).update(renderer, es);
+      const pm = new THREE.PMREMGenerator(renderer); WORLD.envTex = pm.fromScene(es, 0, 1, 1200).texture; pm.dispose();
+      for (const m of [MAT.ice, MAT.iceSolid, MAT.gold, MAT.iron, ...(META.envMats || [])]) { m.envMap = WORLD.envTex; m.needsUpdate = true; }
+      if (S.background !== undefined) scene.background = new THREE.Color(S.background);
+    }],
+    ['Capturando almas...', () => capturePortraits()],
+    ['Compilando sombreadores...', () => { const hidden = []; scene.traverse(o => { if (!o.visible && o !== sun) hidden.push(o); }); hidden.forEach(o => o.visible = true);
+      for (let n = 0; n <= 2; n++) { lightPool.forEach((l, i) => l.visible = i < n); renderer.compile(scene, camera); }
+      hidden.forEach(o => o.visible = false); lightPool.forEach(l => l.visible = false); }],
+  ];
+  for (let i = 0; i < steps.length; i++) { $('loadTxt').textContent = steps[i][0]; $('loadBar').style.width = (i / steps.length * 100) + '%'; await nextFrame(); steps[i][1](); }
+  $('loadBar').style.width = '100%';
+  // estilo visual
+  gradePass.uniforms.uStyle.value = STYLE_ID[S.post || 'natural'];
+  if (S.exposure) gradePass.uniforms.uExposure.value = S.exposure;
+  if (S.sat) gradePass.uniforms.uSat.value = S.sat;
+  if (S.tint) gradePass.uniforms.uTint.value.set(S.tint);
+  if (S.bloom) { bloom.strength = S.bloom[0]; bloom.radius = S.bloom[1]; bloom.threshold = S.bloom[2]; }
+  if (S.fog) { scene.fog.color.set(S.fog[0]); scene.fog.density = S.fog[1]; }
+  if (S.hemi) { hemi.color.set(S.hemi[0]); hemi.groundColor.set(S.hemi[1]); hemi.intensity = S.hemi[2]; }
+  if (S.sun) { sun.color.set(S.sun[0]); sun.intensity = S.sun[1]; }
+  // estado inicial
+  const cp0 = L.checkpoints[0]; activateCheckpoint(cp0, true);
+  player.pos.copy(META.spawn || cp0.respawn);
+  transformTo(META.startForm, true); player.next = META.startForm; player.model.root.visible = true; player.model.root.position.copy(player.pos);
+  if (META.rule.init) META.rule.init();
+  // HUD propio de la regla
+  $('timerWrap').classList.add('hidden'); $('ruleBox').classList.remove('hidden');
+  $('gemLbl').textContent = META.gemLabel;
+  $('tSwap').classList.toggle('hidden', !META.rule.action); if (META.rule.action) $('tSwapLbl').textContent = META.rule.action;
+  $('titleSub').textContent = 'NIVEL ' + (LEVELS.indexOf(LEVEL) + 1) + ' · ' + LEVEL.mech.toUpperCase();
+  document.querySelectorAll('#title .controls').forEach(el => { el.innerHTML = IS_TOUCH ? META.helpTouch : META.help; });
+  buildLevelSelect(); onResize(); setupTouch();
+  $('loading').classList.add('hidden'); $('title').classList.remove('hidden');
+  gameState = 'title'; if (IS_TOUCH) checkOrientation();
+  if (DEBUG) window.G = { META, touch, scene, camera, player, cam, L, enemies, colliders, THREE, renderer, composer, bloom, FX, SMOKE, WORLD, transformTo, terrainH, groundAt, input, stats, gradePass,
+    tick: (n = 1, dt = 1 / 60) => { for (let i = 0; i < n; i++) { timeUniform.value += dt; gameTick(dt, timeUniform.value); FX.update(dt); SMOKE.update(dt); } }, setState: s => gameState = s, activateCheckpoint, respawn, get state() { return gameState; } };
+  if (PARAMS.has('autostart')) showTapToStart();
+}
+
+/* =====================================================================
+   CATEDRAL DE VITRAL — regla: CAMBIO POR ZONAS
+   El suelo es un vitral vivo. Pisar (o pasar a menos de 2,2 m sobre) un
+   cristal de color te convierte en su monstruo; el cristal blanco conserva
+   la forma que traigas. Los cristales pueden moverse (el rosetón gira).
+   ===================================================================== */
+METAS.vitral = (() => {
+  const ZN = { wolf: 'ámbar', spider: 'violeta', bear: 'turquesa', dragon: 'rojo', yeti: 'azul' };
+  const zones = []; // {x0,x1,z0,z1,y,form}
+  const disc = { cx: 0, cz: -92, r: 11, y: 0, a: 0, w: 0.32, sectors: ['wolf', 'spider', 'bear', 'dragon', 'yeti', 'wolf', 'spider', 'bear', 'dragon', 'yeti'], group: null };
+  const bells = []; let chordT = 0, rose = null, roseMat = null, winMats = [];
+  const R = { pend: 0, zone: null };
+  const WALL = 13.5;
+  function h(x, z) {
+    if (z >= -126) return 0;
+    if (z > -172) { let y = -6; const ch = smoothstep(-139.6, -140.4, z) * smoothstep(-160.4, -159.6, z); return y - ch * 8; }
+    if (z > -180) return lerp(-6, 0, smoothstep(-172, -180, z));
+    return 0;
+  }
+  const water = (x, z) => (z < -140 && z > -160 ? -7 : null);
+  function zoneAt(x, z, y) {
+    const dx = x - disc.cx, dz = z - disc.cz, dr = Math.hypot(dx, dz);
+    if (dr < disc.r && y - disc.y < 2.2 && y - disc.y > -0.6) {
+      if (dr < 1.6) return null; // pedestal central neutro
+      const TAU = Math.PI * 2, a0 = Math.atan2(dz, dx) - disc.a, a = a0 - TAU * Math.floor(a0 / TAU);
+      return disc.sectors[Math.floor(a / (Math.PI * 2) * disc.sectors.length)];
+    }
+    for (const zn of zones) if (x > zn.x0 && x < zn.x1 && z > zn.z0 && z < zn.z1 && y - zn.y < 2.2 && y - zn.y > -0.6) return zn.form;
+    return null;
+  }
+  /* ---------- texturas de vitral ---------- */
+  function glassCanvas(size, cells, palette, arch = false, lead = '#0d0b10') {
+    const c = mkCanvas(size), g = c.getContext('2d'), pts = [];
+    for (let i = 0; i < cells; i++) pts.push([rand(0, size), rand(0, size), palette[Math.floor(rng() * palette.length)], rand(0.55, 1.15)]);
+    const img = g.createImageData(size, size), D = img.data;
+    for (let y = 0; y < size; y++) for (let x = 0; x < size; x++) {
+      let d1 = 1e9, d2 = 1e9, best = null;
+      for (const p of pts) { let dx = Math.abs(x - p[0]), dy = Math.abs(y - p[1]); if (!arch) { dx = Math.min(dx, size - dx); dy = Math.min(dy, size - dy); } const d = dx * dx + dy * dy; if (d < d1) { d2 = d1; d1 = d; best = p; } else if (d < d2) d2 = d; }
+      const edge = Math.sqrt(d2) - Math.sqrt(d1), i = (y * size + x) * 4;
+      const col = new THREE.Color(best[2]); const k = best[3] * (0.85 + 0.15 * Math.sin(x * 0.3 + y * 0.2)) * (1 - 0.35 * Math.min(1, Math.sqrt(d1) / 40));
+      const lead = edge < 2.4 ? 0 : 1;
+      D[i] = col.r * 255 * k * lead; D[i + 1] = col.g * 255 * k * lead; D[i + 2] = col.b * 255 * k * lead; D[i + 3] = 255;
+    }
+    g.putImageData(img, 0, 0);
+    if (arch) { // máscara de arco apuntado
+      g.globalCompositeOperation = 'destination-in'; g.beginPath(); const w = size, hh = size;
+      g.moveTo(w * 0.08, hh); g.lineTo(w * 0.08, hh * 0.42); g.quadraticCurveTo(w * 0.1, hh * 0.04, w * 0.5, 0); g.quadraticCurveTo(w * 0.9, hh * 0.04, w * 0.92, hh * 0.42); g.lineTo(w * 0.92, hh); g.closePath(); g.fill();
+      g.globalCompositeOperation = 'source-over'; g.strokeStyle = lead; g.lineWidth = size * 0.03; g.stroke();
+    }
+    return c;
+  }
+  function build() {
+    // materiales propios de la catedral
+    const stone = stdMat({ map: TEX.brick.map, normalMap: TEX.brick.normal, normalScale: new THREE.Vector2(1.2, 1.2), roughness: 0.9, color: 0x77708a });
+    const stoneDark = stdMat({ map: TEX.rock.map, normalMap: TEX.rock.normal, roughness: 0.9, color: 0x45404f });
+    MAT.stone = stone; // santuarios, carteles y pilares usan la piedra de la catedral
+    const marble = canvasTex(256, 256, (g, w) => { g.fillStyle = '#16131c'; g.fillRect(0, 0, w, w); for (let i = 0; i < 1200; i++) { g.fillStyle = `rgba(${120 + rng() * 60},${110 + rng() * 50},${150 + rng() * 60},${rng() * 0.06})`; g.beginPath(); g.arc(rng() * w, rng() * w, rng() * 18, 0, 6.3); g.fill(); }
+      g.strokeStyle = 'rgba(214,170,90,.55)'; g.lineWidth = 3; g.strokeRect(1.5, 1.5, w - 3, w - 3); g.strokeStyle = 'rgba(214,170,90,.25)'; g.lineWidth = 1.5; g.beginPath(); g.moveTo(w / 2, 0); g.lineTo(w / 2, w); g.moveTo(0, w / 2); g.lineTo(w, w / 2); g.stroke(); });
+    marble.repeat.set(1, 1);
+    const glassT = toTex(glassCanvas(256, 26, ['#ffffff']), true, true);
+    const zoneMat = {}; for (const k of FORM_KEYS) zoneMat[k] = new THREE.MeshBasicMaterial({ map: glassT, color: new THREE.Color(FHEX[k]).multiplyScalar(0.92) });
+    const floorMat = stdMat({ map: marble, roughness: 0.35, metalness: 0.1, color: 0xffffff }); META.envMats = [floorMat];
+    // suelo de mármol (nave, cripta y torre)
+    const fl = (x0, x1, z0, z1, y) => { const g = new THREE.PlaneGeometry(x1 - x0, z1 - z0); g.rotateX(-Math.PI / 2); const uv = g.attributes.uv; for (let i = 0; i < uv.count; i++) uv.setXY(i, uv.getX(i) * (x1 - x0) / 4, uv.getY(i) * (z1 - z0) / 4);
+      const m = new THREE.Mesh(g, floorMat); m.position.set((x0 + x1) / 2, y + 0.01, (z0 + z1) / 2); m.receiveShadow = true; scene.add(m); return m; };
+    fl(-WALL, WALL, -126, 16, 0); fl(-WALL, WALL, -140, -126, -6); fl(-WALL, WALL, -172, -160, -6); fl(-WALL, WALL, -208, -180, 0);
+    heightMesh(-WALL, WALL, -182, -126, 1, h, (x, z, y, o) => o.setRGB(0.18, 0.16, 0.22), stdMat({ vertexColors: true, map: TEX.rock.map, roughness: 0.9 }));
+    // agua de la cripta
+    { const wm = simpleWaterMat(0x1a3a5a, 20); const w = new THREE.Mesh(new THREE.PlaneGeometry(WALL * 2, 20), wm); w.rotation.x = -Math.PI / 2; w.position.set(0, -7, -150); scene.add(w); META.waterMesh = w; }
+    // muros, contrafuertes y nervios
+    const wallSeg = (x, z0, z1, y0, y1) => block(x, y0, (z0 + z1) / 2, 1.6, y1 - y0, Math.abs(z1 - z0), stone, { climbable: false, tile: 4 });
+    for (const s of [-1, 1]) { wallSeg(s * (WALL + 0.8), 18, -126, 0, 24); wallSeg(s * (WALL + 0.8), -126, -180, -14, 20); wallSeg(s * (WALL + 0.8), -180, -210, 0, 42); }
+    block(0, 0, 17.6, WALL * 2 + 3, 24, 1.6, stone, { climbable: false });
+    block(0, 0, -209, WALL * 2 + 3, 42, 1.6, stone, { climbable: false });
+    // muro del fondo de la nave con puerta alta hacia la cripta
+    block(-8.25, -14, -126.8, 10.5, 38, 1.6, stone, { climbable: false }); block(8.25, -14, -126.8, 10.5, 38, 1.6, stone, { climbable: false });
+    block(0, -14, -126.8, 6, 22.6, 1.6, stone, { climbable: false }); block(0, 12.6, -126.8, 6, 11.4, 1.6, stone, { climbable: false });
+    // muro de la torre (separa cripta y campanario)
+    block(-8.25, -6, -180.8, 10.5, 48, 1.6, stone, { climbable: false }); block(8.25, -6, -180.8, 10.5, 48, 1.6, stone, { climbable: false }); block(0, 4.5, -180.8, 6, 37.5, 1.6, stone, { climbable: false });
+    for (let z = 12; z > -205; z -= 10) for (const s of [-1, 1]) {
+      if (z < -122 && z > -184) continue;
+      const y0 = h(s * 12.7, z); addMesh(new THREE.CylinderGeometry(0.75, 0.9, 26, 10), stoneDark, s * 12.6, y0 + 13, z);
+      addMesh(new THREE.BoxGeometry(2.2, 0.8, 2.2), stone, s * 12.6, y0 + 0.4, z);
+      if (z > -122) { const rib = new THREE.TorusGeometry(WALL - 0.6, 0.38, 6, 30, Math.PI); addMesh(rib, stoneDark, 0, 24, z, { cast: false }); }
+    }
+    // vidrieras ojivales en los muros (emisivas)
+    const winTex = []; const pals = [['#ff3b3b', '#2f6bff', '#ffd35a', '#1fbf7a'], ['#b86bff', '#ff6a2a', '#7fd4ff', '#ffe6a0'], ['#3fe0c8', '#f0b04a', '#ff4d8a', '#5a4cff']];
+    for (const p of pals) winTex.push(toTex(glassCanvas(256, 30, p, true), true, false));
+    for (const t of winTex) { const m = new THREE.MeshBasicMaterial({ map: t, transparent: true, alphaTest: 0.5, side: THREE.DoubleSide, fog: false }); winMats.push(m); }
+    let wi = 0;
+    for (let z = 7; z > -120; z -= 10) for (const s of [-1, 1]) {
+      const m = new THREE.Mesh(new THREE.PlaneGeometry(5.2, 11), winMats[wi++ % 3]); m.position.set(s * (WALL - 0.02), 13, z); m.rotation.y = -s * Math.PI / 2; scene.add(m);
+      if ((wi & 1) === 0) lightShaft(s * (WALL - 0.5), 18, z, 1.6, 4.5, 22, [0xffc070, 0x9a7cff, 0xff7a6a, 0x7fd4ff][wi % 4], 0.08, 0, s * 0.62);
+    }
+    for (let z = -136; z > -176; z -= 12) for (const s of [-1, 1]) { const m = new THREE.Mesh(new THREE.PlaneGeometry(4, 8), winMats[wi++ % 3]); m.position.set(s * (WALL - 0.02), 4, z); m.rotation.y = -s * Math.PI / 2; scene.add(m); }
+    for (let y = 8; y < 36; y += 13) for (const s of [-1, 1]) { const m = new THREE.Mesh(new THREE.PlaneGeometry(4, 9), winMats[wi++ % 3]); m.position.set(s * (WALL - 0.02), y + 4, -194); m.rotation.y = -s * Math.PI / 2; scene.add(m); }
+    // rosetones: el de la nave (decorativo) y el gran rosetón final
+    const roseTex = toTex((() => { const c = mkCanvas(512), g = c.getContext('2d'); const cc = glassCanvas(512, 70, ['#ff3b3b', '#2f6bff', '#ffd35a', '#b86bff', '#3fe0c8', '#ff6a2a'], true); g.save(); g.beginPath(); g.arc(256, 256, 250, 0, 6.3); g.clip(); g.drawImage(cc, 0, 0); g.restore();
+      g.strokeStyle = '#0d0b10'; g.lineWidth = 14; for (let r = 60; r < 260; r += 64) { g.beginPath(); g.arc(256, 256, r, 0, 6.3); g.stroke(); } for (let i = 0; i < 16; i++) { const a = i / 16 * 6.283; g.beginPath(); g.moveTo(256 + Math.cos(a) * 60, 256 + Math.sin(a) * 60); g.lineTo(256 + Math.cos(a) * 250, 256 + Math.sin(a) * 250); g.stroke(); } return c; })(), true, false);
+    { const m = new THREE.Mesh(new THREE.CircleGeometry(7, 48), new THREE.MeshBasicMaterial({ map: roseTex, fog: false })); m.position.set(0, 19, -125.9); scene.add(m); }
+    roseMat = new THREE.MeshBasicMaterial({ map: roseTex, color: 0x3a3440, fog: false });
+    rose = new THREE.Mesh(new THREE.CircleGeometry(6.5, 48), roseMat); rose.position.set(0, 36.5, -208.1); scene.add(rose);
+    // ---------------- S0 NÁRTEX ----------------
+    checkpoint(0, 9, 0, 'Nártex');
+    sign(5, 4, 'VITRAL VIVO', ['Pisar un cristal de color te transforma', 'en su monstruo. El cristal blanco', 'conserva la forma que traigas.'], -0.4);
+    zone(-12, -4, -10, -2, 0, 'spider'); block(-10.25, 0, -8, 4.5, 6, 4, stoneDark, { rock: true }); gem(-10.25, -8, 7.3);
+    zone(3, 12, -20, -12, 0, 'wolf');
+    sign(-5, -16, 'EL CORO', ['El muro del coro es alto:', 'cruza el cristal ámbar y', 'salta dos veces como Lobo.'], 0.4);
+    block(0, 0, -23, WALL * 2, 3.6, 1.8, stone, { climbable: false }); gem(0, -23, 5);
+    gem(7.5, -16); gem(-8, 2);
+    // ---------------- S1 CAPILLA DE CENIZA ----------------
+    checkpoint(0, -29, 0, 'Capilla de Ceniza');
+    zone(-12.5, -5.5, -41, -32, 0, 'dragon'); block(-12.6, 0, -36.5, 0.8, 3, 9, stoneDark, { climbable: false });
+    zone(-WALL, WALL, -49, -45.5, 0, 'bear');
+    sign(5.5, -37.5, 'FRANJA TURQUESA', ['Te vuelve Oso al pisarla.', 'Salta por encima si quieres', 'conservar tu forma.'], -0.5);
+    { const b = cracked(10, 0, -40, 3.4, 3.4, 3.4); gem(10, -40, 1.4); }
+    block(-8, 0, -60.8, 11, 9, 1.6, stone, { climbable: false }); block(8, 0, -60.8, 11, 9, 1.6, stone, { climbable: false }); block(0, 6, -60.8, 5, 3, 1.6, stone, { climbable: false });
+    barricade(0, 0, -60.8, 5, 6, 0.6);
+    torch(-2.8, 1.2, -59.6, true); torch(2.8, 1.2, -59.6, false);
+    enemy('imp', -3, -37); enemy('imp', 5, -54); gem(0, -53); gem(-9, -50);
+    // ---------------- S2 NAVE DEL ROSETÓN ----------------
+    checkpoint(0, -66, 0, 'Nave del Rosetón');
+    { disc.group = new THREE.Group(); disc.group.position.set(disc.cx, 0.02, disc.cz); scene.add(disc.group);
+      const n = disc.sectors.length;
+      disc.sectors.forEach((f, i) => { const g = new THREE.CircleGeometry(disc.r, 10, i / n * Math.PI * 2 + 0.015, Math.PI * 2 / n - 0.03); g.rotateX(-Math.PI / 2); const mt = zoneMat[f].clone(); mt.side = THREE.DoubleSide; const m = new THREE.Mesh(g, mt); m.scale.z = -1; disc.group.add(m); });
+      const ring = new THREE.Mesh(new THREE.TorusGeometry(disc.r, 0.18, 6, 64), MAT.gold); ring.rotation.x = Math.PI / 2; disc.group.add(ring);
+      const hub = addMesh(new THREE.CylinderGeometry(1.5, 1.7, 0.5, 16), MAT.gold, disc.cx, 0.25, disc.cz, { dyn: true }); colBox(disc.cx, 0, disc.cz, 2.4, 0.5, 2.4);
+      gem(disc.cx, disc.cz, 1.7); gem(disc.cx + 7, disc.cz); gem(disc.cx - 7, disc.cz); }
+    sign(-6, -74, 'EL ROSETÓN', ['El rosetón gira: cambias según', 'el sector que pisas. Sube a la galería:', 'Araña (anclaje), Yeti (dos pilares)', 'o Dragón (desde el púlpito).'].slice(0, 3), 0.3);
+    // galería alta (y=9) junto al muro del fondo, con el paso hacia la cripta
+    block(0, 0, -122.5, WALL * 2, 9, 7, stone, { climbable: false });
+    block(-9.5, 9, -119.4, 8, 1, 0.4, MAT.gold, { nocol: true }); block(9.5, 9, -119.4, 8, 1, 0.4, MAT.gold, { nocol: true });
+    anchor(0, 13, -117.6);
+    block(8, 0, -114, 3.2, 4.5, 3.2, stoneDark, { rock: true }); // púlpito
+    sign(8, -108.5, 'PÚLPITO', ['El Dragón alcanza la galería', 'aleteando desde aquí.'], 0);
+    gem(8, -114, 5.8); gem(0, -122, 10.3);
+    block(0, 9, -128.6, 6, 0.6, 2, stone, { climbable: false }); // umbral sobre la cripta
+    enemy('imp', -6, -72); enemy('imp', 6, -112); enemy('wisp', -7, -104, 6); enemy('wisp', 6, -96, 7);
+    // ---------------- S3 CRIPTA INUNDADA ----------------
+    zone(-WALL, WALL, -139.6, -128, -6, 'yeti');
+    checkpoint(-8, -134, -6, 'Cripta Inundada');
+    sign(7, -132, 'CRIPTA', ['El cristal azul te vuelve Yeti.', 'Congela el canal con tu aliento', 'y camina sobre el hielo.'], -0.3);
+    for (let z = -140; z > -162; z -= 7) for (const s of [-1, 1]) { addMesh(new THREE.CylinderGeometry(0.7, 0.9, 30, 10), stoneDark, s * 9, -14 + 15, z); colBox(s * 9, -14, z, 1.6, 30, 1.6, { climbable: false }); }
+    for (const s of [-1, 1]) for (const z of [-143, -150, -157]) torch(s * 12.4, -4.5, z, z === -150);
+    enemy('imp', 5, -167, -6); enemy('imp', -5, -168, -6); enemy('brute', 0, -170, -6); gem(-10, -166, -4.7); gem(0, -150, -5);
+    // ---------------- S4 CAMPANARIO ----------------
+    checkpoint(6, -184, 0, 'Base del campanario');
+    zone(-11, -4, -189, -183, 0, 'wolf');
+    block(-9, 0, -195, 6, 3.6, 6, stone, { climbable: false });            // R1 (3,6)
+    zone(-11.5, -6.5, -197.5, -192.5, 3.6, 'spider');
+    block(-10.5, 0, -202, 3, 12, 4, stoneDark, { rock: true });           // columna trepable
+    block(-7.5, 10.8, -203, 9, 1.2, 6, stone);                             // R2 (12)
+    zone(-10, -5, -205.5, -200.5, 12, 'dragon');
+    block(5.75, 13.3, -202, 8.5, 1.2, 8, stone, { climbable: false });     // R3 (14,5)
+    zone(5, 9.5, -201, -198.5, 14.5, 'bear');
+    checkpoint(7, -204.2, 14.5, 'Rellano del Oso');
+    block(1.2, 14.5, -199.5, 0.6, 12, 5, stone, { climbable: false });     // muro con paso agrietado
+    cracked(1.2, 14.5, -204.5, 0.9, 4, 5); block(1.2, 18.5, -204.5, 0.6, 8, 5, stone, { climbable: false });
+    for (let i = 0; i < 14; i++) block(0.65 - i * 0.5, 14.5, -205, 0.5, 0.465 * (i + 1), 4, stone);   // escalera
+    block(-9.3, 19.8, -203, 5.4, 1.2, 8, stone, { climbable: false });     // R4 (21)
+    zone(-11.5, -6.8, -206.5, -199.5, 21, 'yeti');
+    { const m = new THREE.Mesh(new THREE.RingGeometry(1.2, 1.45, 32), new THREE.MeshBasicMaterial({ color: 0x7fd4ff, transparent: true, opacity: 0.8 })); m.rotation.x = -Math.PI / 2; m.position.set(-7.2, 21.06, -200.8); scene.add(m); }
+    sign(-10.5, -205.5, 'PILARES', ['Desde el anillo azul,', 'alza dos pilares de hielo', 'hasta el campanario.'], 0, 21);
+    block(0, 28.3, -191, 16, 1.2, 14, stone, { climbable: false });        // campanario (29,5)
+    sign(-3, -184.5, 'CAMPANARIO', ['Cada rellano tiene su cristal.', 'Arriba, tañe las cinco campanas', 'antes de que se apague su eco.'], 0.2);
+    enemy('wisp', 4, -190, 12); enemy('imp', 7, -201, 15.5);
+    gem(-9, -195, 4.9); gem(-6, -203, 13.3); gem(-10, -203, 22.3);
+    // las cinco campanas
+    FORM_KEYS.forEach((f, i) => { const a = i / 5 * Math.PI * 2 + 0.3, x = Math.cos(a) * 5, z = -191 + Math.sin(a) * 4.6;
+      zone(x - 1.2, x + 1.2, z - 1.2, z + 1.2, 29.5, f);
+      const g = new THREE.Group(); g.position.set(x, 37.6, z); g.scale.setScalar(0.85); scene.add(g);
+      const bellMat = stdMat({ color: 0xcfa35a, roughness: 0.3, metalness: 1, emissive: FHEX[f], emissiveIntensity: 0.15 }); META.envMats.push(bellMat);
+      const bm = new THREE.Mesh(new THREE.CylinderGeometry(0.45, 1.25, 1.9, 18, 1, true), bellMat); bm.position.y = -1.6; bm.material.side = THREE.DoubleSide; g.add(bm);
+      const cap = new THREE.Mesh(new THREE.SphereGeometry(0.47, 14, 8, 0, 6.3, 0, 1.6), bellMat); cap.position.y = -0.66; g.add(cap);
+      const beam = new THREE.Mesh(new THREE.BoxGeometry(2.6, 0.3, 0.3), stoneDark); g.add(beam);
+      bells.push({ f, x, z, g, mat: bellMat, rung: 0, swing: 0 }); });
+    gem(0, -191, 30.8);
+    // decoración: velas, polvo y estrellas
+    for (const [x, z, y] of [[-11, 10, 0], [11, -18, 0], [-11, -66, 0], [11, -80, 0], [-11, -116, 0], [11, -130, -6], [-11, -186, 0], [11, -196, 0]]) {
+      for (let i = 0; i < 5; i++) { const hgt = rand(0.4, 1.1); addMesh(new THREE.CylinderGeometry(0.09, 0.1, hgt, 6), stdMat({ color: 0xf2e6cc, roughness: 0.9 }), x + rand(-0.8, 0.8), y + hgt / 2, z + rand(-0.8, 0.8), { cast: false }); }
+      L.torches.push({ pos: new V3(x, y + 1.1, z), light: null });
+    }
+    dustMotes(700, [-12, 12, 0, 22, -205, 15], 0xffd9a0, 0.09, 0.35);
+    { const g = new THREE.BufferGeometry(), p = []; for (let i = 0; i < 700; i++) { const v = new V3().setFromSphericalCoords(800, rand(0, 1.35), rand(0, 6.28)); p.push(v.x, Math.abs(v.y) + 60, v.z); }
+      g.setAttribute('position', new THREE.Float32BufferAttribute(p, 3)); const s = new THREE.Points(g, new THREE.PointsMaterial({ color: 0xdcd6ff, size: 1.6, sizeAttenuation: false, fog: false })); scene.add(s); }
+    batchStatic();
+    function zone(x0, x1, z0, z1, y, form) {
+      zones.push({ x0, x1, z0, z1, y, form });
+      const g = new THREE.PlaneGeometry(x1 - x0, z1 - z0); g.rotateX(-Math.PI / 2); const uv = g.attributes.uv; for (let i = 0; i < uv.count; i++) uv.setXY(i, uv.getX(i) * (x1 - x0) / 6, uv.getY(i) * (z1 - z0) / 6);
+      const m = new THREE.Mesh(g, zoneMat[form]); m.position.set((x0 + x1) / 2, y + 0.03, (z0 + z1) / 2); scene.add(m);
+      const fr = new THREE.Mesh(new THREE.EdgesGeometry(new THREE.BoxGeometry(x1 - x0, 0.01, z1 - z0)), new THREE.LineBasicMaterial({ color: 0xd8b060 })); fr.position.copy(m.position); scene.add(fr);
+    }
+  }
+  /* ---------- regla ---------- */
+  const rule = {
+    update(dt) {
+      const P = player, f = zoneAt(P.pos.x, P.pos.z, P.pos.y); R.zone = f;
+      if (f && f !== P.form && P.alive) { R.pend += dt; if (R.pend > 0.06) { metaSwap(f); R.pend = 0; } } else R.pend = 0;
+    },
+    hud() {
+      const f = R.zone;
+      rbSet(`<div class="rbT">Regla · zonas de vitral</div>${rfRow({ [player.form]: 'cur' })}<div class="rbV" style="color:${f ? FCOL[f] : '#e8e4ff'}">${f ? 'Cristal ' + ZN[f] : 'Cristal blanco · conservas la forma'}</div>`);
+    },
+  };
+  /* ---------- lógica del nivel ---------- */
+  function update(dt, t) {
+    // el rosetón gira y arrastra a quien está encima
+    const da = disc.w * dt; disc.a += da; disc.group.rotation.y = -disc.a;
+    const P = player, dx = P.pos.x - disc.cx, dz = P.pos.z - disc.cz;
+    if (P.grounded && Math.hypot(dx, dz) < disc.r && P.pos.y < disc.y + 0.6) { const c = Math.cos(da), s = Math.sin(da); P.pos.x = disc.cx + dx * c - dz * s; P.pos.z = disc.cz + dx * s + dz * c; }
+    // campanas
+    chordT = Math.max(0, chordT - dt);
+    for (const b of bells) {
+      b.swing *= Math.exp(-1.5 * dt); b.g.rotation.z = Math.sin(t * 7) * b.swing * 0.5;
+      if (b.rung && chordT <= 0) { b.rung = 0; b.mat.emissiveIntensity = 0.15; }
+      const on = Math.hypot(P.pos.x - b.x, P.pos.z - b.z) < 1.6 && Math.abs(P.pos.y - 29.5) < 2.5;
+      if (on && input.mouseLPressed && !META.done) ring(b);
+    }
+    if (rose) roseMat.color.lerp(_c1.setHex(META.done ? 0xffffff : 0x3a3440), 1 - Math.exp(-dt * 1.5));
+  }
+  function ring(b) {
+    b.swing = 1;
+    const base = { wolf: 392, spider: 440, bear: 294, dragon: 330, yeti: 523 }[b.f];
+    AudioSys.tone(base, 2.4, { type: 'sine', vol: 0.12 }); AudioSys.tone(base * 2.01, 1.6, { type: 'triangle', vol: 0.05 }); AudioSys.tone(base * 3.02, 1, { vol: 0.03 });
+    burst(new V3(b.x, 35.5, b.z), FHEX[b.f], 30, 6, 0.6, 0.8, { grav: 0 }); shockRing(new V3(b.x, 29.5, b.z), 3, FHEX[b.f], 0.6, 0.1);
+    if (b.f !== player.form) { toast('Esta campana solo suena con el ' + FORMS[b.f].name, 1.6); return; }
+    if (!b.rung) { b.rung = 1; b.mat.emissiveIntensity = 3; chordT = Math.max(chordT, 15); }
+    const n = bells.filter(x => x.rung).length; mPop(`Campana ${n} / 5`, FCOL[b.f]);
+    if (n >= 5) win();
+  }
+  function win() {
+    for (const b of bells) b.mat.emissiveIntensity = 4;
+    for (const m of winMats) m.color.setScalar(1.6);
+    shake(0.4); for (let i = 0; i < 4; i++) setTimeout(() => burst(new V3(rand(-6, 6), rand(32, 40), -207), [0xff3b3b, 0x2f6bff, 0xffd35a, 0xb86bff][i], 80, 12, 1, 1.4, { grav: 0 }), i * 200);
+    const tm = stats.time;
+    metaFinish({ title: '¡EL ROSETÓN BRILLA!', medal: metaMedal(tm, 210, 330),
+      rows: [['Tiempo', fmtTime(tm)], ['Fragmentos de vitral', stats.gems + ' / ' + WORLD.totalGems], ['Enemigos', stats.kills], ['Caídas', stats.deaths]],
+      record: { time: tm, label: stats.gems + ' fragmentos', medal: metaMedal(tm, 210, 330) } });
+  }
+  return {
+    style: { post: 'vitral', exposure: 0.95, sat: 1.2, bloom: [0.85, 0.6, 0.72], fog: [0x161026, 0.011], hemi: [0x9c8cff, 0x2a1a24, 0.95], sun: [0xffc890, 1.7], gem: 0xff8ad8 },
+    sky: { top: 0x05040e, mid: 0x2a1d48, bot: 0x0a0812, sunC: 0xff9a5a, sunK: 0.5 },
+    h, water, bounds: [-WALL + 0.8, WALL - 0.8, -207.2, 16], fallY: -20, gemLabel: 'FRAGMENTOS DE VITRAL', startForm: 'wolf',
+    waterMsg: '¡Las aguas de la cripta te arrastran!',
+    ZONES: [
+      { z: 30, name: 'Nártex', sub: 'Catedral de Vitral', obj: 'Pisa los cristales de color para cambiar de forma.', hint: 'Ámbar = Lobo · violeta = Araña · turquesa = Oso · rojo = Dragón · azul = Yeti. El cristal blanco conserva tu forma.' },
+      { z: -26, name: 'Capilla de Ceniza', sub: 'Capítulo I', obj: 'Quema la puerta de madera.', hint: 'El Dragón está en la capilla roja de la izquierda. Salta la franja turquesa sin pisarla.' },
+      { z: -63, name: 'Nave del Rosetón', sub: 'Capítulo II', obj: 'Sube a la galería del fondo.', hint: 'El rosetón gira bajo tus pies. Araña: anclaje · Yeti: dos pilares · Dragón: desde el púlpito.' },
+      { z: -128, name: 'Cripta Inundada', sub: 'Capítulo III', obj: 'Cruza el canal de agua.', hint: 'El cristal azul te vuelve Yeti: congela el agua con tu aliento.' },
+      { z: -181, name: 'Campanario', sub: 'Capítulo IV', obj: 'Sube hasta las campanas.', hint: 'Lobo → Araña → Dragón → Oso → Yeti: cada rellano te da la forma que necesitas para el siguiente.' },
+      { test: p => p.y > 27.5 && p.z < -183, name: 'Las Cinco Campanas', sub: 'Final', obj: 'Tañe las cinco campanas antes de 15 s.', hint: 'Ponte sobre cada cristal (te transforma) y ataca para tocar su campana.' },
+    ],
+    titleAt: new V3(0, 4, -88),
+    title(dt, t) { const a = t * 0.05; camera.position.set(Math.sin(a) * 9, 9 + Math.sin(t * 0.2) * 1.5, -70 + Math.cos(a) * 6); camera.lookAt(0, 2, -95); update(dt, t); },
+    build, rule, update,
+    start() { toast('<b style="color:#ff8ad8">Catedral de Vitral</b> · pisa los cristales de color para cambiar de monstruo', 4); },
+    win,
+    help: '<kbd>WASD</kbd> moverse · <kbd>ESPACIO</kbd> saltar · <kbd>CLIC</kbd> ataque · <kbd>E</kbd> habilidad<br>Tu forma la decide el <b style="color:#ff8ad8">cristal que pisas</b>: cada color es un monstruo y el blanco conserva el tuyo.',
+    helpTouch: 'Tu forma la decide el <b style="color:#ff8ad8">cristal que pisas</b>: cada color es un monstruo y el blanco conserva el tuyo.',
+  };
+})();
+
+/* =====================================================================
+   COLISEO DE TINTA — regla: CAMBIO POR BAJAS
+   Cada enemigo lleva el sello de un monstruo: con esa forma le haces el
+   doble de daño. Las bajas cargan el "Cambio"; con una carga pulsas R y
+   te transformas en la forma elegida (1-5, rueda o el panel).
+   ===================================================================== */
+METAS.tinta = (() => {
+  const R0 = 23.5, TIER0 = 24.5, OUT = 37, GATES = [0, Math.PI / 2, Math.PI, Math.PI * 1.5];
+  const S = { charge: 0, tokens: 0, sel: null, wave: -1, waveT: 0, state: 'intro', ink: 0, inkT: 0, boss: null, bossPhase: 0, spawnT: 0, hits: 0, lastTokTip: 0 };
+  const sealTex = {}; let inkMesh = null, petals = 0;
+  const gateAng = a => { for (const g of GATES) { const d = Math.abs(angDiff(a, g)); if (d < 0.2) return true; } return false; };
+  function h(x, z) {
+    const r = Math.hypot(x, z);
+    if (r < TIER0) return 0;
+    if (gateAng(Math.atan2(x, z))) return r < 40 ? 0 : 18;
+    if (r < OUT) return Math.min(5, Math.floor((r - TIER0) / 2.6) + 1) * 1.45;
+    return 18;
+  }
+  /* ---------- sellos: pictogramas pintados a pincel ---------- */
+  function makeSeal(f) {
+    const c = mkCanvas(128), g = c.getContext('2d'), col = FCOL[f];
+    g.fillStyle = col; g.globalAlpha = 0.95; g.beginPath(); g.roundRect ? g.roundRect(10, 10, 108, 108, 18) : g.rect(10, 10, 108, 108); g.fill();
+    g.globalAlpha = 1; g.strokeStyle = '#fff8ec'; g.lineWidth = 9; g.lineCap = 'round'; g.lineJoin = 'round'; g.fillStyle = '#fff8ec';
+    if (f === 'wolf') { for (let i = 0; i < 3; i++) { g.beginPath(); g.moveTo(38 + i * 20, 28); g.quadraticCurveTo(30 + i * 22, 64, 44 + i * 20, 100); g.stroke(); } }
+    else if (f === 'spider') { for (let i = 0; i < 8; i++) { const a = i / 8 * 6.28; g.beginPath(); g.moveTo(64, 64); g.lineTo(64 + Math.cos(a) * 46, 64 + Math.sin(a) * 46); g.stroke(); } g.lineWidth = 5; for (const r of [18, 34]) { g.beginPath(); g.arc(64, 64, r, 0, 6.3); g.stroke(); } }
+    else if (f === 'bear') { g.beginPath(); g.ellipse(64, 78, 24, 20, 0, 0, 6.3); g.fill(); for (let i = 0; i < 4; i++) { g.beginPath(); g.arc(34 + i * 20, 44 - (i === 1 || i === 2 ? 8 : 0), 9, 0, 6.3); g.fill(); } }
+    else if (f === 'dragon') { g.beginPath(); g.moveTo(64, 20); g.bezierCurveTo(100, 56, 92, 104, 64, 108); g.bezierCurveTo(36, 104, 26, 70, 52, 50); g.bezierCurveTo(50, 70, 60, 78, 66, 70); g.bezierCurveTo(74, 56, 60, 40, 64, 20); g.fill(); }
+    else { for (let i = 0; i < 3; i++) { const a = i / 3 * Math.PI; g.beginPath(); g.moveTo(64 - Math.cos(a) * 44, 64 - Math.sin(a) * 44); g.lineTo(64 + Math.cos(a) * 44, 64 + Math.sin(a) * 44); g.stroke(); } }
+    return toTex(c, true, false);
+  }
+  function seal(e, f) {
+    e.seal = f;
+    if (!e.sealSpr) {
+      e.sealSpr = new THREE.Sprite(new THREE.SpriteMaterial({ map: sealTex[f], depthWrite: false })); e.sealSpr.scale.setScalar(e.def.radius > 2 ? 1.6 : 0.95);
+      e.sealSpr.position.y = (e.barY || 2.6) + 0.9; e.root.add(e.sealSpr);
+      e.sealRing = new THREE.Mesh(new THREE.RingGeometry(e.def.radius + 0.25, e.def.radius + 0.55, 32), new THREE.MeshBasicMaterial({ color: FHEX[f], transparent: true, opacity: 0.85, side: THREE.DoubleSide, depthWrite: false }));
+      e.sealRing.rotation.x = -Math.PI / 2; e.sealRing.position.y = 0.06; e.root.add(e.sealRing);
+    } else { e.sealSpr.material.map = sealTex[f]; e.sealRing.material.color.setHex(FHEX[f]); }
+    if (e.root.scale.x > 1.01) { e.sealSpr.scale.setScalar(1.6 / e.root.scale.x); }
+  }
+  function spawn(type, f, a, o = {}) {
+    const r = o.r ?? 34, x = Math.sin(a) * r, z = Math.cos(a) * r;
+    const e = new Enemy(type, x, z, o.y ?? null);
+    e.def = { ...e.def, aggro: 70, leash: 999 }; e.state = 'chase';
+    seal(e, f); burst(new V3(x, (o.y ?? h(x, z)) + 1.5, z), 0x111111, 40, 7, 1.0, 0.9, { grav: 2 });
+    for (let i = 0; i < 6; i++) SMOKE.spawn(x + rand(-1, 1), h(x, z) + rand(0, 2), z + rand(-1, 1), rand(-1, 1), rand(1, 3), rand(-1, 1), C(0x101010), 2.5, 1.2, { grow: 2, alpha: 0.5 });
+    return e;
+  }
+  const gate = () => GATES[Math.floor(rng() * 4)] + rand(-0.08, 0.08);
+  const WAVES = [
+    { name: 'Oleada I · Bienvenida', go() { for (let i = 0; i < 5; i++) spawn('imp', 'wolf', gate()); } },
+    { name: 'Oleada II · Piel de piedra', go() { for (let i = 0; i < 3; i++) spawn('imp', 'wolf', gate()); spawn('brute', 'bear', GATES[1]); spawn('brute', 'bear', GATES[3]); } },
+    { name: 'Oleada III · Fuegos fatuos', go() { const W = [['dragon', 0.5], ['spider', 1.4], ['dragon', 2.4], ['spider', 3.6], ['dragon', 5.0]]; for (const [f, a] of W) spawn('wisp', f, a, { r: 29, y: h(Math.sin(a) * 29, Math.cos(a) * 29) + 3.2 }); spawn('imp', 'yeti', GATES[0]); spawn('imp', 'yeti', GATES[2]); } },
+    { name: 'Oleada IV · Los tres guardianes', go() { spawn('brute', 'yeti', GATES[0]); spawn('brute', 'bear', GATES[1]); spawn('brute', 'dragon', GATES[2]); for (const f of ['wolf', 'spider', 'wolf', 'spider']) spawn('imp', f, gate()); } },
+    { name: 'Oleada V · Marea de tinta', go() { S.ink = 0.001; S.inkT = 26; toast('<b style="color:#e8402a">¡La tinta inunda la arena!</b> Sube a los pilares y gradas · el Yeti puede congelarla', 4);
+      for (const [f, a] of [['spider', 0.3], ['dragon', 1.3], ['yeti', 2.2], ['spider', 3.3], ['dragon', 4.2], ['yeti', 5.3]]) spawn('imp', f, a, { r: 30 }); } },
+    { name: 'El Oni Cambiante', boss: true, go() { const e = spawn('brute', 'bear', GATES[2], { r: 30 }); S.boss = e; S.bossPhase = 0;
+      e.root.scale.setScalar(1.9); e.def = { ...e.def, hp: 1100, radius: 2.9, hitY: 4.4, speed: 3.4, dmg: 28, range: 5.2, aggro: 99, leash: 999 }; e.hp = e.maxHp = 1100; e.barY = 10.5;
+      seal(e, 'bear'); e.sealSpr.position.y = 6.4; e.bar.scale.setScalar(2.4); $('bossbar').classList.remove('hidden'); $('bossName').textContent = 'EL ONI CAMBIANTE'; $('bossFill').style.width = '100%'; SFX.roar(); shake(0.6); } },
+  ];
+  /* ---------- regla ---------- */
+  const alive = () => enemies.filter(e => !e.dead && e.seal);
+  function suggestion() {
+    const cnt = {}; for (const e of alive()) if (e.seal !== player.form) cnt[e.seal] = (cnt[e.seal] || 0) + (e === S.boss ? 4 : 1);
+    let best = null, bn = 0; for (const k in cnt) if (cnt[k] > bn) { bn = cnt[k]; best = k; } return best;
+  }
+  const target = () => (S.sel && S.sel !== player.form ? S.sel : suggestion());
+  const rule = {
+    action: 'Cambiar',
+    update() {
+      if (input.swapPressed && player.alive) {
+        const tg = target();
+        if (S.tokens <= 0) { toast('Sin carga de cambio: <b>elimina enemigos</b> para cargarla', 1.6); AudioSys.tone(180, 0.2, { type: 'square', vol: 0.05 }); }
+        else if (!tg) toast('Elige forma con <b>1-5</b> o la rueda del ratón', 1.6);
+        else { S.tokens--; S.sel = null; metaSwap(tg); }
+      }
+    },
+    key(n) { const f = FORM_KEYS[n]; if (f && f !== player.form) { S.sel = f; AudioSys.tone(700 + n * 60, 0.08, { vol: 0.04 }); } },
+    wheel(d) { const opts = FORM_KEYS.filter(k => k !== player.form); const cur = opts.indexOf(target()); S.sel = opts[((cur < 0 ? 0 : cur) + d + opts.length) % opts.length]; },
+    hud() {
+      const tg = target(), cls = {}; cls[player.form] = 'cur'; if (tg) cls[tg] = 'sel';
+      const tok = [0, 1].map(i => `<i class="${i < S.tokens ? 'on' : ''}"></i>`).join('');
+      rbSet(`<div class="rbT">Regla · las bajas cargan el cambio</div>${rfRow(cls, !IS_TOUCH)}<div class="rbMeter"><div style="width:${Math.round(S.charge * 100)}%"></div></div>
+        <div class="rbTok">${tok}<span style="margin-left:6px">${S.tokens ? (IS_TOUCH ? 'CAMBIAR' : 'R') + ' → ' + (tg ? FORMS[tg].name : '—') : 'Carga: ' + Math.round(S.charge * 100) + '%'}</span></div>`);
+      $('tSwap').classList.toggle('ready', S.tokens > 0);
+    },
+  };
+  function onKill(e) {
+    if (!e.seal) return;
+    const match = e.seal === player.form, big = e.type === 'brute';
+    if (e === S.boss) return;
+    S.charge += (match ? 0.34 : 0.17) * (big ? 1.6 : 1);
+    if (match) mPop(`¡Sello roto! +${big ? 54 : 34}%`, FCOL[e.seal]);
+    while (S.charge >= 1) {
+      if (S.tokens < 2) { S.tokens++; S.charge -= 1; SFX.checkpoint(); shockRing(player.pos, 5, 0xffd35a, 0.5);
+        if (stats.time - S.lastTokTip > 20) { S.lastTokTip = stats.time; const tg = target(); toast(`¡Cambio cargado! Pulsa <b>${IS_TOUCH ? 'CAMBIAR' : 'R'}</b>` + (tg ? ` para convertirte en <b style="color:${FCOL[tg]}">${FORMS[tg].name}</b>` : ''), 3); } }
+      else { S.charge = 1; break; }
+    }
+  }
+  function dmgMul(e) { if (!e.seal) return 1; const m = e.seal === player.form ? 2.2 : 0.55; if (m > 1 && rng() < 0.3) burst(e.center(_v3), FHEX[e.seal], 8, 5, 0.35, 0.35); return m; }
+  /* ---------- mundo ---------- */
+  function build() {
+    for (const f of FORM_KEYS) sealTex[f] = makeSeal(f);
+    const paperStone = stdMat({ map: TEX.brick.map, normalMap: TEX.brick.normal, roughness: 0.92, color: 0xd8d2c4 });
+    const darkStone = stdMat({ map: TEX.rock.map, normalMap: TEX.rock.normal, roughness: 0.9, color: 0x3a3836 });
+    const vermilion = stdMat({ color: 0xd0301c, roughness: 0.6, emissive: 0x5a0a00, emissiveIntensity: 0.4 });
+    MAT.stone = paperStone;
+    // suelo con el ensō pintado a pincel
+    const floorTex = canvasTex(1024, 1024, (g, w) => {
+      g.fillStyle = '#d9d2c2'; g.fillRect(0, 0, w, w);
+      for (let i = 0; i < 4000; i++) { g.fillStyle = `rgba(60,50,40,${rng() * 0.05})`; g.fillRect(rng() * w, rng() * w, rng() * 6, rng() * 2); }
+      g.strokeStyle = 'rgba(70,64,58,.35)'; g.lineWidth = 3; for (let r = 70; r < 520; r += 70) { g.beginPath(); g.arc(w / 2, w / 2, r, 0, 6.3); g.stroke(); }
+      g.lineCap = 'round'; for (let k = 0; k < 26; k++) { g.strokeStyle = `rgba(12,10,10,${0.25 + rng() * 0.25})`; g.lineWidth = 34 + rng() * 26; g.beginPath(); g.arc(w / 2 + rand(-6, 6), w / 2 + rand(-6, 6), 300 + rand(-12, 12), 0.35 + rng() * 0.2, 5.6 + rng() * 0.3); g.stroke(); }
+      g.fillStyle = '#c0281a'; g.fillRect(w / 2 + 250, w / 2 - 300, 70, 70);
+    }, false);
+    { const m = new THREE.Mesh(new THREE.CircleGeometry(R0 + 1, 72), stdMat({ map: floorTex, roughness: 0.95 })); m.rotation.x = -Math.PI / 2; m.position.y = 0.01; m.receiveShadow = true; scene.add(m); }
+    // gradas (anillos escalonados) partidas por las cuatro puertas
+    for (let s = 0; s < 5; s++) {
+      const r0 = TIER0 + s * 2.6, r1 = s === 4 ? OUT : r0 + 2.6, y = (s + 1) * 1.45;
+      for (let q = 0; q < 4; q++) {
+        const t0 = GATES[q] + 0.2, len = Math.PI / 2 - 0.4;
+        const top = new THREE.RingGeometry(r0, r1, 40, 1, t0 - Math.PI / 2, len); top.rotateX(-Math.PI / 2);
+        addMesh(top, paperStone, 0, y, 0, { cast: false });
+        const face = new THREE.CylinderGeometry(r0, r0, 1.45, 40, 1, true, t0, len); addMesh(face, darkStone, 0, y - 0.72, 0);
+      }
+    }
+    { const wallG = new THREE.CylinderGeometry(OUT, OUT, 18, 64, 1, true); const m = new THREE.Mesh(wallG, stdMat({ map: TEX.brick.map, color: 0x8a847a, roughness: 0.95, side: THREE.BackSide })); m.position.y = 9; scene.add(m); }
+    heightMesh(-44, 44, -44, 44, 1, (x, z) => Math.hypot(x, z) > OUT + 0.5 || gateAng(Math.atan2(x, z)) && Math.hypot(x, z) > TIER0 ? h(x, z) : -0.5, (x, z, y, o) => o.setRGB(0.55, 0.52, 0.47), stdMat({ vertexColors: true, map: TEX.rock.map, roughness: 0.95 }));
+    // altar central, pilares y faroles
+    block(0, 0, 0, 7, 1.5, 7, darkStone, { climbable: false }); addMesh(new THREE.CylinderGeometry(4.6, 4.9, 1.5, 8), paperStone, 0, 0.75, 0);
+    checkpoint(0, 0, 1.5, 'Altar del Pincel');
+    for (let i = 0; i < 4; i++) { const a = i * Math.PI / 2 + Math.PI / 4, x = Math.sin(a) * 13, z = Math.cos(a) * 13;
+      addMesh(new THREE.CylinderGeometry(1.25, 1.45, 5.6, 10), darkStone, x, 2.8, z); addMesh(new THREE.BoxGeometry(3.2, 0.5, 3.2), paperStone, x, 5.75, z); colBox(x, 0, z, 2.6, 6, 2.6);
+      gem(x, z, 7.2); }
+    for (let i = 0; i < 8; i++) { const a = i * Math.PI / 4 + Math.PI / 8, x = Math.sin(a) * 19, z = Math.cos(a) * 19;
+      block(x, 0, z, 1.6, 1.4, 1.6, paperStone); addMesh(new THREE.BoxGeometry(1.1, 1.0, 1.1), stdMat({ color: 0xffb070, emissive: 0xff7a2a, emissiveIntensity: 1.6, roughness: 0.8 }), x, 1.9, z);
+      addMesh(new THREE.ConeGeometry(1.1, 0.7, 4), darkStone, x, 2.75, z, { ry: Math.PI / 4 }); }
+    // torii en las puertas
+    for (const a of GATES) { const x = Math.sin(a) * 25.5, z = Math.cos(a) * 25.5, rx = Math.cos(a), rz = -Math.sin(a);
+      for (const s of [-1, 1]) { addMesh(new THREE.CylinderGeometry(0.45, 0.5, 9, 10), vermilion, x + rx * s * 3.2, 4.5, z + rz * s * 3.2); colBox(x + rx * s * 3.2, 0, z + rz * s * 3.2, 1, 9, 1); }
+      addMesh(new THREE.BoxGeometry(9.6, 0.7, 0.9), vermilion, x, 8.6, z, { ry: a });
+      addMesh(new THREE.BoxGeometry(11, 0.6, 1.1), stdMat({ color: 0x1a1414, roughness: 0.8 }), x, 9.4, z, { ry: a });
+      addMesh(new THREE.BoxGeometry(7.6, 0.45, 0.6), vermilion, x, 7.0, z, { ry: a });
+      for (const s of [-1, 1]) { const lan = addMesh(new THREE.SphereGeometry(0.55, 12, 10), stdMat({ color: 0xff5a2a, emissive: 0xff3a10, emissiveIntensity: 2.2, roughness: 0.7 }), x + rx * s * 2, 6.2, z + rz * s * 2, { cast: false }); lan.scale.y = 1.3; } }
+    // montañas a tinta y pinos retorcidos
+    const mtnMat = stdMat({ color: 0x2a2a2c, roughness: 1, flatShading: true });
+    for (let i = 0; i < 26; i++) { const a = i / 26 * 6.283 + rand(-0.1, 0.1), r = rand(120, 380), hh = rand(60, 170);
+      const g = new THREE.ConeGeometry(rand(40, 90), hh, 7, 6); jitterGeo(g, 8, i); const m = new THREE.Mesh(g, mtnMat); m.position.set(Math.sin(a) * r, hh / 2 - 30, Math.cos(a) * r); m.rotation.y = rand(0, 6); scene.add(m); }
+    const pines = []; for (let i = 0; i < 60; i++) { const a = rand(0, 6.283), r = rand(39, 60); if (gateAng(a)) continue; pines.push([Math.sin(a) * r, 18, Math.cos(a) * r, rand(1.2, 2.2), rand(0, 6)]); }
+    instanceScatter(pineGeometry(9), stdMat({ vertexColors: true, color: 0x40403e, roughness: 1 }), pines, { far: 500 });
+    // mar de tinta (oleada V)
+    inkMesh = new THREE.Mesh(new THREE.CircleGeometry(R0 + 0.6, 64), new THREE.MeshStandardMaterial({ color: 0x0a0a0c, roughness: 0.15, metalness: 0.2, transparent: true, opacity: 0.94 }));
+    inkMesh.rotation.x = -Math.PI / 2; inkMesh.position.y = -1; inkMesh.visible = false; scene.add(inkMesh); META.envMats = [inkMesh.material];
+    gem(0, 30, 6.4); gem(30, 0, 6.4); gem(0, -30, 6.4); gem(-30, 0, 6.4);
+    batchStatic();
+  }
+  /* ---------- oleadas ---------- */
+  function update(dt, t) {
+    S.waveT += dt;
+    if (S.state === 'intro' && S.waveT > 2.5) nextWave();
+    else if (S.state === 'fight') {
+      const n = alive().length;
+      if (n === 0 && !S.boss) { S.state = 'rest'; S.waveT = 0; if (S.wave >= 0) { mMsg('¡OLEADA SUPERADA!', 1.6, '#ffd35a'); SFX.checkpoint(); player.hp = Math.min(player.maxHp, player.hp + 35); } }
+      if (S.boss) bossUpdate(dt);
+    } else if (S.state === 'rest' && S.waveT > 4) nextWave();
+    // marea de tinta
+    if (S.ink > 0) { S.inkT -= dt; if (S.inkT <= 0 && L.floes.length) for (const f of [...L.floes]) killFloe(f); const target = S.inkT > 0 ? 1 : 0; S.ink = damp(S.ink, target, 0.9, dt); if (S.inkT <= 0 && S.ink < 0.02) S.ink = 0;
+      inkMesh.visible = S.ink > 0.01; inkMesh.position.y = -0.4 + S.ink * 1.45;
+      const P = player, inkY = inkMesh.position.y;
+      if (P.alive && Math.hypot(P.pos.x, P.pos.z) < R0 && P.pos.y < inkY - 0.15 && !P.respawning && P.invuln < 0.5) { P.hp -= 12 * dt; P.lastHurt = stats.time; gradePass.uniforms.uHurt.value = Math.max(gradePass.uniforms.uHurt.value, 0.35); if (rng() < 0.3) SMOKE.spawn(P.pos.x, inkY, P.pos.z, rand(-1, 1), 1, rand(-1, 1), C(0x080808), 1.4, 0.7, { alpha: 0.6 }); if (P.hp <= 0) killPlayer(); }
+    }
+    // pétalos rojos a la deriva
+    petals += dt * 14; while (petals > 1) { petals--; const a = rand(0, 6.28), r = rand(0, 40); FX.spawn(Math.sin(a) * r, rand(10, 22), Math.cos(a) * r, rand(1, 3), rand(-1.5, -0.5), rand(-1, 1), C(0xe8402a), rand(0.18, 0.3), 6, { drag: 0.2 }); }
+  }
+  function nextWave() {
+    S.wave++; if (S.wave >= WAVES.length) return;
+    const W = WAVES[S.wave]; S.state = 'fight'; S.waveT = 0;
+    mMsg(W.name.toUpperCase(), 2.2, W.boss ? '#e8402a' : '#fff3da'); AudioSys.tone(110, 1.2, { type: 'sawtooth', vol: 0.07, slide: 55 }); AudioSys.noise(0.6, { vol: 0.15, freq: 300 });
+    W.go(); zoneSet(S.wave);
+  }
+  function bossUpdate(dt) {
+    const b = S.boss; if (!b) return;
+    $('bossFill').style.width = Math.max(0, b.hp / b.maxHp * 100) + '%';
+    const ph = Math.min(3, Math.floor((1 - b.hp / b.maxHp) * 4));
+    if (ph > S.bossPhase && !b.dead) { S.bossPhase = ph; const f = ['bear', 'dragon', 'spider', 'yeti'][ph]; seal(b, f); SFX.roar(); shake(0.5); mMsg('¡EL SELLO CAMBIA!', 1.4, FCOL[f]); burst(b.center(new V3()), FHEX[f], 80, 12, 1, 1); }
+    S.spawnT -= dt; if (S.spawnT <= 0 && !b.dead) { S.spawnT = 13; const fs = FORM_KEYS.filter(k => k !== b.seal); for (let i = 0; i < 2; i++) spawn('imp', fs[Math.floor(rng() * fs.length)], gate()); }
+    if (b.dead) { S.boss = null; $('bossbar').classList.add('hidden'); for (const e of alive()) e.hurt(9999, null); setTimeout(win, 1800); }
+  }
+  function zoneSet(i) { const Z = META.ZONES[Math.min(i + 1, META.ZONES.length - 1)]; showZoneBanner(Z); }
+  function win() {
+    const tm = stats.time, md = metaMedal(tm, 300, 420);
+    metaFinish({ title: '¡EL ONI HA CAÍDO!', medal: md,
+      rows: [['Tiempo', fmtTime(tm)], ['Enemigos', stats.kills], ['Caídas', stats.deaths], ['Sellos de tinta', stats.gems + ' / ' + WORLD.totalGems]],
+      record: { time: tm, label: stats.kills + ' bajas', medal: md } });
+  }
+  return {
+    style: { post: 'tinta', exposure: 1.3, sat: 1.0, bloom: [0.35, 0.4, 0.9], fog: [0xe6dfd0, 0.0055], hemi: [0xfff6e6, 0x8a8478, 1.7], sun: [0xfff2dc, 2.6], gem: 0xe8402a },
+    sky: { top: 0xd8d0c0, mid: 0xf2ece0, bot: 0xd0c8b8, sunC: 0xffffff, sunK: 0.2 },
+    h, bounds: [-36, 36, -36, 36], fallY: -20, gemLabel: 'SELLOS DE TINTA', startForm: 'wolf', spawn: new V3(0, 2.3, 0),
+    walkable: () => true,
+    hazards(P) { if (P.pos.y < -20) fallRespawn('Has caído', 10); },
+    water: (x, z) => (S.ink > 0.5 && Math.hypot(x, z) < R0 ? inkMesh.position.y : null),
+    ZONES: [{ z: 99, name: 'Coliseo de Tinta', sub: 'Prólogo', obj: 'Resiste las oleadas.', hint: 'Cada enemigo lleva un sello: el monstruo de su color le hace el doble de daño.' },
+      ...WAVES.map((w, i) => ({ test: () => false, name: w.name, sub: 'Oleada ' + (i + 1) + ' de ' + WAVES.length, obj: w.boss ? 'Derrota al Oni Cambiante: su sello cambia con cada cuarto de vida.' : 'Elimina a todos los enemigos.',
+        hint: 'Las bajas cargan el cambio: mejor con la forma del sello. Pulsa <b>R</b> (o el botón CAMBIAR) para transformarte.' }))],
+    title(dt, t) { const a = t * 0.05; camera.position.set(Math.sin(a) * 30, 17, Math.cos(a) * 30); camera.lookAt(0, 2, 0); },
+    build, rule, update, onKill, dmgMul,
+    start() { toast('Los <b>sellos de color</b> marcan qué monstruo hace más daño a cada enemigo. Las bajas cargan tu cambio.', 5); },
+    win, S,
+    help: '<kbd>WASD</kbd> moverse · <kbd>ESPACIO</kbd> saltar · <kbd>CLIC</kbd> ataque · <kbd>E</kbd> habilidad · <kbd>R</kbd> <b>cambiar de forma</b> · <kbd>1</kbd>-<kbd>5</kbd>/rueda elegir forma<br>Las <b style="color:#e8402a">bajas cargan el cambio</b>; el sello de cada enemigo indica qué monstruo le hace el doble de daño.',
+    helpTouch: 'Las <b style="color:#e8402a">bajas cargan el cambio</b>: toca un retrato del panel para elegir forma y pulsa CAMBIAR. El sello de cada enemigo indica su debilidad.',
+  };
+})();
+
+/* =====================================================================
+   TEATRO DE PAPEL — regla: CAMBIO POR MÁSCARAS
+   Solo cambias de monstruo al tocar una máscara de un pedestal (el
+   decorado) o al ponerte (R) la máscara portátil que lleves guardada.
+   El libro es desplegable: el decorado se levanta al acercarte.
+   ===================================================================== */
+METAS.papel = (() => {
+  const SEA0 = -122, SEA1 = -192, SEA_Y = -0.35;
+  const pedestals = [], pickups = [], popups = [], boats = [], waves = [];
+  const R = { carry: null, cd: 0 };
+  let curtain = null, stageT = -1, sunMesh = null;
+  function h(x, z) {
+    if (Math.abs(x) > 18.5 || z > 13) return -60;
+    if (z > -38.5) return z < -20 && z > -30 ? -5 : 0;      // acto I + río
+    if (z > -60) return Math.abs(x) < 16.5 ? 7.5 : -60;       // meseta
+    if (z > -64) return -60;                                    // el lomo del libro
+    if (z > SEA0) return 0;                                     // acto II
+    if (z > SEA1) return -6;                                    // mar de origami
+    if (z > -241) return 0;                                     // acto IV
+    return -60;
+  }
+  const water = (x, z) => (z < -20 && z > -30 && Math.abs(x) < 18.5 ? SEA_Y : z < SEA0 && z > SEA1 && Math.abs(x) < 18.5 ? SEA_Y : null);
+  /* ---------- texturas de papel ---------- */
+  function paper(color, lines = null, w = 256) {
+    return canvasTex(w, w, (g, W) => { g.fillStyle = color; g.fillRect(0, 0, W, W);
+      for (let i = 0; i < 2500; i++) { g.fillStyle = `rgba(${rng() < 0.5 ? '255,255,255' : '60,40,20'},${rng() * 0.06})`; g.fillRect(rng() * W, rng() * W, rng() * 7, rng() * 1.6); }
+      if (lines) lines(g, W); });
+  }
+  const pmat = (tex, o = {}) => new THREE.MeshLambertMaterial({ map: tex, side: o.side ?? THREE.FrontSide, transparent: !!o.alpha, alphaTest: o.alpha ? 0.5 : 0, color: o.color ?? 0xffffff });
+  function maskTex(f) {
+    const c = mkCanvas(256), g = c.getContext('2d'), col = FCOL[f];
+    g.fillStyle = col; g.strokeStyle = '#3a2414'; g.lineWidth = 8;
+    g.beginPath(); g.ellipse(128, 128, 100, 112, 0, 0, 6.3); g.fill(); g.stroke();
+    g.fillStyle = '#2a1a10';
+    const eye = (x, y, r) => { g.beginPath(); g.ellipse(x, y, r, r * 0.6, 0, 0, 6.3); g.fill(); };
+    if (f === 'wolf') { g.beginPath(); g.moveTo(40, 60); g.lineTo(60, 0); g.lineTo(90, 40); g.fill(); g.beginPath(); g.moveTo(216, 60); g.lineTo(196, 0); g.lineTo(166, 40); g.fill(); eye(90, 110, 22); eye(166, 110, 22); g.beginPath(); g.moveTo(128, 150); g.lineTo(108, 180); g.lineTo(148, 180); g.fill(); }
+    else if (f === 'spider') { for (const [x, y] of [[80, 95], [176, 95], [100, 130], [156, 130], [118, 70], [138, 70]]) eye(x, y, 12); g.lineWidth = 6; g.strokeStyle = '#2a1a10'; g.beginPath(); g.moveTo(100, 190); g.lineTo(118, 170); g.moveTo(156, 190); g.lineTo(138, 170); g.stroke(); }
+    else if (f === 'bear') { g.fillStyle = col; g.beginPath(); g.arc(50, 50, 32, 0, 6.3); g.arc(206, 50, 32, 0, 6.3); g.fill(); g.fillStyle = '#2a1a10'; eye(92, 110, 16); eye(164, 110, 16); g.beginPath(); g.ellipse(128, 165, 30, 22, 0, 0, 6.3); g.fill(); }
+    else if (f === 'dragon') { g.beginPath(); g.moveTo(60, 50); g.lineTo(40, -10); g.lineTo(90, 40); g.fill(); g.beginPath(); g.moveTo(196, 50); g.lineTo(216, -10); g.lineTo(166, 40); g.fill(); g.save(); g.translate(90, 112); g.rotate(0.3); eye(0, 0, 24); g.restore(); g.save(); g.translate(166, 112); g.rotate(-0.3); eye(0, 0, 24); g.restore(); g.fillRect(100, 175, 56, 10); }
+    else { eye(92, 112, 18); eye(164, 112, 18); g.strokeStyle = '#ffffff'; g.lineWidth = 7; for (let i = 0; i < 6; i++) { g.beginPath(); g.moveTo(70 + i * 23, 30); g.lineTo(80 + i * 23, 60); g.stroke(); } g.fillStyle = '#2a1a10'; g.fillRect(96, 170, 64, 12); }
+    return toTex(c, true, false);
+  }
+  /* ---------- piezas desplegables ---------- */
+  function pop(obj, z, delay = 0) { obj.rotation.x = -Math.PI / 2 + 0.02; popups.push({ obj, z, t: -delay, on: false }); return obj; }
+  function cutout(tex, w, hh, x, y, z, ry = 0, popZ = null) { // silueta recortada (base en el suelo)
+    const g = new THREE.PlaneGeometry(w, hh); g.translate(0, hh / 2, 0);
+    const grp = new THREE.Group(); grp.position.set(x, y, z); grp.rotation.y = ry; scene.add(grp);
+    const inner = new THREE.Group(); grp.add(inner);
+    const m = new THREE.Mesh(g, pmat(tex, { alpha: true, side: THREE.DoubleSide })); m.castShadow = true; inner.add(m);
+    const back = new THREE.Mesh(new THREE.PlaneGeometry(0.1, hh * 0.6).translate(0, hh * 0.3, -0.25), new THREE.MeshLambertMaterial({ color: 0xc8b090 })); inner.add(back);
+    pop(inner, popZ ?? z, rand(0, 0.25)); return inner;
+  }
+  function treeTex(c1, c2) {
+    return canvasTex(256, 384, (g, W, H) => { g.clearRect(0, 0, W, H); g.fillStyle = '#8a5a3a'; g.strokeStyle = '#3a2414'; g.lineWidth = 6; g.fillRect(112, 270, 32, 110); g.strokeRect(112, 270, 32, 110);
+      for (let i = 0; i < 3; i++) { g.fillStyle = i % 2 ? c1 : c2; g.beginPath(); g.moveTo(128, 20 + i * 70); g.lineTo(20 + i * 6, 190 + i * 45); g.lineTo(236 - i * 6, 190 + i * 45); g.closePath(); g.fill(); g.stroke(); }
+      g.fillStyle = 'rgba(255,255,255,.25)'; for (let i = 0; i < 18; i++) { g.beginPath(); g.arc(rand(60, 196), rand(80, 250), rand(3, 7), 0, 6.3); g.fill(); } }, false);
+  }
+  /* ---------- pedestales y máscaras ---------- */
+  const maskT = {};
+  function pedestal(x, y, z, f, mover = null) {
+    const grp = new THREE.Group(); grp.position.set(x, y, z); (mover ? mover.group : scene).add(grp);
+    if (mover) grp.position.set(x - mover.base.x, y - mover.base.y, z - mover.base.z);
+    const base = new THREE.Mesh(new THREE.CylinderGeometry(0.8, 1.0, 1.0, 10), new THREE.MeshLambertMaterial({ map: META.stripeTex, color: FHEX[f] })); base.position.y = 0.5; base.castShadow = true; grp.add(base);
+    const stick = new THREE.Mesh(new THREE.CylinderGeometry(0.06, 0.06, 1.4, 6), new THREE.MeshLambertMaterial({ color: 0x8a5a3a })); stick.position.y = 1.6; grp.add(stick);
+    const mask = new THREE.Mesh(new THREE.PlaneGeometry(1.6, 1.75), new THREE.MeshLambertMaterial({ map: maskT[f], transparent: true, alphaTest: 0.5, side: THREE.DoubleSide, emissive: 0x332211, emissiveIntensity: 0.3 })); mask.position.y = 2.9; grp.add(mask);
+    const ring = new THREE.Mesh(new THREE.RingGeometry(1.4, 1.65, 32), new THREE.MeshBasicMaterial({ color: FHEX[f], transparent: true, opacity: 0.75, side: THREE.DoubleSide, depthWrite: false })); ring.rotation.x = -Math.PI / 2; ring.position.y = 0.04; grp.add(ring);
+    pedestals.push({ grp, mask, f, mover, cd: 0, local: new V3(x, y, z) });
+  }
+  function pickup(x, y, z, f) {
+    const grp = new THREE.Group(); grp.position.set(x, y + 1.6, z); scene.add(grp);
+    const mask = new THREE.Mesh(new THREE.PlaneGeometry(1.2, 1.3), new THREE.MeshLambertMaterial({ map: maskT[f], transparent: true, alphaTest: 0.5, side: THREE.DoubleSide, emissive: FHEX[f], emissiveIntensity: 0.6 })); grp.add(mask);
+    const halo = new THREE.Mesh(new THREE.RingGeometry(0.9, 1.05, 32), new THREE.MeshBasicMaterial({ color: 0xfff2c0, transparent: true, opacity: 0.8, side: THREE.DoubleSide, depthWrite: false })); grp.add(halo);
+    pickups.push({ grp, f, home: new V3(x, y + 1.6, z), taken: false, respawnT: 0 });
+  }
+  /* ---------- barcos de origami (plataformas móviles) ---------- */
+  function boat(z, fn, w = 6, d = 3.6) {
+    const group = new THREE.Group(); group.position.set(0, 1, z); scene.add(group);
+    const hull = new THREE.Mesh(new THREE.CylinderGeometry(w * 0.62, w * 0.38, 1.4, 4, 1).rotateY(Math.PI / 4).scale(1, 1, d / w), new THREE.MeshLambertMaterial({ map: META.paperW, color: 0xf6efe0, flatShading: true }));
+    hull.position.y = -0.7; hull.castShadow = true; group.add(hull);
+    const sail = new THREE.Mesh(new THREE.ConeGeometry(1.4, 3.4, 3), new THREE.MeshLambertMaterial({ map: META.paperW, color: 0xffe0a0, flatShading: true })); sail.position.set(-w * 0.32, 1.7, 0); sail.castShadow = true; group.add(sail);
+    const col = colBox(0, 0, z, w, 1, d);
+    const mv = { group, col, base: new V3(0, 1, z), fn, prev: new V3(0, 1, z), delta: new V3(), th: 1, w, d }; L.movers.push(mv); boats.push(mv); return mv;
+  }
+  /* ---------- construcción ---------- */
+  function build() {
+    for (const f of FORM_KEYS) maskT[f] = maskTex(f);
+    META.stripeTex = paper('#ffffff', (g, W) => { g.fillStyle = 'rgba(255,255,255,.55)'; for (let i = 0; i < 8; i++) g.fillRect(i * W / 8, 0, W / 16, W); });
+    META.paperW = paper('#f4ecdc');
+    const grass = paper('#9fd08a', (g, W) => { g.strokeStyle = 'rgba(60,110,50,.35)'; g.lineWidth = 3; for (let i = 0; i < 60; i++) { const x = rng() * W, y = rng() * W; g.beginPath(); g.moveTo(x, y); g.lineTo(x + 4, y - 10); g.stroke(); } });
+    const pageT = paper('#f3ead8', (g, W) => { g.strokeStyle = 'rgba(120,100,80,.18)'; g.lineWidth = 2; for (let y = 20; y < W; y += 22) { g.beginPath(); g.moveTo(10, y); g.lineTo(W - 10, y); g.stroke(); } });
+    const brickT = paper('#fbf4e8', (g, W) => { g.strokeStyle = 'rgba(90,60,40,.55)'; g.lineWidth = 3; for (let y = 0; y < W; y += 32) { g.beginPath(); g.moveTo(0, y); g.lineTo(W, y); g.stroke(); for (let x = (y / 32) % 2 * 32; x < W; x += 64) { g.beginPath(); g.moveTo(x, y); g.lineTo(x, y + 32); g.stroke(); } } });
+    const seaT = paper('#6fb6e8', (g, W) => { g.strokeStyle = 'rgba(255,255,255,.7)'; g.lineWidth = 5; for (let y = 16; y < W; y += 40) { g.beginPath(); for (let x = 0; x <= W; x += 8) g.lineTo(x, y + Math.sin(x * 0.08) * 6); g.stroke(); } });
+    const cardT = paper('#d6b48a', (g, W) => { g.strokeStyle = 'rgba(120,80,40,.25)'; g.lineWidth = 2; for (let x = 0; x < W; x += 6) { g.beginPath(); g.moveTo(x, 0); g.lineTo(x, W); g.stroke(); } });
+    MAT.stone = pmat(cardT); MAT.wood = pmat(paper('#e8b07a', (g, W) => { g.strokeStyle = 'rgba(90,50,20,.4)'; g.lineWidth = 4; for (let y = 10; y < W; y += 28) { g.beginPath(); g.moveTo(0, y); g.lineTo(W, y + 4); g.stroke(); } }));
+    // páginas del libro (suelo) con borde de papel
+    const page = (x0, x1, z0, z1, y, tex) => { const g = new THREE.BoxGeometry(x1 - x0, 1.2, z1 - z0); const uv = g.attributes.uv; for (let i = 0; i < uv.count; i++) uv.setXY(i, uv.getX(i) * (x1 - x0) / 8, uv.getY(i) * (z1 - z0) / 8);
+      const m = new THREE.Mesh(g, [pmat(pageT), pmat(pageT), pmat(tex), pmat(pageT), pmat(pageT), pmat(pageT)]); m.position.set((x0 + x1) / 2, y - 0.6, (z0 + z1) / 2); m.receiveShadow = true; scene.add(m); };
+    page(-18.5, 18.5, -20, 13, 0, grass); page(-18.5, 18.5, -38.5, -30, 0, grass); page(-16.5, 16.5, -60, -38.5, 7.5, grass);
+    block(0, -6, -39.2, 33, 13.5, 1.4, MAT.stone, { nocol: true }); // cara del acantilado (el relieve hace de colisión)
+    page(-18.5, 18.5, -122, -64, 0, pageT); page(-18.5, 18.5, -241, -192, 0, pageT);
+    // río y mar de papel (tiras onduladas)
+    const seaM = pmat(seaT, { side: THREE.DoubleSide });
+    for (const [z0, z1] of [[-30, -20], [SEA1, SEA0]]) for (let z = z0 + 1; z < z1; z += 2.2) { const m = new THREE.Mesh(new THREE.PlaneGeometry(37, 2.6, 16, 1).rotateX(-Math.PI / 2), seaM); m.position.set(0, SEA_Y, z); scene.add(m); waves.push({ m, z, ph: rand(0, 6) }); }
+    // decorado de fondo: cielo de papel, sol y nubes colgadas de hilos
+    sunMesh = new THREE.Mesh(new THREE.CircleGeometry(22, 24), new THREE.MeshBasicMaterial({ color: 0xffc85a, fog: false })); sunMesh.position.set(60, 70, -300); scene.add(sunMesh);
+    const cloudT = canvasTex(256, 128, (g) => { g.clearRect(0, 0, 256, 128); g.fillStyle = '#ffffff'; g.strokeStyle = '#7a8ab0'; g.lineWidth = 5; g.beginPath(); for (const [x, y, r] of [[70, 80, 40], [120, 60, 50], [175, 78, 38], [210, 90, 28]]) g.arc(x, y, r, 0, 6.3); g.fill(); g.stroke(); }, false);
+    for (let i = 0; i < 22; i++) { const m = new THREE.Mesh(new THREE.PlaneGeometry(26, 13), new THREE.MeshBasicMaterial({ map: cloudT, transparent: true, alphaTest: 0.5, fog: false, side: THREE.DoubleSide })); m.position.set(rand(-120, 120), rand(30, 60), rand(-320, 40)); if (Math.abs(m.position.x) < 30) m.position.x += Math.sign(m.position.x || 1) * 40; scene.add(m);
+      const s = new THREE.Mesh(new THREE.CylinderGeometry(0.05, 0.05, 80), new THREE.MeshBasicMaterial({ color: 0x6a5a4a })); s.position.set(m.position.x, m.position.y + 44, m.position.z); scene.add(s); }
+    // ================= ACTO I · EL BOSQUE DE CARTULINA =================
+    checkpoint(0, 6, 0, 'Prólogo');
+    sign(5, 3, 'TEATRO DE PAPEL', ['Solo cambias al tocar una MÁSCARA', 'de un pedestal, o al ponerte (R)', 'la máscara portátil que guardes.'], -0.4);
+    const tA = treeTex('#5fb36a', '#7fcf7a'), tB = treeTex('#3f9a6a', '#6fc08a'), tC = treeTex('#e08a5a', '#f0b06a');
+    for (let i = 0; i < 26; i++) { const s = i % 2 ? -1 : 1, z = 10 - i * 2.7, x = s * rand(11, 17); if (z < -20 && z > -30) continue; cutout([tA, tB, tC][i % 3], rand(4, 6.5), rand(6, 9.5), x, h(x, z), z, rand(-0.4, 0.4) + (s > 0 ? -0.3 : 0.3)); }
+    for (let i = 0; i < 10; i++) { const x = rand(-14, 14), z = rand(-58, -42); cutout([tA, tB][i % 2], rand(3.5, 5), rand(5, 7.5), x, 7.5, z, rand(-0.5, 0.5)); }
+    pedestal(-5, 0, -14, 'yeti');
+    sign(-11, -15, 'EL RÍO DE PAPEL', ['La máscara del Yeti congela', 'el agua: crúzalo sobre el hielo.'], 0.4);
+    pedestal(11, 0, -8, 'bear'); cracked(14, 0, -2, 3, 3, 3); gem(14, -2, 1.3);
+    pedestal(5, 0, -35, 'spider');
+    sign(-6, -34.5, 'EL ACANTILADO', ['Pared de cartón: la Araña trepa.', 'El Yeti puede alzar dos pilares.'], 0.2);
+    pickup(0, 7.5, -50, 'dragon');
+    sign(4, -47, 'MÁSCARA PORTÁTIL', ['Recógela y guárdala.', 'Póntela con R cuando la necesites:', 'la puerta del castillo es de papel.'], -0.3, 7.5);
+    gem(-12, -8); gem(8, -24, 2); gem(-14, -45, 9); gem(13, -55, 9);
+    enemy('imp', -3, -52, 7.5); enemy('imp', 7, -44, 7.5);
+    // ================= ACTO II · EL CASTILLO DE PAPEL =================
+    checkpoint(0, -69, 0, 'Acto II · El castillo');
+    const wallM = pmat(brickT);
+    block(-11.5, 0, -82, 13, 10, 2, wallM, { climbable: false, tile: 6 }); block(11.5, 0, -82, 13, 10, 2, wallM, { climbable: false, tile: 6 }); block(0, 6, -82, 10, 4, 2, wallM, { climbable: false });
+    barricade(0, 0, -82, 6, 6, 0.7);
+    for (const x of [-16, -6, 6, 16]) { const t = addMesh(new THREE.CylinderGeometry(2.2, 2.4, 13, 12), wallM, x, 6.5, -82); colBox(x, 0, -82, 4, 13, 4, { climbable: false });
+      const roof = new THREE.Mesh(new THREE.ConeGeometry(2.9, 4.5, 12), new THREE.MeshLambertMaterial({ color: [0xe86a6a, 0x6a9ae8, 0xe8c86a, 0x9ae86a][(x + 16) / 10 | 0] })); roof.position.set(x, 15.2, -82); roof.castShadow = true; scene.add(roof);
+      const flag = cutout(paper('#ff6a5a'), 2.4, 1.4, x + 1.2, 17.2, -82, 0, -70); }
+    for (const s of [-1, 1]) block(s * 17.75, 0, -101, 1.5, 10, 38, wallM, { climbable: false });
+    block(-11.5, 0, -120.5, 13, 10, 2, wallM, { climbable: false }); block(11.5, 0, -120.5, 13, 10, 2, wallM, { climbable: false }); block(0, 7, -120.5, 10, 3, 2, wallM, { climbable: false });
+    META.gate = portcullis(0, 0, -120.5, 6, 7);
+    pedestal(0, 0, -91, 'dragon'); pickup(13, 0, -70, 'dragon'); // red de seguridad si gastaste la primera
+    brazier(-8, -102, 0); brazier(8, -102, 0);
+    sign(-4, -88, 'EL PATIO', ['Enciende los dos farolillos', 'con el Dragón para abrir', 'la puerta del muelle.'], 0.3);
+    pedestal(-13, 0, -112, 'bear'); cracked(-15.8, 0, -116.5, 2.2, 4, 3); gem(-16, -118.5, 1.3);
+    enemy('imp', -6, -96); enemy('imp', 6, -96); enemy('imp', 0, -110); enemy('brute', 10, -113);
+    gem(0, -100); gem(12, -90);
+    // ================= ACTO III · EL MAR DE ORIGAMI =================
+    block(0, -6, -126, 12, 7, 8, MAT.stone, { climbable: false }); block(0, -6, -121.9, 6, 6.5, 1.2, MAT.stone, { climbable: false }); checkpoint(0, -126.5, 1, 'Acto III · El muelle');
+    sign(4.5, -123.5, 'MAR DE ORIGAMI', ['Los barcos llevan máscaras.', 'Elige en cuál apoyarte', 'y cuál esquivar.'], 0, 1);
+    const bA = boat(-137, t => _v1.set(Math.sin(t * 0.7) * 9, 0, 0)); pedestal(1.5, 1, -137, 'wolf', bA);
+    const bB = boat(-148, t => _v1.set(-Math.sin(t * 0.7 + 1) * 9, 0, 0)); pedestal(-1.6, 1, -148, 'dragon', bB);
+    const bC = boat(-159, t => _v1.set(Math.sin(t * 0.55 + 2.2) * 9, 0, 0));
+    block(0, -6, -171, 10, 7, 6, MAT.stone, { climbable: false }); pedestal(0, 1, -171, 'yeti');
+    block(0, -6, -188, 16, 7, 8, MAT.stone, { climbable: false });
+    sign(-5, -185, 'ÚLTIMO SALTO', ['Diez metros de mar:', 'Lobo (doble salto), Dragón (planeo)', 'o Yeti (hielo).'], 0.3, 1);
+    gem(9, -137, 2.6); gem(-9, -148, 2.6); gem(0, -159, 2.6); gem(4, -171, 2.3);
+    // ================= ACTO IV · LA ESCALERA DE LIBROS =================
+    checkpoint(4, -196.5, 0, 'Acto IV · La biblioteca');
+    const bookCol = [0xc8402a, 0x2a6ac8, 0x3a9a5a, 0xc8a02a, 0x7a3ac8, 0xd86a9a];
+    const book = (x, z, w, d, hh, ci, climb = false) => {
+      const b = block(x, 0, z, w, hh, d, new THREE.MeshLambertMaterial({ color: bookCol[ci % 6], map: META.paperW }), { climbable: climb });
+      const pages = new THREE.Mesh(new THREE.BoxGeometry(w - 0.5, hh - 0.6, d + 0.02), pmat(pageT, { color: 0xfffaf0 })); pages.position.set(x + 0.25, hh / 2, z); scene.add(pages);
+      return b; };
+    pedestal(-2, 0, -199, 'wolf');
+    book(-8, -200, 6, 4, 3, 0); book(-8, -206.5, 6, 5, 6.5, 1); book(0, -213, 6, 5, 9.5, 2); book(8.5, -223.4, 6, 8.8, 11, 3);
+    pedestal(9, 11, -221, 'spider'); pickup(0, 9.5, -213, 'yeti');
+    book(10, -230, 4, 4, 18, 4, true); for (let i = 0; i < 4; i++) addMesh(new THREE.BoxGeometry(0.15, 17, 0.5), new THREE.MeshLambertMaterial({ color: 0xffd35a }), 12.1, 8.5, -229 + i * 0.6 - 2, { cast: false });
+    sign(4, -219, 'LA ESCALERA', ['Lobo: de libro en libro.', 'Araña: trepa el lomo marcado', 'o lleva la máscara del Yeti.'], 0, 9.5);
+    book(0, -236, 22, 8, 18, 5);
+    // escenario y telón
+    { const stage = new THREE.Mesh(new THREE.BoxGeometry(21, 0.4, 7.6), new THREE.MeshLambertMaterial({ color: 0x8a4a2a, map: META.paperW })); stage.position.set(0, 18.2, -236); scene.add(stage);
+      const velvet = pmat(paper('#b4202a', (g, W) => { g.fillStyle = 'rgba(0,0,0,.18)'; for (let x = 0; x < W; x += 32) g.fillRect(x, 0, 12, W); }), { side: THREE.DoubleSide });
+      curtain = []; for (const s of [-1, 1]) { const m = new THREE.Mesh(new THREE.PlaneGeometry(10.5, 14, 12, 1), velvet); m.position.set(s * 5.25, 25, -239.6); scene.add(m); curtain.push(m); }
+      const arch = new THREE.Mesh(new THREE.BoxGeometry(24, 2.4, 0.8), new THREE.MeshLambertMaterial({ color: 0xd8a83a })); arch.position.set(0, 33, -239.5); scene.add(arch);
+      META.star = new THREE.Mesh(new THREE.OctahedronGeometry(1.2, 0), gemMat); META.star.position.set(0, 21.5, -236); scene.add(META.star); }
+    enemy('imp', 0, -213, 9.5); enemy('wisp', 4, -226, 15); enemy('imp', 10, -222, 11);
+    gem(-8, -206.5, 7.8); gem(10, -230, 19.3);
+    batchStatic();
+  }
+  /* ---------- regla ---------- */
+  const rule = {
+    action: 'Máscara',
+    update(dt) {
+      const P = player; R.cd -= dt;
+      for (const pd of pedestals) {
+        pd.cd -= dt; const wp = pd.mask.getWorldPosition(_v1);
+        if (P.alive && Math.hypot(P.pos.x - wp.x, P.pos.z - wp.z) < 1.7 && Math.abs(P.pos.y - (wp.y - 2.9)) < 2.6 && pd.cd <= 0 && P.form !== pd.f) {
+          pd.cd = 1; metaSwap(pd.f); confetti(wp, FHEX[pd.f]); AudioSys.noise(0.25, { vol: 0.12, freq: 2500, type: 'bandpass', slide: 900 });
+        }
+      }
+      for (const pk of pickups) {
+        if (pk.taken) { pk.respawnT -= dt; if (pk.respawnT <= 0 && pk.respawnT > -1 && R.carry !== pk.f) { pk.taken = false; pk.grp.visible = true; confetti(pk.home, 0xfff2c0); } continue; }
+        if (P.alive && P.pos.distanceTo(_v1.copy(pk.grp.position).setY(pk.grp.position.y - 1.2)) < 1.9) {
+          if (R.carry) { if (R.cd <= 0) { toast(`Ya llevas la máscara del <b>${FORMS[R.carry].name}</b>`, 1.5); R.cd = 2; } continue; }
+          R.carry = pk.f; pk.taken = true; pk.respawnT = -5; pk.grp.visible = false; SFX.gem(); confetti(pk.grp.position, FHEX[pk.f]);
+          toast(`Máscara del <b style="color:${FCOL[pk.f]}">${FORMS[pk.f].name}</b> guardada · pulsa <b>${IS_TOUCH ? 'MÁSCARA' : 'R'}</b> para ponértela`, 3.5);
+        }
+      }
+      if (input.swapPressed && P.alive) {
+        if (!R.carry) toast('No llevas ninguna máscara portátil', 1.4);
+        else { const f = R.carry; R.carry = null; metaSwap(f); confetti(P.pos.clone().setY(P.pos.y + 2.5), FHEX[f]);
+          const pk = pickups.find(p => p.f === f && p.taken && p.respawnT < -1); if (pk) pk.respawnT = 14; }
+      }
+    },
+    hud() {
+      const c = R.carry;
+      rbSet(`<div class="rbT">Regla · máscaras de papel</div>${rfRow({ [player.form]: 'cur' })}<div class="rbV" style="color:${c ? FCOL[c] : '#d8c8a8'}">${c ? 'Máscara guardada: ' + FORMS[c].name + ' · ' + (IS_TOUCH ? 'MÁSCARA' : 'R') : 'Toca una máscara para cambiar'}</div>`);
+      $('tSwap').classList.toggle('ready', !!c);
+    },
+  };
+  function confetti(p, col) { for (let i = 0; i < 26; i++) FX.spawn(p.x, p.y, p.z, rand(-5, 5), rand(2, 7), rand(-5, 5), C(i % 2 ? col : 0xfff6e0), rand(0.25, 0.45), rand(0.8, 1.3), { grav: 9, drag: 1.5 }); }
+  /* ---------- lógica ---------- */
+  function update(dt, t) {
+    const P = player;
+    for (const p of popups) { if (!p.on && P.pos.z < p.z + 46) p.on = true; if (p.on && p.t < 1) { p.t += dt * 1.6; const k = clamp(p.t, 0, 1), e = 1 - Math.pow(1 - k, 3) * Math.cos(k * 7.5);
+      p.obj.rotation.x = (-Math.PI / 2 + 0.02) * (1 - e); if (p.t > 0 && p.t - dt * 1.6 <= 0 && rng() < 0.3) AudioSys.noise(0.12, { vol: 0.04, freq: 3000, type: 'bandpass' }); } }
+    for (const w of waves) { w.m.position.y = SEA_Y + Math.sin(t * 1.4 + w.ph) * 0.12; w.m.rotation.z = Math.sin(t * 0.9 + w.ph) * 0.03; }
+    for (const pk of pickups) if (!pk.taken) { pk.grp.rotation.y = t * 1.5; pk.grp.position.y = pk.home.y + Math.sin(t * 2 + pk.home.x) * 0.2; }
+    for (const pd of pedestals) pd.mask.rotation.y = Math.sin(t * 0.8 + pd.local.x) * 0.35;
+    if (META.star) { META.star.rotation.y = t; }
+    // final: llegar al centro del escenario
+    if (stageT < 0 && P.alive && P.pos.y > 17.5 && Math.hypot(P.pos.x, P.pos.z + 236) < 4) { stageT = 0; SFX.gate(); toast('¡Se abre el telón!', 2); confetti(new V3(0, 24, -238), 0xffd35a); }
+    if (stageT >= 0) { stageT += dt; const k = Math.min(1, stageT / 2); curtain[0].position.x = -5.25 - k * 8; curtain[1].position.x = 5.25 + k * 8;
+      if (rng() < 0.6) confetti(new V3(rand(-10, 10), 32, -236), [0xff5a5a, 0x5ab4ff, 0xffd35a, 0x8aff8a][Math.floor(rng() * 4)]);
+      if (stageT > 1.2 && !META.done) win(); }
+  }
+  function onBrazier() {
+    const n = L.braziers.filter(b => b.lit).length;
+    if (n >= L.braziers.length) { toast('¡La puerta del muelle se abre!', 2.5); SFX.gate(); META.gate.opening = true; shake(0.2); }
+    else toast(`Farolillo encendido (${n}/${L.braziers.length})`, 2);
+  }
+  function win() {
+    const tm = stats.time, md = metaMedal(tm, 210, 330);
+    metaFinish({ title: '¡BRAVO! ¡TELÓN!', medal: md,
+      rows: [['Tiempo', fmtTime(tm)], ['Estrellas de papel', stats.gems + ' / ' + WORLD.totalGems], ['Enemigos', stats.kills], ['Caídas', stats.deaths]],
+      record: { time: tm, label: stats.gems + ' estrellas', medal: md } });
+  }
+  return {
+    style: { post: 'papel', exposure: 1.05, sat: 1.15, bloom: [0.3, 0.4, 0.9], fog: [0xf4dcc0, 0.0045], hemi: [0xfff4e0, 0x9a8a7a, 1.9], sun: [0xfff0d8, 2.6], gem: 0xffd35a },
+    sky: { top: 0x8ac4f0, mid: 0xfbe2c4, bot: 0xf0c8a0, sunC: 0xffe0a0, sunK: 0.6 },
+    h, water, bounds: [-17.8, 17.8, -240, 12], fallY: -25, gemLabel: 'ESTRELLAS DE PAPEL', startForm: 'wolf',
+    waterMsg: '¡El papel mojado no aguanta!',
+    ZONES: [
+      { z: 30, name: 'El Bosque de Cartulina', sub: 'Acto I', obj: 'Toca las máscaras para cambiar y cruza el bosque.', hint: 'Solo cambias al tocar una máscara de pedestal o al ponerte (R) la que guardes.' },
+      { z: -63, name: 'El Castillo de Papel', sub: 'Acto II', obj: 'Quema la puerta y enciende los farolillos.', hint: 'Ponte la máscara portátil del Dragón con <b>R</b> para quemar la puerta de papel.' },
+      { z: -123, name: 'El Mar de Origami', sub: 'Acto III', obj: 'Cruza el mar saltando de barco en barco.', hint: 'Cada barco puede llevar una máscara: tócala o esquívala según lo que necesites.' },
+      { z: -193, name: 'La Escalera de Libros', sub: 'Acto IV', obj: 'Sube al escenario y abre el gran telón.', hint: 'Lobo para saltar de libro en libro · Araña para trepar el lomo marcado.' },
+    ],
+    title(dt, t) { const a = t * 0.06; camera.position.set(Math.sin(a) * 14, 11, -4 + Math.cos(a) * 10); camera.lookAt(0, 3, -22); update(dt, t); },
+    build, rule, update, onBrazier, win,
+    start() { toast('<b style="color:#ffb35c">Teatro de Papel</b> · solo cambias al tocar las máscaras', 4); },
+    help: '<kbd>WASD</kbd> moverse · <kbd>ESPACIO</kbd> saltar · <kbd>CLIC</kbd> ataque · <kbd>E</kbd> habilidad · <kbd>R</kbd> ponerte la máscara guardada<br>Solo cambias al <b style="color:#ffb35c">tocar una máscara</b> de pedestal o al ponerte la máscara portátil que lleves.',
+    helpTouch: 'Solo cambias al <b style="color:#ffb35c">tocar una máscara</b> de pedestal; el botón MÁSCARA te pone la máscara portátil que lleves guardada.',
+  };
+})();
+
+/* =====================================================================
+   ESPIRAL DE NEÓN — regla: CINCO VIDAS, CINCO MONSTRUOS
+   Cada monstruo es una vida. Si te derrotan, ese monstruo se pierde
+   para siempre y eliges con cuál sigues. Los núcleos de respaldo
+   recuperan al último monstruo perdido.
+   ===================================================================== */
+METAS.neon = (() => {
+  const RAD = 24, N = 26, DT = Math.PI * 3 / N;
+  const S = { dead: new Set(), lost: [], picks: 0, alive: 5, endOpen: false, guardians: [], won: false };
+  const plats = [], lasers = [], cores = [];
+  const SEG = ['steps', 'steps', 'laser', 'crumble', 'turret', 'steps', 'gap', 'laser', 'wall', 'crumble', 'firewall', 'turret', 'laser', 'gap', 'wall', 'laser', 'steps', 'firewall', 'gap', 'laser', 'crumble', 'wall', 'turret', 'laser', 'steps', 'steps'];
+  const RISE = { steps: 1.85, laser: 1.85, crumble: 1.85, turret: 1.85, firewall: 1.85, gap: 0, wall: 5.2 };
+  let coreMat, gridMat, platMat, edgeMat, sunMat, door = null;
+  function build() {
+    // materiales neón
+    const gridTex = canvasTex(256, 256, (g, w) => { g.fillStyle = '#05030c'; g.fillRect(0, 0, w, w); g.strokeStyle = '#22e4ff'; g.lineWidth = 4; g.strokeRect(2, 2, w - 4, w - 4); g.strokeStyle = 'rgba(34,228,255,.35)'; g.lineWidth = 2; g.beginPath(); g.moveTo(w / 2, 0); g.lineTo(w / 2, w); g.moveTo(0, w / 2); g.lineTo(w, w / 2); g.stroke(); });
+    platMat = new THREE.MeshStandardMaterial({ color: 0x0c0a18, roughness: 0.35, metalness: 0.6, emissive: 0xffffff, emissiveMap: gridTex, emissiveIntensity: 0.75, map: gridTex });
+    const sideMat = new THREE.MeshStandardMaterial({ color: 0x120a24, roughness: 0.4, metalness: 0.7, emissive: 0x3a0a6a, emissiveIntensity: 0.35 });
+    edgeMat = new THREE.LineBasicMaterial({ color: 0xff3ad8 });
+    MAT.stone = sideMat; MAT.rock = sideMat; MAT.rockDark = sideMat; MAT.basalt = sideMat; MAT.ashTop = platMat;
+    MAT.cracked = new THREE.MeshStandardMaterial({ color: 0x2a0a10, roughness: 0.5, emissive: 0xff2a4a, emissiveMap: TEX.crack, emissiveIntensity: 2.6 });
+    META.envMats = [platMat, sideMat];
+    // suelo de rejilla infinito, sol sintético, montañas de alambre y estrellas
+    gridMat = new THREE.ShaderMaterial({ uniforms: { uTime: timeUniform }, transparent: true, depthWrite: false,
+      vertexShader: 'varying vec3 vW; void main(){ vec4 w = modelMatrix*vec4(position,1.); vW = w.xyz; gl_Position = projectionMatrix*viewMatrix*w; }',
+      fragmentShader: 'uniform float uTime; varying vec3 vW; void main(){ vec2 p = vW.xz/8. + vec2(0., uTime*.25); vec2 g = abs(fract(p-.5)-.5)/fwidth(p); float l = 1.-min(min(g.x,g.y),1.); float d = length(vW.xz); float f = smoothstep(420., 60., d); gl_FragColor = vec4(mix(vec3(.9,.2,1.), vec3(.1,.9,1.), smoothstep(0.,300.,d)) * l * f * 1.6, l*f); }' });
+    { const m = new THREE.Mesh(new THREE.PlaneGeometry(900, 900), gridMat); m.rotation.x = -Math.PI / 2; m.position.y = -40; scene.add(m); }
+    sunMat = new THREE.ShaderMaterial({ uniforms: { uTime: timeUniform }, transparent: true, depthWrite: false, fog: false,
+      vertexShader: 'varying vec2 vUv; void main(){ vUv = uv; gl_Position = projectionMatrix*modelViewMatrix*vec4(position,1.); }',
+      fragmentShader: 'uniform float uTime; varying vec2 vUv; void main(){ vec2 c = vUv-.5; float r = length(c); if (r > .5) discard; float y = vUv.y; float band = step(.5, fract(y*14. - uTime*.15)) + step(.62, y); if (y < .55 && band < .5) discard; vec3 col = mix(vec3(1.,.15,.6), vec3(1.,.85,.25), smoothstep(.1,.9,y)); gl_FragColor = vec4(col*1.6, 1.); }' });
+    { const m = new THREE.Mesh(new THREE.PlaneGeometry(220, 220), sunMat); m.position.set(0, 30, -420); scene.add(m); }
+    for (let i = 0; i < 18; i++) { const a = i / 18 * 6.283, r = rand(220, 330), hh = rand(30, 80); const g = new THREE.ConeGeometry(rand(30, 60), hh, 5, 3); jitterGeo(g, 6, i);
+      const m = edgeLines(g, 0xb03aff, 0.7); m.position.set(Math.sin(a) * r, -40 + hh / 2, Math.cos(a) * r); scene.add(m); }
+    { const g = new THREE.BufferGeometry(), p = []; for (let i = 0; i < 1500; i++) { const v = new V3().setFromSphericalCoords(700, rand(0, 1.4), rand(0, 6.28)); p.push(v.x, Math.abs(v.y) + 20, v.z); } g.setAttribute('position', new THREE.Float32BufferAttribute(p, 3));
+      scene.add(new THREE.Points(g, new THREE.PointsMaterial({ color: 0xbfe8ff, size: 1.4, sizeAttenuation: false, fog: false }))); }
+    // núcleo central
+    coreMat = new THREE.ShaderMaterial({ uniforms: { uTime: timeUniform, uOpen: { value: 0 } },
+      vertexShader: 'varying vec2 vUv; varying vec3 vN; void main(){ vUv = uv; vN = normalMatrix*normal; gl_Position = projectionMatrix*modelViewMatrix*vec4(position,1.); }',
+      fragmentShader: 'uniform float uTime; uniform float uOpen; varying vec2 vUv; varying vec3 vN; float h(float x){ return fract(sin(x*91.3)*437.5); } void main(){ float col = floor(vUv.x*48.); float sp = .2 + h(col)*.6; float y = fract(vUv.y*6. - uTime*sp + h(col)*7.); float d = smoothstep(.0,.05,y)*smoothstep(.35,.05,y); float rim = pow(1.-abs(vN.z),2.); vec3 c = vec3(.05,.02,.12) + vec3(.1,.9,1.)*d*.9 + vec3(.9,.2,1.)*rim*.4 + vec3(1.,.8,.3)*uOpen*.6; gl_FragColor = vec4(c,1.); }' });
+    { const m = new THREE.Mesh(new THREE.CylinderGeometry(7, 7, 90, 48, 1, true), coreMat); m.position.y = 15; scene.add(m); colBox(0, -40, 0, 11, 110, 11, { climbable: false });
+      for (let i = 0; i < 4; i++) { const r = new THREE.Mesh(new THREE.TorusGeometry(9 + i * 0.6, 0.12, 6, 64), new THREE.MeshBasicMaterial({ color: i % 2 ? 0xff3ad8 : 0x22e4ff })); r.rotation.x = Math.PI / 2; r.position.y = -10 + i * 18; scene.add(r); r.userData.spin = (i % 2 ? -1 : 1) * (0.2 + i * 0.05); META.rings = (META.rings || []).concat(r); } }
+    // espiral de plataformas
+    let y = 0; const P = [];
+    META.P = P; META.SEG = SEG;
+    for (let i = 0; i <= N; i++) { const th = i * DT + 0.2; P.push({ x: Math.sin(th) * RAD, z: Math.cos(th) * RAD, y, th }); if (i < N) y += RISE[SEG[i]]; }
+    const plat = (p, w, tall = 0) => { const th = 1.2 + tall; const b = block(p.x, p.y - th, p.z, w, th, w, platMat, { climbable: tall > 0, tile: 6 }); const e = new THREE.LineSegments(new THREE.EdgesGeometry(new THREE.BoxGeometry(w, th, w)), edgeMat); e.position.set(p.x, p.y - th / 2, p.z); scene.add(e); plats.push(p); return b; };
+    const W = i => i === N ? 10 : ((i > 0 && SEG[i - 1] === 'gap') || SEG[i] === 'gap') ? 4.6 : 6.2;
+    for (let i = 0; i <= N; i++) { P[i].w = W(i); plat(P[i], P[i].w, i > 0 && SEG[i - 1] === 'wall' ? 6 : 0); }
+    for (let i = 0; i < N; i++) segment(SEG[i], P[i], P[i + 1], i);
+    // santuarios
+    [0, 6, 12, 18, 24].forEach((i, k) => checkpoint(P[i].x, P[i].z, P[i].y, ['Puerto de entrada', 'Nodo 1', 'Nodo 2', 'Nodo 3', 'Nodo 4'][k]));
+    // núcleos de respaldo en desvíos arriesgados
+    for (const i of [8, 17]) { const p = P[i], ox = Math.sin(p.th) * 11, oz = Math.cos(p.th) * 11, q = { x: p.x + ox, z: p.z + oz, y: p.y + 1 };
+      for (let k = 1; k <= 4; k++) crumble(p.x + ox * k / 5, p.z + oz * k / 5, p.y + k * 0.25, 1.9);
+      plat(q, 3.6); const m = new THREE.Mesh(new THREE.IcosahedronGeometry(0.8, 1), new THREE.MeshBasicMaterial({ color: 0x7affc0, wireframe: true })); m.position.set(q.x, q.y + 1.4, q.z); scene.add(m); cores.push({ m, taken: false, pos: new V3(q.x, q.y + 1.4, q.z) }); }
+    // cima: puerta del núcleo y guardianes
+    const top = P[N]; META.top = top;
+    { const dx = -top.x, dz = -top.z, l = Math.hypot(dx, dz); for (let k = 1; k < 4; k++) { const x = top.x + dx / l * (5 + k * 1.6), z = top.z + dz / l * (5 + k * 1.6); block(x, top.y - 1, z, 2.6, 1, 2.6, platMat); }
+      door = new THREE.Mesh(new THREE.PlaneGeometry(4, 5), new THREE.MeshBasicMaterial({ color: 0xff3ad8, transparent: true, opacity: 0.85, side: THREE.DoubleSide })); door.position.set(top.x + dx / l * 9.2, top.y + 2.5, top.z + dz / l * 9.2); door.lookAt(0, top.y + 2.5, 0); scene.add(door); META.doorPos = door.position.clone(); }
+    for (const [type, ox, oz] of [['brute', 2.5, 2], ['brute', -2.5, -2], ['wisp', 0, 0]]) L.enemySpawns.push({ type, x: top.x + ox, z: top.z + oz, y: type === 'wisp' ? top.y + 4 : top.y, init: e => { e.def = { ...e.def, aggro: 26, leash: 40 }; S.guardians.push(e); } });
+    gem(top.x, top.z, top.y + 1.3);
+    batchStatic();
+  }
+  function segment(type, a, b, i) {
+    const dx = b.x - a.x, dz = b.z - a.z, len = Math.hypot(dx, dz), ux = dx / len, uz = dz / len;
+    // pasarela solo en el hueco entre bordes: cada peldaño sube como mucho 0,46 m
+    const walk = (fn) => { const s0 = a.w / 2 * 0.95, s1 = len - b.w / 2 * 0.95, n = Math.max(2, Math.ceil((s1 - s0) / 0.9), Math.ceil(Math.abs(b.y - a.y) / 0.45) - 1);
+      for (let k = 1; k <= n; k++) { const t = k / (n + 1), sd = s0 + (s1 - s0) * t, x = a.x + ux * sd, z = a.z + uz * sd, y = a.y + (b.y - a.y) * t; fn(x, y, z, t, k); } };
+    if (type === 'steps' || type === 'laser' || type === 'turret' || type === 'firewall') {
+      walk((x, y, z) => { block(x, y - 0.8, z, 1.9, 0.8, 1.9, platMat); });
+      if (type === 'laser') { const m = new THREE.Mesh(new THREE.BoxGeometry(7, 0.16, 0.16), new THREE.MeshBasicMaterial({ color: 0xff2a4a })); scene.add(m);
+        const glow = new THREE.Mesh(new THREE.BoxGeometry(7, 0.5, 0.5), new THREE.MeshBasicMaterial({ color: 0xff2a4a, transparent: true, opacity: 0.25, blending: THREE.AdditiveBlending, depthWrite: false })); m.add(glow);
+        lasers.push({ m, a, b, ux, uz, L: len, ph: i * 1.7, sp: 0.9 + (i % 3) * 0.25 }); }
+      if (type === 'turret') for (const s of [-1, 1]) L.enemySpawns.push({ type: 'wisp', x: (a.x + b.x) / 2 - uz * s * 5, z: (a.z + b.z) / 2 + ux * s * 5, y: (a.y + b.y) / 2 + 3 });
+      if (type === 'firewall') { const x = (a.x + b.x) / 2, z = (a.z + b.z) / 2, y = (a.y + b.y) / 2 - 0.4; cracked(x, y, z, 3, 4.4, 3); anchor(x, y + 8, z); }
+    } else if (type === 'crumble') {
+      walk((x, y, z) => crumble(x, z, y, 2.1));
+    } else if (type === 'gap') {
+      const mv = { group: new THREE.Group(), base: new V3(a.x + dx / 2, a.y, a.z + dz / 2), prev: new V3(), delta: new V3(), th: 0.6, w: 2.6, d: 2.6 };
+      const m = new THREE.Mesh(new THREE.BoxGeometry(2.6, 0.6, 2.6), platMat); m.position.y = -0.3; mv.group.add(m); scene.add(mv.group);
+      const e = new THREE.LineSegments(new THREE.EdgesGeometry(new THREE.BoxGeometry(2.6, 0.6, 2.6)), new THREE.LineBasicMaterial({ color: 0x22e4ff })); e.position.y = -0.3; mv.group.add(e);
+      const amp = len / 2 - 2.5; mv.fn = t => _v1.set(ux * Math.sin(t * 0.8 + i) * amp, 0, uz * Math.sin(t * 0.8 + i) * amp); mv.prev.copy(mv.base);
+      mv.col = colBox(mv.base.x, a.y - 0.6, mv.base.z, 2.6, 0.6, 2.6); L.movers.push(mv);
+      anchor(a.x + dx / 2, a.y + 6.5, a.z + dz / 2);
+    } else if (type === 'wall') {
+      geyser(a.x + ux * 1.8, a.z + uz * 1.8, a.y + 0.02);
+    }
+    if (i % 3 === 1) gem((a.x + b.x) / 2, (a.z + b.z) / 2, (a.y + b.y) / 2 + 1.6);
+    if (i % 4 === 2 && type !== 'turret') L.enemySpawns.push({ type: i % 8 === 6 ? 'brute' : 'imp', x: b.x, z: b.z, y: b.y });
+  }
+  /* ---------- regla: vidas ---------- */
+  const left = () => FORM_KEYS.filter(k => !S.dead.has(k));
+  function choose(k, first) {
+    transformTo(k, true); player.next = k;
+    if (!first) { respawn(true); player.model.root.visible = true; } else player.model.root.visible = true;
+    S.picks++; burst(player.pos.clone().setY(player.pos.y + 1.5), FHEX[k], 60, 9, 0.7, 0.9, { grav: 0 }); SFX.transform();
+  }
+  const rule = {
+    update() { },
+    hud() {
+      const cls = {}; for (const k of S.dead) cls[k] = 'dead'; if (player.alive) cls[player.form] = 'cur';
+      const n = left().length;
+      rbSet(`<div class="rbT">Regla · cinco vidas, cinco monstruos</div>${rfRow(cls)}<div class="rbV" style="color:${n > 2 ? '#36f0ff' : n > 1 ? '#ffd35a' : '#ff5a6a'}">Monstruos vivos: ${n} / 5</div>`);
+    },
+  };
+  function onDeath() {
+    const f = player.form; S.dead.add(f); S.lost.push(f);
+    const L2 = left(); shake(0.6); AudioSys.tone(220, 1.0, { type: 'sawtooth', vol: 0.08, slide: 55 });
+    mMsg(`¡${FORMS[f].name.toUpperCase()} PERDIDO!`, 1.8, '#ff5a6a');
+    if (!L2.length) { setTimeout(() => lose(), 1400); return true; }
+    setTimeout(() => $('fade').style.opacity = 1, 700);
+    setTimeout(() => { pickForm('ELIGE TU SIGUIENTE MONSTRUO', `Has perdido al ${FORMS[f].name}. Te quedan ${L2.length}: el que caiga no vuelve.`, L2, k => { $('fade').style.opacity = 0; choose(k, false); }); }, 1300);
+    return true;
+  }
+  function update(dt, t) {
+    const P = player;
+    for (const r of META.rings || []) r.rotation.z += r.userData.spin * dt;
+    // láseres que barren las pasarelas
+    for (const l of lasers) {
+      const s = (Math.sin(t * l.sp + l.ph) * 0.5 + 0.5) * (l.L - 6) + 3, x = l.a.x + l.ux * s, z = l.a.z + l.uz * s, y = l.a.y + (l.b.y - l.a.y) * (s / l.L) + 1.0;
+      l.m.position.set(x, y, z); l.m.rotation.y = Math.atan2(l.ux, l.uz) + Math.PI / 2;
+      if (P.alive && !P.respawning) { const px = P.pos.x - x, pz = P.pos.z - z, along = px * l.ux + pz * l.uz, side = -px * l.uz + pz * l.ux;
+        if (Math.abs(along) < 0.45 && Math.abs(side) < 3.4 && P.pos.y < y - 0.1 && P.pos.y + 2.2 > y) hurtPlayer(34, new V3(x - l.ux * 2, P.pos.y, z - l.uz * 2), 9); }
+    }
+    // núcleos de respaldo
+    for (const c of cores) { if (c.taken) continue; c.m.rotation.y = t * 2; c.m.rotation.x = t;
+      if (P.alive && P.pos.distanceTo(c.pos) < 2) { c.taken = true; c.m.visible = false; SFX.checkpoint(); burst(c.pos, 0x7affc0, 60, 8, 0.6, 0.9, { grav: 0 });
+        const back = S.lost.pop(); if (back) { S.dead.delete(back); mMsg(`¡${FORMS[back].name.toUpperCase()} RESTAURADO!`, 2, '#7affc0'); } else { P.hp = P.maxHp; toast('Núcleo de respaldo: vida restaurada', 2); } } }
+    // la puerta del núcleo se abre al caer los guardianes
+    if (!S.endOpen && S.guardians.length && S.guardians.every(e => e.dead)) { S.endOpen = true; door.material.color.setHex(0x7affc0); toast('¡El núcleo se abre! Entra por la puerta', 3); SFX.gate(); }
+    coreMat.uniforms.uOpen.value = damp(coreMat.uniforms.uOpen.value, S.endOpen ? 1 : 0, 2, dt);
+    if (S.endOpen && !META.done && P.alive && P.pos.distanceTo(META.doorPos) < 3.2) win();
+    gradePass.uniforms.uPulse.value = Math.max(0, gradePass.uniforms.uPulse.value - dt * 2);
+  }
+  function hazards(P) {
+    const cp = P.checkpoint, floor = (cp ? cp.pos.y : 0) - 22;
+    if (P.pos.y < Math.min(floor, -30)) fallRespawn('Caída al vacío de datos', 30, 0xff3ad8);
+  }
+  function result(win) {
+    const alive = left().length, tm = stats.time, md = !win ? null : alive === 5 ? 'oro' : alive >= 3 ? 'plata' : 'bronce';
+    metaFinish({ win, title: win ? '¡NÚCLEO ALCANZADO!' : 'SIN MONSTRUOS', medal: md,
+      rows: [['Monstruos vivos', alive + ' / 5'], ['Tiempo', fmtTime(tm)], ['Datos', stats.gems + ' / ' + WORLD.totalGems], ['Enemigos', stats.kills]],
+      record: { time: tm, alive, label: alive + '/5 vivos', medal: md }, better: (o, n) => (n.alive ?? 0) > (o.alive ?? 0) || ((n.alive ?? 0) === (o.alive ?? 0) && n.time < o.time) });
+  }
+  const win = () => result(true), lose = () => result(false);
+  return {
+    style: { post: 'neon', exposure: 0.95, sat: 1.2, bloom: [0.75, 0.5, 0.62], fog: [0x0a0418, 0.006], hemi: [0x8a6aff, 0x1a0a2a, 1.3], sun: [0xff9ad8, 1.6], gem: 0x36f0ff, background: undefined },
+    sky: { top: 0x020108, mid: 0x2a0a4a, bot: 0x05020c, sunC: 0xff3ad8, sunK: 0.4 },
+    h: () => -100, bounds: [-44, 44, -44, 44], gemLabel: 'FRAGMENTOS DE DATOS', startForm: 'wolf',
+    ZONES: [
+      { test: () => true, name: 'Puerto de entrada', sub: 'Espiral de Neón', obj: 'Asciende la espiral hasta el núcleo.', hint: 'Cada monstruo es una vida: si cae, lo pierdes y eliges otro. Los núcleos verdes recuperan al último perdido.' },
+      { test: p => p.y > 12, name: 'Cortafuegos', sub: 'Sector 2', obj: 'Sigue subiendo.', hint: 'Oso: rompe los cortafuegos · Lobo/Dragón: sáltalos · Araña: anclaje.' },
+      { test: p => p.y > 24, name: 'Saltos de datos', sub: 'Sector 3', obj: 'Cruza los huecos.', hint: 'Plataformas lanzadera, anclajes de seda o géiseres de datos: elige tu ruta.' },
+      { test: p => p.y > 38, name: 'El Núcleo', sub: 'Sector final', obj: 'Derrota a los guardianes y entra en el núcleo.', hint: 'Cuantos más monstruos sigan vivos, mejor medalla.' },
+    ],
+    title(dt, t) { const a = t * 0.07; camera.position.set(Math.sin(a) * 52, 30 + Math.sin(t * 0.3) * 6, Math.cos(a) * 52); camera.lookAt(0, 22, 0); update(dt, t); },
+    build, rule, update, hazards, onDeath, S, choose, left,
+    start() { pickForm('ELIGE TU PRIMER MONSTRUO', 'Cada monstruo es una vida. Si cae, no vuelve.', FORM_KEYS.slice(), k => choose(k, true)); },
+    win,
+    help: '<kbd>WASD</kbd> moverse · <kbd>ESPACIO</kbd> saltar · <kbd>CLIC</kbd> ataque · <kbd>E</kbd> habilidad<br>Cada monstruo es <b style="color:#36f0ff">una vida</b>: si cae, lo pierdes para siempre y eliges con cuál sigues.',
+    helpTouch: 'Cada monstruo es <b style="color:#36f0ff">una vida</b>: si cae, lo pierdes para siempre y eliges con cuál sigues.',
+  };
+})();
+
+/* =====================================================================
+   TEMPLO DEL PULSO — regla: CAMBIO AL RITMO
+   La música (120 ppm) dirige el templo: cada dos compases cambias al
+   monstruo del siguiente paso de la partitura (8 pasos). Golpear un gong
+   reescribe el PRÓXIMO paso. Pistones, plataformas y lanzaderas laten
+   al mismo compás.
+   ===================================================================== */
+METAS.pulso = (() => {
+  const BPM = 120, BEAT = 60 / BPM, STEP_BEATS = 8;
+  const S = { t: 0, beat: -1, seq: ['wolf', 'spider', 'bear', 'dragon', 'yeti', 'wolf', 'dragon', 'spider'], step: 0, edited: -1, editT: 0, notes: 0, started: false, finale: false, won: false };
+  const gongs = [], pistons = [], blinks = [], pads = [], plates = [], lamps = [];
+  let goldMat, blackMat, tealMat, padMat, sunburst = null;
+  const beatF = () => S.t / BEAT;
+  function h(x, z) { if (z > -60) return 0; if (z > -112) return -60; if (z > -173) return 0; return -60; }
+  /* ---------- texturas art déco ---------- */
+  function decoFloor() {
+    return canvasTex(512, 512, (g, w) => { g.fillStyle = '#0b0a0c'; g.fillRect(0, 0, w, w);
+      for (let i = 0; i < 900; i++) { g.fillStyle = `rgba(255,255,255,${rng() * 0.025})`; g.beginPath(); g.arc(rng() * w, rng() * w, rng() * 20, 0, 6.3); g.fill(); }
+      g.strokeStyle = '#d9b25a'; g.lineWidth = 5; g.strokeRect(6, 6, w - 12, w - 12); g.lineWidth = 2.5;
+      for (let i = 0; i < 9; i++) { const a = Math.PI + i / 8 * Math.PI; g.beginPath(); g.moveTo(w / 2, w); g.lineTo(w / 2 + Math.cos(a) * w * 0.48, w + Math.sin(a) * w * 0.48); g.stroke(); }
+      for (const r of [0.18, 0.3, 0.42]) { g.beginPath(); g.arc(w / 2, w, w * r, Math.PI, 0); g.stroke(); }
+      g.beginPath(); for (let i = 0; i < 6; i++) { g.moveTo(40 + i * 86, 60); g.lineTo(83 + i * 86, 20); g.lineTo(126 + i * 86, 60); } g.stroke(); });
+  }
+  function decoWall() {
+    return canvasTex(256, 512, (g, w, hh) => { g.fillStyle = '#121014'; g.fillRect(0, 0, w, hh); g.strokeStyle = '#c9a24e'; g.lineWidth = 3;
+      for (const x of [20, 40, 216, 236]) { g.beginPath(); g.moveTo(x, 0); g.lineTo(x, hh); g.stroke(); }
+      g.lineWidth = 2; for (let y = 60; y < hh; y += 120) { g.beginPath(); g.moveTo(60, y + 40); g.lineTo(128, y); g.lineTo(196, y + 40); g.stroke(); g.beginPath(); g.moveTo(80, y + 50); g.lineTo(128, y + 22); g.lineTo(176, y + 50); g.stroke(); } });
+  }
+  /* ---------- constructores ---------- */
+  function column(x, z, y0, hh) {
+    addMesh(new THREE.CylinderGeometry(0.75, 0.75, hh, 16), blackMat, x, y0 + hh / 2, z);
+    for (let k = 0; k < 8; k++) { const a = k / 8 * 6.283; addMesh(new THREE.BoxGeometry(0.08, hh * 0.92, 0.08), goldMat, x + Math.cos(a) * 0.76, y0 + hh / 2, z + Math.sin(a) * 0.76, { cast: false }); }
+    for (let s = 0; s < 3; s++) addMesh(new THREE.BoxGeometry(2 - s * 0.35, 0.3, 2 - s * 0.35), goldMat, x, y0 + hh - 0.15 - s * 0.3, z);
+    addMesh(new THREE.BoxGeometry(2, 0.4, 2), goldMat, x, y0 + 0.2, z);
+    colBox(x, y0, z, 1.6, hh, 1.6, { climbable: false });
+  }
+  function gong(x, y, z, f, ry = 0) {
+    const grp = new THREE.Group(); grp.position.set(x, y, z); grp.rotation.y = ry; scene.add(grp);
+    for (const s of [-1, 1]) { const p = new THREE.Mesh(new THREE.BoxGeometry(0.25, 3.6, 0.25), goldMat); p.position.set(s * 1.45, 1.8, 0); p.castShadow = true; grp.add(p); }
+    const top = new THREE.Mesh(new THREE.BoxGeometry(3.4, 0.3, 0.3), goldMat); top.position.y = 3.6; grp.add(top);
+    const disc = new THREE.Mesh(new THREE.CylinderGeometry(1.15, 1.15, 0.12, 32), new THREE.MeshStandardMaterial({ color: 0xd8a84a, metalness: 1, roughness: 0.25, emissive: FHEX[f], emissiveIntensity: 0.25 }));
+    disc.rotation.x = Math.PI / 2; disc.position.y = 2.1; grp.add(disc);
+    const boss = new THREE.Mesh(new THREE.SphereGeometry(0.35, 16, 10), new THREE.MeshBasicMaterial({ color: FHEX[f] })); boss.position.set(0, 2.1, 0.08); grp.add(boss);
+    gongs.push({ grp, disc, f, pos: new V3(x, y, z), swing: 0, cd: 0 }); META.envMats.push(disc.material);
+  }
+  function piston(x, z, w, d, phase) {
+    const m = new THREE.Mesh(makeBoxGeo(w, 4, d, 2), new THREE.MeshStandardMaterial({ color: 0x2a2620, metalness: 0.9, roughness: 0.35, emissive: 0xd9a84a, emissiveIntensity: 0.0 })); m.castShadow = true; scene.add(m);
+    const face = new THREE.Mesh(new THREE.BoxGeometry(w * 0.98, 0.2, d * 0.98), goldMat); face.position.y = -2; m.add(face);
+    const shaft = new THREE.Mesh(new THREE.CylinderGeometry(0.4, 0.4, 10), goldMat); shaft.position.y = 7; m.add(shaft);
+    const mark = new THREE.Mesh(new THREE.PlaneGeometry(w, d), new THREE.MeshBasicMaterial({ color: 0xff3a2a, transparent: true, opacity: 0, depthWrite: false })); mark.rotation.x = -Math.PI / 2; mark.position.set(x, 0.04, z); scene.add(mark);
+    pistons.push({ m, x, z, w, d, phase, mark, y: 6, hit: false }); META.envMats.push(m.material);
+  }
+  function blink(x, z, y, ph) {
+    const m = new THREE.Mesh(makeBoxGeo(2.8, 0.5, 2.8, 2), new THREE.MeshStandardMaterial({ color: ph ? 0x0a3a3a : 0x3a2a0a, metalness: 0.6, roughness: 0.3, emissive: ph ? 0x2ae0c8 : 0xffb84a, emissiveIntensity: 1.2, transparent: true, opacity: 1 }));
+    m.position.set(x, y - 0.25, z); m.castShadow = true; scene.add(m);
+    const col = colBox(x, y - 0.5, z, 2.8, 0.5, 2.8, { noCam: true }); blinks.push({ m, col, ph });
+  }
+  function pad(x, z, y) {
+    const m = new THREE.Mesh(new THREE.CylinderGeometry(1.2, 1.35, 0.25, 24), padMat.clone()); m.position.set(x, y + 0.12, z); scene.add(m);
+    const ring = new THREE.Mesh(new THREE.TorusGeometry(1.3, 0.08, 6, 32), goldMat); ring.rotation.x = Math.PI / 2; ring.position.set(x, y + 0.26, z); scene.add(ring);
+    pads.push({ m, pos: new V3(x, y, z) });
+  }
+  function build() {
+    META.envMats = [];
+    goldMat = new THREE.MeshStandardMaterial({ color: 0xd9ad55, metalness: 1, roughness: 0.28, emissive: 0x2a1a00, emissiveIntensity: 0.4 });
+    blackMat = new THREE.MeshStandardMaterial({ color: 0x0e0d10, metalness: 0.4, roughness: 0.2 });
+    tealMat = new THREE.MeshBasicMaterial({ color: 0x1aa8a0, transparent: true, opacity: 0.55, side: THREE.DoubleSide });
+    padMat = new THREE.MeshStandardMaterial({ color: 0x0a2a28, emissive: 0x2ae0c8, emissiveIntensity: 0.6, metalness: 0.5, roughness: 0.3 });
+    const floorMat = new THREE.MeshStandardMaterial({ map: decoFloor(), metalness: 0.35, roughness: 0.18 });
+    const wallMat = new THREE.MeshStandardMaterial({ map: decoWall(), metalness: 0.3, roughness: 0.4 });
+    META.envMats.push(goldMat, blackMat, floorMat, wallMat, padMat);
+    MAT.stone = blackMat; MAT.gold = goldMat; MAT.rock = blackMat; MAT.rockDark = blackMat;
+    MAT.cracked = new THREE.MeshStandardMaterial({ color: 0x1a1612, roughness: 0.4, metalness: 0.4, emissive: 0xffc04a, emissiveMap: TEX.crack, emissiveIntensity: 2.2 });
+    const fl = (x0, x1, z0, z1, y) => { const g = new THREE.PlaneGeometry(x1 - x0, z1 - z0); g.rotateX(-Math.PI / 2); const uv = g.attributes.uv; for (let i = 0; i < uv.count; i++) uv.setXY(i, uv.getX(i) * (x1 - x0) / 6, uv.getY(i) * (z1 - z0) / 6);
+      const m = new THREE.Mesh(g, floorMat); m.position.set((x0 + x1) / 2, y + 0.01, (z0 + z1) / 2); m.receiveShadow = true; scene.add(m); };
+    const wall = (x, z, w, d, y0, hh, climb = false) => { const b = block(x, y0, z, w, hh, d, wallMat, { climbable: climb, tile: 8 }); return b; };
+    fl(-10, 10, -60, 12, 0); fl(-10, 10, -172, -112, 0);
+    for (const s of [-1, 1]) { wall(s * 10.8, -24, 1.6, 74, 0, 14); wall(s * 10.8, -142, 1.6, 62, 0, 36, true); }
+    wall(0, 13, 23, 1.6, 0, 14);
+    // sol art déco al fondo y lámparas
+    sunburst = new THREE.Group(); sunburst.position.set(0, 26, -205); scene.add(sunburst);
+    for (let i = 0; i < 25; i++) { const a = Math.PI + i / 24 * Math.PI; const r = new THREE.Mesh(new THREE.BoxGeometry(0.9, 46, 0.4), new THREE.MeshBasicMaterial({ color: i % 2 ? 0xd9ad55 : 0x6a5020, fog: false })); r.position.set(Math.cos(a) * 23, Math.sin(a) * 23, 0); r.rotation.z = a - Math.PI / 2; sunburst.add(r); }
+    { const disc = new THREE.Mesh(new THREE.CircleGeometry(9, 48, 0, Math.PI), new THREE.MeshBasicMaterial({ color: 0xffd47a, fog: false })); disc.rotation.z = Math.PI; sunburst.add(disc); }
+    // ============ C0 · VESTÍBULO ============
+    checkpoint(0, 6, 0, 'Vestíbulo');
+    for (const z of [8, -2, -12]) for (const s of [-1, 1]) column(s * 7.5, z, 0, 12);
+    sign(4.5, 2.5, 'LA PARTITURA', ['Cada dos compases cambias al', 'monstruo del siguiente paso.', 'Los gongs reescriben el próximo.'], -0.4);
+    wall(0, -21, 20, 2, 0, 6.2, true); for (let i = 0; i < 6; i++) addMesh(new THREE.BoxGeometry(0.4, 6, 0.1), goldMat, -8 + i * 3.2, 3.1, -19.95, { cast: false });
+    gong(-5, 0, -14, 'spider', 0.2);
+    sign(5.5, -14, 'EL MURO', ['6 m de muro: Araña, Dragón o', 'Yeti pueden superarlo.', 'Golpea el gong araña y espera.'], -0.2);
+    gem(0, -21, 7.4); gem(-7.5, 3); gem(7.5, -7);
+    // ============ C1 · SALA DE LOS PISTONES ============
+    checkpoint(0, -26, 0, 'Sala de los Pistones');
+    [-31, -38, -45, -52].forEach((z, r) => { for (const x of [-6, 0, 6]) piston(x, z, 5.4, 4.4, r % 2 ? 2 : 0); });
+    sign(-6, -27.5, 'PISTONES', ['Caen en el primer tiempo', 'de cada compás (las filas', 'alternas, en el tercero).'], 0.3);
+    { cracked(-8, 0, -56.5, 3, 3, 3); gem(-8, -56.5, 1.3); } // cofre de roca: solo el Oso
+    gong(7.5, 0, -57, 'dragon', -0.6); gong(-4, 0, -58.5, 'wolf', 0.3);
+    enemy('imp', 5, -35); enemy('imp', -5, -49);
+    // ============ C2 · PUENTE INTERMITENTE ============
+    block(0, -6, -62, 9, 6, 4, blackMat, { climbable: false }); checkpoint(0, -62, 0, 'Borde del puente');
+    for (let k = 0; k < 12; k++) { const z = -66.4 - k * 3.6, x = Math.sin(k * 1.3) * 2.6; blink(x, z, 0, k % 2); }
+    block(0, -6, -110, 9, 6, 4, blackMat, { climbable: false });
+    checkpoint(0, -110, 0, 'Al otro lado');
+    sign(3.5, -62.5, 'EL PUENTE', ['Las losas doradas y turquesa', 'se alternan cada dos tiempos.', 'Salta cuando la tuya parpadee.'], 0, 0);
+    for (let k = 0; k < 4; k++) { const z = -70 - k * 12; for (const s of [-1, 1]) { const m = new THREE.Mesh(new THREE.CylinderGeometry(0.4, 0.4, 70, 8), goldMat); m.position.set(s * 9, -25, z); scene.add(m); } }
+    gem(Math.sin(5 * 1.3) * 2.6, -66.4 - 5 * 3.6, 1.6); gem(Math.sin(9 * 1.3) * 2.6, -66.4 - 9 * 3.6, 1.6);
+    // ============ C3 · POZO DE LUZ ============
+    wall(-6, -121, 6, 4, 0, 5); wall(6, -128, 6, 4, 0, 10); wall(-3, -136, 6, 6, 0, 15.5);
+    pad(-1.5, -118, 0); pad(-3.5, -120.4, 5); pad(4, -127.5, 10);
+    anchor(-6, 8.5, -121); anchor(6, 13.5, -128); anchor(-3, 19, -136);
+    gong(4, 0, -116, 'yeti', -0.5); gong(-7.5, 5, -122.5, 'dragon', 0.6);
+    sign(0, -113.5, 'POZO DE LUZ', ['Las lanzaderas disparan en el', 'primer tiempo del compás.', 'Araña: anclajes · Yeti: pilares.'], 0, 0);
+    gem(6, -128, 11.3); gem(-3, -136, 16.8);
+    for (let z = -116; z > -170; z -= 9) for (const s of [-1, 1]) { const lp = new THREE.Mesh(new THREE.CylinderGeometry(0.5, 0.15, 1.2, 12), new THREE.MeshBasicMaterial({ color: 0xffd47a })); lp.position.set(s * 9.9, 9, z); scene.add(lp); lamps.push(lp); }
+    // ============ C4 · ESCENARIO FINAL ============
+    block(0, 14.3, -157, 19.6, 1.7, 30, blackMat, { climbable: false }); fl(-9.8, 9.8, -172, -142, 16);
+    checkpoint(-6, -145, 16, 'El Escenario');
+    FORM_KEYS.forEach((f, i) => { const a = i / 5 * Math.PI * 2, x = Math.sin(a) * 6.2, z = -158 + Math.cos(a) * 6.2;
+      const m = new THREE.Mesh(new THREE.CylinderGeometry(1.7, 1.7, 0.12, 32), new THREE.MeshStandardMaterial({ color: FHEX[f], emissive: FHEX[f], emissiveIntensity: 0.4, metalness: 0.3, roughness: 0.4 })); m.position.set(x, 16.07, z); scene.add(m);
+      plates.push({ f, x, z, m }); });
+    gong(-8.2, 16, -168, 'bear', 0.6); gong(8.2, 16, -168, 'yeti', -0.6); gong(8.2, 16, -149, 'wolf', -2.4);
+    enemy('imp', 4, -152, 16); enemy('imp', -4, -164, 16); enemy('wisp', 0, -166, 21);
+    for (const s of [-1, 1]) column(s * 9, -171, 16, 10);
+    gem(0, -158, 17.3);
+    for (const [x, y, z] of [[0, 8, 4], [0, 8, -14], [0, 8, -34], [0, 8, -50], [0, 6, -80], [0, 6, -100], [0, 8, -118], [0, 14, -130], [0, 22, -150], [0, 22, -166]]) addLightSource(new V3(x, y, z), 0xffc878, 26, 26, 0.15);
+    batchStatic();
+  }
+  /* ---------- música: electroswing sintetizado al compás ---------- */
+  const PROG = [[110, 130.8, 164.8], [146.8, 185, 220], [98, 123.5, 146.8], [82.4, 103.8, 123.5]]; // Am – D – G – E
+  function playBeat(b) {
+    const A = AudioSys; if (!A.ctx) return;
+    const bar = Math.floor(b / 4), bi = b % 4, ch = PROG[bar % 4];
+    if (bi % 2 === 0) { A.tone(120, 0.22, { type: 'sine', vol: 0.28, slide: 42 }); A.noise(0.03, { vol: 0.12, freq: 3000, type: 'highpass' }); }
+    else A.noise(0.16, { vol: 0.14, freq: 1600, type: 'bandpass', q: 0.9 });
+    A.noise(0.04, { vol: 0.05, freq: 8000, type: 'highpass' }); A.noise(0.04, { vol: 0.035, freq: 8000, type: 'highpass', delay: BEAT * 0.66 });
+    const walk = [ch[0], ch[1], ch[2], ch[1] * 1.06][bi]; A.tone(walk / 2, BEAT * 0.9, { type: 'triangle', vol: 0.13 });
+    if (bi === 0 || (bi === 2 && bar % 2)) for (const f of ch) A.tone(f * 2, 0.16, { type: 'sawtooth', vol: 0.025, delay: bi === 2 ? BEAT * 0.5 : 0 });
+    if (b % 8 === 7) for (let k = 0; k < 3; k++) A.tone(ch[k % 3] * 4, 0.1, { type: 'square', vol: 0.02, delay: k * BEAT / 3 });
+  }
+  /* ---------- regla ---------- */
+  const rule = {
+    update(dt) {
+      if (!S.started) return;
+      const st = Math.floor(beatF() / STEP_BEATS) % 8;
+      if (st !== S.step) { S.step = st; const f = S.seq[st];
+        if (player.alive && f !== player.form) { metaSwap(f); } AudioSys.noise(0.9, { vol: 0.07, freq: 6000, type: 'highpass' }); }
+      const into = beatF() % STEP_BEATS; if (into > 5 && Math.floor(into) !== Math.floor(into - dt / BEAT)) SFX.tick();
+      S.editT = Math.max(0, S.editT - dt);
+    },
+    hud() {
+      const b = Math.max(0, beatF()), ns = (S.step + 1) % 8, bi = Math.floor(b) % 4;
+      const steps = S.seq.map((f, i) => `<div class="st ${i === S.step ? 'now' : i === ns ? 'nx' : ''} ${i === S.edited && S.editT > 0 ? 'edit' : ''}" style="--c:${FCOL[f]}"><img src="${portraits[f] || ''}" alt=""></div>`).join('');
+      const beats = [0, 1, 2, 3].map(i => `<i class="${i === bi ? 'on' : ''}"></i>`).join('');
+      const left = STEP_BEATS - (b % STEP_BEATS);
+      rbSet(`<div class="rbT">Regla · la partitura${S.finale ? ' · notas ' + S.notes + ' / 8' : ''}</div><div class="rbSeq">${steps}</div><div class="rbBeat">${beats}</div><div class="rbHint">Siguiente: <b style="color:${FCOL[S.seq[ns]]}">${FORMS[S.seq[ns]].name}</b> en ${Math.ceil(left / 4)} ${Math.ceil(left / 4) > 1 ? 'compases' : 'compás'} · los gongs lo reescriben</div>`);
+    },
+  };
+  function strike(g) {
+    const ns = (S.step + 1) % 8; S.seq[ns] = g.f; S.edited = ns; S.editT = 1.4; g.swing = 1; g.cd = 0.5;
+    const base = { wolf: 196, spider: 220, bear: 147, dragon: 165, yeti: 262 }[g.f];
+    AudioSys.tone(base, 3, { type: 'sine', vol: 0.2 }); AudioSys.tone(base * 2.76, 2, { type: 'sine', vol: 0.06 }); AudioSys.noise(1.4, { vol: 0.08, freq: 900, type: 'bandpass' });
+    burst(g.pos.clone().setY(g.pos.y + 2.1), FHEX[g.f], 40, 7, 0.6, 0.8, { grav: 0 }); shockRing(g.pos, 3.5, FHEX[g.f], 0.5); shake(0.15);
+    mPop(`Próximo paso: ${FORMS[g.f].name}`, FCOL[g.f]);
+  }
+  /* ---------- lógica ---------- */
+  function update(dt, t) {
+    const P = player;
+    if (!S.started) return;
+    S.t += dt; const bf = beatF(), b = Math.floor(bf);
+    if (b !== S.beat) { S.beat = b; playBeat(b); gradePass.uniforms.uPulse.value = b % 4 === 0 ? 1 : 0.5; if (b % 4 === 0 && S.finale) note(); }
+    gradePass.uniforms.uPulse.value = Math.max(0, gradePass.uniforms.uPulse.value - dt * 3.5);
+    const bi = bf % 4;
+    // gongs
+    for (const g of gongs) { g.cd -= dt; g.swing *= Math.exp(-2 * dt); g.disc.rotation.z = Math.sin(t * 9) * g.swing * 0.3; g.disc.material.emissiveIntensity = 0.25 + g.swing * 2;
+      if (g.cd <= 0 && P.alive && (input.mouseLPressed || input.abilityPressed) && Math.hypot(P.pos.x - g.pos.x, P.pos.z - g.pos.z) < 3.4 && Math.abs(P.pos.y - g.pos.y) < 3) strike(g); }
+    // pistones: caen en el tiempo 0 (o 2) de cada compás
+    for (const p of pistons) { const ph = (bf - p.phase + 400) % 4; let y;
+      if (ph < 0.18) y = lerp(6, 2, ph / 0.18); else if (ph < 0.55) y = 2; else if (ph < 1.3) y = lerp(2, 6, smoothstep(0.55, 1.3, ph)); else y = 6;
+      p.m.position.set(p.x, y + 2, p.z); p.m.material.emissiveIntensity = ph > 3.2 || ph < 0.3 ? 0.9 : 0.05; p.mark.material.opacity = ph > 3.0 ? 0.45 : ph < 0.6 ? 0.25 : 0;
+      if (ph < 0.18 && !p.hit) { p.hit = true; dust(new V3(p.x, 0, p.z), 8, 6, 0x6a5a40, 1.4); AudioSys.noise(0.12, { vol: 0.08, freq: 400 }); }
+      if (ph > 1) p.hit = false;
+      if (y < 2.4 && Math.abs(P.pos.x - p.x) < p.w / 2 + 0.3 && Math.abs(P.pos.z - p.z) < p.d / 2 + 0.3 && P.pos.y < 2.2) hurtPlayer(22, new V3(p.x, 0, p.z), 12); }
+    // losas intermitentes (fase A: tiempos 0-1 · fase B: 2-3)
+    for (const k of blinks) { const on = (Math.floor(bf / 2) % 2) === k.ph, warn = !on ? 0 : (bf % 2) > 1.6;
+      k.col.active = on; k.m.material.opacity = on ? (warn ? (Math.sin(t * 60) > 0 ? 1 : 0.35) : 1) : 0.12; k.m.material.emissiveIntensity = on ? 1.4 : 0.15; }
+    // lanzaderas: disparan en el primer tiempo
+    for (const pd of pads) { const fire = bi < 0.2; pd.m.material.emissiveIntensity = fire ? 3 : 0.4 + (bi > 3 ? (bi - 3) * 2 : 0);
+      if (fire && P.alive && Math.hypot(P.pos.x - pd.pos.x, P.pos.z - pd.pos.z) < 1.5 && Math.abs(P.pos.y - pd.pos.y) < 1.2) { P.vel.y = 21; P.jumpCut = true; P.grounded = false; P.slamming = false;
+        if (!pd.used || stats.time - pd.used > 0.5) { pd.used = stats.time; AudioSys.tone(300, 0.3, { type: 'sine', vol: 0.08, slide: 900 }); burst(pd.pos, 0x2ae0c8, 20, 6, 0.4, 0.5); } } }
+    for (const l of lamps) l.material.color.setScalar(0.6 + gradePass.uniforms.uPulse.value * 0.6);
+    if (sunburst) sunburst.rotation.z = Math.sin(t * 0.2) * 0.05;
+    // final: coreografía
+    if (!S.finale && P.alive && P.pos.y > 15 && P.pos.z < -146) { S.finale = true; mMsg('¡COREOGRAFÍA!', 2, '#e6c36a'); toast('En cada primer tiempo, ponte sobre la placa del color de tu forma. 8 notas.', 5); }
+    for (const pl of plates) pl.m.material.emissiveIntensity = pl.f === P.form ? 0.9 + gradePass.uniforms.uPulse.value * 1.5 : 0.25;
+  }
+  function note() {
+    const P = player; if (!P.alive || META.done) return;
+    const pl = plates.find(p => p.f === P.form);
+    if (pl && Math.hypot(P.pos.x - pl.x, P.pos.z - pl.z) < 1.9 && Math.abs(P.pos.y - 16) < 1.5) {
+      S.notes++; mPop(`¡Nota ${S.notes} / 8!`, FCOL[P.form]); burst(new V3(pl.x, 17, pl.z), FHEX[P.form], 50, 8, 0.6, 0.8, { grav: 0 }); shockRing(new V3(pl.x, 16, pl.z), 3, FHEX[P.form], 0.5);
+      if (S.notes >= 8) win();
+    }
+  }
+  function win() {
+    const tm = stats.time, md = metaMedal(tm, 200, 300);
+    for (let i = 0; i < 6; i++) setTimeout(() => burst(new V3(rand(-8, 8), rand(20, 28), rand(-170, -146)), [0xffd47a, 0x2ae0c8, 0xffffff][i % 3], 60, 10, 0.8, 1.2, { grav: 2 }), i * 150);
+    metaFinish({ title: '¡OVACIÓN!', medal: md,
+      rows: [['Tiempo', fmtTime(tm)], ['Monedas de oro', stats.gems + ' / ' + WORLD.totalGems], ['Enemigos', stats.kills], ['Caídas', stats.deaths]],
+      record: { time: tm, label: stats.gems + ' monedas', medal: md } });
+  }
+  return {
+    style: { post: 'deco', exposure: 1.3, sat: 1.1, bloom: [0.75, 0.5, 0.7], fog: [0x081416, 0.008], hemi: [0xffe8c4, 0x1a3438, 2.3], sun: [0xffd8a0, 2.4], gem: 0xffc84a },
+    sky: { top: 0x020607, mid: 0x0c2a2c, bot: 0x050a0a, sunC: 0xffd47a, sunK: 0.6 },
+    h, bounds: [-9.2, 9.2, -171, 12], fallY: -25, gemLabel: 'MONEDAS DE ORO', startForm: 'wolf',
+    ZONES: [
+      { z: 30, name: 'Vestíbulo', sub: 'Templo del Pulso', obj: 'Escucha la partitura y supera el muro.', hint: 'Cada dos compases cambias al siguiente paso de la partitura. Golpea un gong para reescribir el próximo.' },
+      { z: -23, name: 'Sala de los Pistones', sub: 'Primer movimiento', obj: 'Cruza entre los pistones.', hint: 'Caen al compás: avanza en los tiempos débiles.' },
+      { z: -60, name: 'Puente Intermitente', sub: 'Segundo movimiento', obj: 'Cruza el abismo saltando al ritmo.', hint: 'Las losas doradas y turquesa se alternan cada dos tiempos.' },
+      { z: -112, name: 'Pozo de Luz', sub: 'Tercer movimiento', obj: 'Sube hasta el escenario.', hint: 'Las lanzaderas disparan en el primer tiempo. Araña: anclajes · Dragón: aleteos · Yeti: pilares.' },
+      { test: p => p.y > 15 && p.z < -142, name: 'El Escenario', sub: 'Final', obj: 'Consigue 8 notas en la coreografía.', hint: 'En cada primer tiempo, colócate sobre la placa del color de tu forma actual.' },
+    ],
+    title(dt, t) { const a = t * 0.05; camera.position.set(Math.sin(a) * 7, 7 + Math.sin(t * 0.3), -2 + Math.cos(a) * 4); camera.lookAt(0, 3, -20); },
+    build, rule, update, win, S, music() { },
+    start() { S.started = true; S.t = 0; S.beat = -1; toast('<b style="color:#e6c36a">Templo del Pulso</b> · tu forma cambia con la música cada dos compases', 4); },
+    help: '<kbd>WASD</kbd> moverse · <kbd>ESPACIO</kbd> saltar · <kbd>CLIC</kbd> ataque (también golpea los gongs) · <kbd>E</kbd> habilidad<br>Cambias al <b style="color:#e6c36a">ritmo de la música</b> siguiendo la partitura; los gongs reescriben el próximo paso.',
+    helpTouch: 'Cambias al <b style="color:#e6c36a">ritmo de la música</b> siguiendo la partitura de arriba; golpea los gongs para reescribir el próximo paso.',
+  };
 })();
 
 requestAnimationFrame(frame);
